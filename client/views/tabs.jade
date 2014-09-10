@@ -1,0 +1,21 @@
+template(name="tabs")
+  #tabs.tabs
+    ul
+      li
+        a(href="#tabs-1") Abstract
+      li
+        a(href="#tabs-2") Stats
+
+    #tabs-1 #{Abstract}
+
+    #tabs-2
+      table.table.table-striped.table-hover
+        tr
+          td Start Date
+          td #{startDateISO}
+        tr
+          td End Date
+          td #{endDateISO}
+        tr
+          td Transmission Model
+          td #{transmissionModelVal}

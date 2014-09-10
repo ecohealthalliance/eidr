@@ -1,0 +1,37 @@
+template(name="event")
+  .container
+    .dash
+      .row
+        .col-md-12.eventHead
+          if isEID
+            .ribbon-wrapper(style="float:left")
+              .ribbon-front
+                h2.eid &nbsp; EID
+              .ribbon-edge-topleft
+              .ribbon-edge-topright
+              .ribbon-edge-bottomleft
+              .ribbon-edge-bottomright
+              .ribbon-back-left
+              .ribbon-back-right
+          h2 #{event.eventName}
+
+      .row
+        .col-md-1.facto
+          h3.rotate Fact Sheet
+
+        .col-md-11
+          .row
+            with event
+              .col-md-4
+                .row#info
+                  .col-md-12
+                    br
+                    .row
+                      if diseaseVal
+                        h2.label Disease: #{diseaseVal}
+                .row
+                .row
+                  +map
+
+              .col-md-7
+                +tabs
