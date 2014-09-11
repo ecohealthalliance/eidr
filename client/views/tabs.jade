@@ -42,15 +42,9 @@ template(name="statsTable")
 
 template(name="reference")
   if rights
-    if url
-      a(href="#{url}", target="_blank")
-        p {{formatAuthor}} #{date}
-        p #{title}
-        br
-    else
-      p {{formatAuthor}} #{date}
-      p #{title}
-      br
+    p {{formatAuthor}} #{date}
+    p #{title}
+    br
   else
     p #{this}
     br
