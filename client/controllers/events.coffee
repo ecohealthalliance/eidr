@@ -9,7 +9,16 @@ Template.events.collection = () ->
 
 Template.events.settings = () ->
   fields: [
-    { key: 'eventName', label: 'Event' }
+    { key: 'eventNameVal', label: 'Event' }
+    {
+      key: 'diseaseVal'
+      label: 'Disease'
+      fn: (val) ->
+        if val is 'NF'
+          ''
+        else
+          val.charAt(0).toUpperCase() + val.slice(1)
+    }
   ]
 
 Template.events.events

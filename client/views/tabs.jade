@@ -5,17 +5,31 @@ template(name="tabs")
         a(href="#tabs-1") Abstract
       li
         a(href="#tabs-2") Stats
+      li
+        a(href="#tabs-3") Pathogen
+      li
+        a(href="#tabs-4") Location
+      li
+        a(href="#tabs-5") Economics
 
     #tabs-1 #{Abstract}
 
     #tabs-2
-      table.table.table-striped.table-hover
+      +statsTable stats=stats event=this
+
+    #tabs-3
+      +statsTable stats=pathogenStats event=this
+
+    #tabs-4
+      +statsTable stats=locationStats event=this
+
+    #tabs-5
+      +statsTable stats=economicsStats event=this
+
+template(name="statsTable")
+  table.table.table-striped.table-hover
+    each stats
+      if showStat key ../event
         tr
-          td Start Date
-          td #{startDateISO}
-        tr
-          td End Date
-          td #{endDateISO}
-        tr
-          td Transmission Model
-          td #{transmissionModelVal}
+          td #{label}
+          td {{getVal key ../event}}
