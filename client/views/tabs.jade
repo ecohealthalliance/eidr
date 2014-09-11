@@ -11,6 +11,8 @@ template(name="tabs")
         a(href="#tabs-4") Location
       li
         a(href="#tabs-5") Economics
+      li
+        a(href="#tabs-6") References
 
     #tabs-1 #{Abstract}
 
@@ -26,6 +28,10 @@ template(name="tabs")
     #tabs-5
       +statsTable stats=economicsStats event=this
 
+    #tabs-6
+      each references
+        +reference
+
 template(name="statsTable")
   table.table.table-striped.table-hover
     each stats
@@ -33,3 +39,18 @@ template(name="statsTable")
         tr
           td #{label}
           td {{getVal key ../event}}
+
+template(name="reference")
+  if rights
+    if url
+      a(href="#{url}", target="_blank")
+        p {{formatAuthor}} #{date}
+        p #{title}
+        br
+    else
+      p {{formatAuthor}} #{date}
+      p #{title}
+      br
+  else
+    p #{this}
+    br

@@ -61,3 +61,6 @@ Template.tabs.economicsStats = () ->
     { label: 'National GDP Per Capita', key: 'perCapitaNationalGDPInYearOfEventVal'}
     { label: 'Life Expectancy in Country', key: 'avgLifeExpectancyInCountryAndYearOfEventVal' }
   ]
+
+Template.reference.formatAuthor = () ->
+  @creators[0].lastName
