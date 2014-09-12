@@ -20,16 +20,29 @@ Template.map.rendered = () ->
     .attr('width', w)
     .attr('height', h)
 
-  d3.json '/oceans.json', (json) ->
+  world = svg.append('g')
+  centroids = svg.append('g')
+
+
+  d3.json '/world-110m2.json', (error, topology) ->
+    world.selectAll("path")
+      .data(topojson.object(topology, topology.objects.countries).geometries)
+    .enter()
+      .append("path")
+      .attr("d", path)
+      .style("fill", "steelblue")
+
     d3.json '/centroids.json', (eids) ->
+
+      features = []
 
       for feature in eids.features
         if feature.properties.id is 'HED_' + eid
-          json.features.push(feature)
+          features.push(feature)
           break
 
-      svg.selectAll("path")
-        .data(json.features)
+      centroids.selectAll("path")
+        .data(features)
         .enter()
         .append("path")
         .attr("d", path)
