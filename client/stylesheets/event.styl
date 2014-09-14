@@ -1,0 +1,100 @@
+.eventHead
+  background-color #2c3e50
+  border-color #202d3b
+  color white
+
+.ribbon-wrapper
+   position relative;
+   border-bottom 0px solid #ccc;
+   border-top 0px solid #ccc;
+   border-bottom-colors #F6F6F6 #F0F0F0 #ECECEC #E6E6E6 #E0E0E0 #DCDCDC #D6D6D6 #D0D0D0 #CCCCCC
+   border-top-colors #F6F6F6 #F0F0F0 #ECECEC #E6E6E6 #E0E0E0 #DCDCDC #D6D6D6 #D0D0D0 #CCCCCC
+
+.ribbon-front
+   background-color #E21B25
+   height 40px
+   width 90px
+   position relative
+   left -10px
+   box-shadow 0px 0px 4px rgba(0,0,0,0.55)
+   z-index 2
+
+.ribbon-edge-topleft,
+.ribbon-edge-topright,
+.ribbon-edge-bottomleft,
+.ribbon-edge-bottomright
+   position absolute
+   z-index 1
+   border-style solid
+   height 0px
+   width 0px
+
+
+.ribbon-edge-bottomleft,
+.ribbon-edge-bottomright
+   top 40px
+
+.ribbon-edge-topleft,
+.ribbon-edge-bottomleft
+   left -10px
+   border-color transparent #ad151d transparent transparent
+
+.ribbon-edge-topleft
+   top -0px
+   border-width 0px 10px 0 0
+
+.ribbon-edge-bottomleft
+   border-width 0 10px 10px 0
+
+.ribbon-edge-topright,
+.ribbon-edge-bottomright
+   left 180px
+   border-color transparent transparent transparent #ad151d
+
+.ribbon-edge-topright
+   top -0px
+   border-width 0px 0 0 0px
+
+.ribbon-edge-bottomright
+   border-width 0 0 0px 0px
+
+.ribbon-back-left
+   position absolute
+   top 10px
+   left -20px
+   width 20px
+   height 40px
+   background-color #D20B15
+   z-index 0
+
+#info
+   margin-bottom 10px
+
+#info h2.label
+   font-size 24px
+   color black
+   display inline
+   text-transform capitalize
+   white-space normal
+   padding 0px
+
+ #info .row
+   margin 0.2em
+
+.facto
+  display inline-block
+  width 15px
+  height 800px
+  background-color #2c3e50
+  overflow visible
+
+.rotate
+  display inline-block
+  font-size 44px
+  color white
+  white-space nowrap
+  text-transform uppercase
+  transform rotate(270deg) translate(-250px, -80px)
+
+.stats-field
+  border-bottom 1px dotted #000
