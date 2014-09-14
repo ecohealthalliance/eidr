@@ -5,7 +5,7 @@ Template.events.loaded = () ->
   events().find().count() > 400
 
 Template.events.collection = () ->
-  events()
+  events().find({'eidVal': '1'})
 
 Template.events.settings = () ->
   fields: [

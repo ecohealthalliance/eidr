@@ -35,10 +35,10 @@ template(name="tabs")
 template(name="statsTable")
   table.table.table-striped.table-hover
     each stats
-      if showStat key ../event
+      if showStat spreadsheetName ../event
         tr
-          td #{label}
-          td {{getVal key ../event}}
+          td #{displayName}
+          td {{getVal spreadsheetName ../event}}
 
 template(name="reference")
   if rights

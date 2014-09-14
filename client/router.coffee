@@ -24,7 +24,10 @@ Router.map () ->
     path: "/event/:eidID"
     where: "client"
     waitOn: () ->
-      Meteor.subscribe "events"
+      [
+        Meteor.subscribe "events"
+        Meteor.subscribe "fields"
+      ]
     onBeforeAction: () ->
       Session.set('eidID', @params.eidID)
     onStop: () ->
