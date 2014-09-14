@@ -36,8 +36,8 @@ template(name="statsTable")
   table.table.table-striped.table-hover
     each stats
       if showStat spreadsheetName ../event
-        tr.stats-field(data-toggle="tooltip", data-placement="bottom", title="{{description}}")
-          td #{displayName}
+        tr.stats-field(data-toggle="tooltip", data-placement="bottom", title="{{getDescription ../event}}")
+          td #{displayName}:
           td {{getVal spreadsheetName ../event}}
 
 template(name="reference")

@@ -11,6 +11,14 @@ Template.statsTable.showStat = (key, object) ->
 Template.statsTable.getVal = (key, object) ->
   object[key]
 
+Template.statsTable.getDescription = (event) ->
+  val = Template.statsTable.getVal(@spreadsheetName, event)
+  explanation = @dropdownExplanations[val]
+  if explanation
+    "#{@description} (#{val}: #{explanation})"
+  else
+    @description
+
 Template.tabs.stats = () ->
   fields().find({"tab": "Stats"})
 
