@@ -1,11 +1,5 @@
-events = () =>
-  @grid.Events
-
 Template.events.loaded = () ->
-  events().find().count() > 400
-
-Template.events.collection = () ->
-  events().find({'eidVal': '1'})
+  @eventList.count() > 300
 
 Template.events.settings = () ->
   fields: [

@@ -6,3 +6,6 @@ Events = new Meteor.Collection "events"
 if Meteor.isServer
   Meteor.publish "events", () ->
     Events.find()
+
+  Meteor.publish "event", (eidID) ->
+    Events.find({'eidID': eidID})
