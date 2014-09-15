@@ -1,11 +1,8 @@
-getEvent = () =>
-  @grid.Events.findOne({eidID: Session.get('eidID')})
-
 Template.map.rendered = () ->
   w = 400
   h = 230
 
-  eid = getEvent()?.eidID
+  eid = @data.eidID
 
   projection = d3.geo.mercator()
     .translate([w/2, h/2])
