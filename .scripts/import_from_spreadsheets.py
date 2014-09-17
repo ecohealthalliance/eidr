@@ -109,6 +109,8 @@ if __name__ == "__main__":
 
   gs = Client(config.google_user, config.google_password)
   db = pymongo.Connection("localhost", config.meteor_mongo_port)[config.meteor_db_name]
+  db.fields.drop()
+  db.events.drop()
 
   fields_tsv = gs.download(config.fields_spreadsheet_id, gid=0, format="tsv")
   import_fields(fields_tsv, db)
