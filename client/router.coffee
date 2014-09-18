@@ -4,6 +4,10 @@ Events = () ->
 Router.configure
   layoutTemplate: "layout"
 
+Router.onRun () ->
+  if Session.equals('AnalyticsJS_loaded', true)
+    analytics.page @path
+
 Router.map () ->
 
   @route "splash",
