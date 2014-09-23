@@ -119,11 +119,15 @@ if __name__ == "__main__":
   events_tsv = gs.download(config.events_spreadsheet_id, gid=events_gid, format="tsv")
   import_events(events_tsv, db)
 
-  other_gids = [4, 3, 2, 6] # pathogen, host, location, economics
+  other_gids = [4, 2, 6] # pathogen, economics, location
 
   for gid in other_gids:
     sheet_tsv = gs.download(config.events_spreadsheet_id, gid=gid, format="tsv")
     import_other_sheet(sheet_tsv, db)
+
+  host_gid = 3
+  sheet_tsv = gs.download(config.events_spreadsheet_id, gid=host_gid, format="tsv")
+  import_other_sheet(sheet_tsv, db)
 
   zot = zotero.Zotero(config.zotero_library_id, config.zotero_library_type, config.zotero_api_key)
   import_refs(db, zot)
