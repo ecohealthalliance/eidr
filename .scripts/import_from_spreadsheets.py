@@ -82,28 +82,37 @@ def import_other_sheet(file, db):
       else:
         events.update({'_id': e['_id']}, {'$set': d})
 
+def find_zotero_ref(ref, zoteroItems):
+  for item in zoteroItems:
+    try:
+      if item['rights'] and (int(ref) == int(item['rights'])):
+        return item
+    except Exception as e:
+      print e
+      return None
+
 def import_refs(db, zotero):
   items = zotero.all_top()
   events = db.events
   for event in events.find():
+    eidID = event.get('eidID')
     refAbstract = event.get('refAbstract')
-    if refAbstract:
-      if re.match('^[\d\s,]*$', refAbstract):
-        references = refAbstract.split(',')
-        zotRefs = []
-
-        for reference in references:
-          for item in items:
-            try:
-              if int(reference) == int(item['rights']):
-                zotRefs.append(item)
-            except Exception as e:
-              print e
-        if len(references) != len(zotRefs):
-          print "Missing references: %s" % references
-        events.update({'_id': event['_id']}, {'$set': {'references': zotRefs}})
+    refStrings = refAbstract.split(',')
+    references = []
+    for ref in refStrings:
+      if re.match('^[\d]{1,3}$', ref.strip()):
+        zotRef = find_zotero_ref(ref, items)
+        if zotRef:
+          references.append(zotRef)
+        else:
+          print "%s: no zotero reference for %s" % (eidID, ref)
+      elif len(references) > 0 and type(references[-1]) != dict:
+        # could be date or 2nd author, reattach to the previous ref
+        references[-1] = "%s, %s" % (references[-1], ref)
       else:
-        events.update({'_id': event['_id']}, {'$set': {'references': [refAbstract]}})
+        # this is a string reference
+        references.append(ref)
+    events.update({'_id': event['_id']}, {'$set': {'references': references}})
 
 if __name__ == "__main__":
 
