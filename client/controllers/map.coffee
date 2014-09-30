@@ -16,6 +16,7 @@ Template.map.rendered = () ->
     .append('svg')
     .attr('width', w)
     .attr('height', h)
+    .style('background-color', 'steelblue')
 
   world = svg.append('g')
   eventArea = svg.append('g')
@@ -27,7 +28,7 @@ Template.map.rendered = () ->
     .enter()
       .append("path")
       .attr("d", path)
-      .style("fill", "steelblue")
+      .style("fill", "beige")
 
     d3.json "/maps/HED_#{eid}.json", (featureCollection) ->
       eventArea.selectAll("path")
@@ -40,12 +41,15 @@ Template.map.rendered = () ->
         .style "stroke-width", "1.5px"
 
       feature = featureCollection.features[0]
+      zoomFactor = .02
+      if feature.geometry.type is 'MultiPolygon'
+        zoomFactor = .05
       bounds = path.bounds(feature)
       dx = bounds[1][0] - bounds[0][0]
       dy = bounds[1][1] - bounds[0][1]
       x = (bounds[0][0] + bounds[1][0]) / 2
       y = (bounds[0][1] + bounds[1][1]) / 2
-      scale = .05 / Math.max(dx / w, dy / h)
+      scale = zoomFactor / Math.max(dx / w, dy / h)
       translate = [w / 2 - scale * x, h / 2 - scale * y]
 
       world.attr("transform", "translate(" + translate + ")scale(" + scale + ")")
