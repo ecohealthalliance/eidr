@@ -1,6 +1,9 @@
 Events = () ->
   @grid.Events
 
+Fields = () ->
+  @grid.Fields
+
 Router.configure
   layoutTemplate: "layout"
 
@@ -22,9 +25,13 @@ Router.map () ->
     path: "/events"
     where: "client"
     waitOn: () ->
-      Meteor.subscribe "events"
+      [
+        Meteor.subscribe "events"
+        Meteor.subscribe "fields"
+      ]
     data: () ->
       eventList: Events().find({'eidVal': '1'})
+      fields: Fields().find({'Event table': {'$ne': '0'}})
 
   @route "event",
     path: "/event/:eidID"
