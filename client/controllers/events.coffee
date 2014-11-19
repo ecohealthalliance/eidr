@@ -1,6 +1,3 @@
-Template.events.loaded = () ->
-  @eventList.count() > 300 and @fields.count() > 1
-
 Template.events.settings = () ->
   {
     showColumnToggles: true
