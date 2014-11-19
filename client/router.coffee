@@ -6,40 +6,35 @@ Fields = () ->
 
 Router.configure
   layoutTemplate: "layout"
+  loadingTemplate: "loading"
 
 Router.onRun () ->
   if Session.equals('AnalyticsJS_loaded', true)
     analytics.page @path
+  @next()
 
-Router.map () ->
 
-  @route "splash",
-    path: "/"
-    where: "client"
+Router.route "/",
+  name: 'splash'
 
-  @route "about",
-    path: "/about"
-    where: "client"
+Router.route "/about"
 
-  @route "events",
-    path: "/events"
-    where: "client"
-    waitOn: () ->
-      [
-        Meteor.subscribe "events"
-        Meteor.subscribe "fields"
-      ]
-    data: () ->
-      eventList: Events().find({'eidVal': '1'})
-      fields: Fields().find({'Event table': {'$ne': '0'}})
+Router.route "/events",
+  waitOn: () ->
+    [
+      Meteor.subscribe "events"
+      Meteor.subscribe "fields"
+    ]
+  data: () ->
+    eventList: Events().find({'eidVal': '1'})
+    fields: Fields().find({'Event table': {'$ne': '0'}})
 
-  @route "event",
-    path: "/event/:eidID"
-    where: "client"
-    waitOn: () ->
-      [
-        Meteor.subscribe "event", @params.eidID
-        Meteor.subscribe "fields"
-      ]
-    data: () ->
-      event: Events().findOne({'eidID': @params.eidID})
+Router.route "/event/:eidID",
+  name: 'event'
+  waitOn: () ->
+    [
+      Meteor.subscribe "event", @params.eidID
+      Meteor.subscribe "fields"
+    ]
+  data: () ->
+    event: Events().findOne({'eidID': @params.eidID})
