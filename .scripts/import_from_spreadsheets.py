@@ -99,8 +99,8 @@ def import_refs(db, zot):
   items = []
   offset = 0
   while offset <= zot.num_items():
-    offset += 50
     items += zot.top(start=offset, limit=50)
+    offset += 50
   events = db.events
   for event in events.find():
     eidID = event.get('eidID')
