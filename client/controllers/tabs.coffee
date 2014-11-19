@@ -31,5 +31,11 @@ Template.tabs.locationStats = () ->
 Template.tabs.economicsStats = () ->
   fields().find({"tab": "Economics"})
 
-Template.reference.formatAuthor = () ->
+Template.referenceDescription.formatAuthor = () ->
   @creators[0].lastName
+
+Template.reference.isPMCID = () ->
+  @archive is 'PMCID'
+
+Template.reference.isPMID = () ->
+  @archive is 'PMID'
