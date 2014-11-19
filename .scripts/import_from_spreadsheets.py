@@ -11,6 +11,7 @@ class Client(object):
 		super(Client, self).__init__()
 		self.email = email
 		self.password = password
+		self.token = None
 
 	def _get_auth_token(self, email, password, source, service):
 		url = "https://www.google.com/accounts/ClientLogin"
@@ -24,8 +25,11 @@ class Client(object):
 		return re.findall(r"Auth=(.*)", urllib2.urlopen(req).read())[0]
 
 	def get_auth_token(self):
+		if self.token:
+			return self.token
 		source = type(self).__name__
-		return self._get_auth_token(self.email, self.password, source, service="wise")
+		self.token = self._get_auth_token(self.email, self.password, source, service="wise")
+		return self.token
 
 	def download(self, spreadsheet_id, gid=0, format="csv"):
 		url_format = "https://spreadsheets.google.com/feeds/download/spreadsheets/Export?key=%s&exportFormat=%s&gid=%i"
@@ -91,8 +95,12 @@ def find_zotero_ref(ref, zoteroItems):
       print e
       return None
 
-def import_refs(db, zotero):
-  items = zotero.all_top()
+def import_refs(db, zot):
+  items = []
+  offset = 0
+  while offset <= zot.num_items():
+    offset += 50
+    items += zot.top(start=offset, limit=50)
   events = db.events
   for event in events.find():
     eidID = event.get('eidID')
