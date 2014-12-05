@@ -44,12 +44,15 @@ def import_fields(file, db):
   fields = db.fields
   tsv = csv.reader(file, delimiter='\t')
   columns = None
+  order = 0
   for row in tsv:
     if not columns:
       columns = row
     else:
       d = dict(zip(columns, row))
       d['_id'] = str(ObjectId())
+      d['order'] = order
+      order = order + 1
       parsedDropdownExplanations = dict()
       dropdownExplanations = d['dropdownExplanations'].split(",")
       for exp in dropdownExplanations:
