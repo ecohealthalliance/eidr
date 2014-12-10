@@ -4,21 +4,23 @@ search = () ->
   queryString = @request.body.query || ""
   options = @request.body.options || {size: 10}
   result = HTTP.post(
-    "http://localhost:9200/item_index/_search",
-    data:
-      query:
-        query_string:
-          query: queryString
-    params: options
+    "http://localhost:9200/item_index/_search", {
+      data: queryString
+      params: options
+    }
   )
   if result?.content
-    hits = JSON.parse(result.content).hits
+    content = JSON.parse(result.content)
     gridEvents = ({
       score: hit._score
       id: hit._source.eidID
       name: hit._source.eventName
-    } for hit in hits.hits)
-    response.end(JSON.stringify({results: gridEvents, total: hits.total}))
+    } for hit in content.hits.hits)
+    response.end(JSON.stringify(
+      results: gridEvents
+      total: content.hits.total
+      aggregations: content.aggregations
+    ))
   else
     response.end(JSON.stringify([]))
 
