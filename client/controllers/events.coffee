@@ -6,7 +6,7 @@ Template.events.settings = () ->
       label: field.displayName
       hidden: field['Event table'] isnt '2'
       fn: (val) ->
-        output = val
+        output = val or ''
 
         # hide NF/NAP
         if output in ['NF', 'NAP']
