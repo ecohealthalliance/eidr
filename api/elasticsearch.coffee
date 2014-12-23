@@ -1,6 +1,4 @@
 search = () ->
-  request = @request
-  response = @response
   queryString = @request.body.query || ""
   options = @request.body.options || {size: 10}
   result = HTTP.post(
@@ -16,13 +14,13 @@ search = () ->
       id: hit._source.eidID
       name: hit._source.eventName
     } for hit in content.hits.hits)
-    response.end(JSON.stringify(
+    @response.end(JSON.stringify(
       results: gridEvents
       total: content.hits.total
       aggregations: content.aggregations
     ))
   else
-    response.end(JSON.stringify([]))
+    @response.end(JSON.stringify([]))
 
 Router.route "/search", search,
   where: 'server'
