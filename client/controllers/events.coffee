@@ -1,6 +1,3 @@
-Template.events.loaded = () ->
-  @eventList.count() > 300 and @fields.count() > 1
-
 Template.events.settings = () ->
   {
     showColumnToggles: true
@@ -9,7 +6,7 @@ Template.events.settings = () ->
       label: field.displayName
       hidden: field['Event table'] isnt '2'
       fn: (val) ->
-        output = val
+        output = val or ''
 
         # hide NF/NAP
         if output in ['NF', 'NAP']

@@ -1,7 +1,3 @@
 template(name="events")
   .container
-    if loaded
-      +reactiveTable collection=eventList settings=settings
-    else
-      .jumbotron
-        p Loading emergence events...
+    +reactiveTable collection=eventList settings=settings

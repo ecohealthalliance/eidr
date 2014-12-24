@@ -38,18 +38,21 @@ class Client(object):
 			"GData-Version": "3.0"
 		}
 		req = urllib2.Request(url_format % (spreadsheet_id, format, gid), headers=headers)
-		return urllib2.urlopen(req)
+		return urllib2.urlopen(req, timeout=120)
 
 def import_fields(file, db):
   fields = db.fields
   tsv = csv.reader(file, delimiter='\t')
   columns = None
+  order = 0
   for row in tsv:
     if not columns:
       columns = row
     else:
       d = dict(zip(columns, row))
       d['_id'] = str(ObjectId())
+      d['order'] = order
+      order = order + 1
       parsedDropdownExplanations = dict()
       dropdownExplanations = d['dropdownExplanations'].split(",")
       for exp in dropdownExplanations:
@@ -68,6 +71,8 @@ def import_events(file, db):
       columns = row
     else:
       d = dict(zip(columns, row))
+      if len(row) != len(columns):
+        print "%s %s row probably broken" % (row[0], row[2])
       d['_id'] = str(ObjectId())
       events.insert(d)
 

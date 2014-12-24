@@ -20,16 +20,16 @@ Template.statsTable.getDescription = (event) ->
     @description
 
 Template.tabs.stats = () ->
-  fields().find({"tab": "Stats"})
+  fields().find({"tab": "Stats"}, {"sort": {"order": 1}})
 
 Template.tabs.pathogenStats = () ->
-  fields().find({"tab": "Pathogen"})
+  fields().find({"tab": "Pathogen"}, {"sort": {"order": 1}})
 
 Template.tabs.locationStats = () ->
-  fields().find({"tab": "Location"})
+  fields().find({"tab": "Location"}, {"sort": {"order": 1}})
 
 Template.tabs.economicsStats = () ->
-  fields().find({"tab": "Economics"})
+  fields().find({"tab": "Economics"}, {"sort": {"order": 1}})
 
 Template.referenceDescription.formatAuthor = () ->
   @creators[0].lastName
