@@ -94,7 +94,9 @@ def import_other_sheet(file, db):
 def find_zotero_ref(ref, zoteroItems):
   for item in zoteroItems:
     try:
-      if item['rights'] and (int(ref) == int(item['rights'])):
+      if not item.get('rights'):
+        item = item.get('data')
+      if item.get('rights') and (int(ref) == int(item.get('rights'))):
         return item
     except Exception as e:
       print e
