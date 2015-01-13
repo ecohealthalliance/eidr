@@ -29,4 +29,8 @@ Template.events.settings = () ->
 
 Template.events.events
   "click .reactive-table tbody tr": (event) ->
-    Router.go "event", { eidID: @eidID }
+    if event.metaKey
+      url = Router.url "event", { eidID: @eidID }
+      window.open(url, "_blank")
+    else
+      Router.go "event", { eidID: @eidID }
