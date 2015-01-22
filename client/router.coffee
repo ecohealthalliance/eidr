@@ -38,3 +38,6 @@ Router.route "/event/:eidID",
     ]
   data: () ->
     event: Events().findOne({'eidID': @params.eidID})
+
+Router.route "/eventMap",
+  name: 'eventMap'
