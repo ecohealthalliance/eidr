@@ -1,5 +1,5 @@
 Template.eventMap.rendered = () ->
-  L.Icon.Default.imagePath = "/packages/fuatsengul_leaflet/images/"
+  L.Icon.Default.imagePath = "/packages/fuatsengul_leaflet/images"
   map = L.map('event-map').setView([0, -0], 2)
   window.map = map
   L.tileLayer('//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
