@@ -14,7 +14,7 @@ downloadCSV = () ->
     
     csvRows = [headerRow]
     for event in events
-      csvRows.push ("\"#{event[field.spreadsheetName or '']}\"" for field in fields).join(",")
+      csvRows.push ("\"#{event[field.spreadsheetName] or ''}\"" for field in fields).join(",")
 
     @response.end(csvRows.join("\n"))
 
