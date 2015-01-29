@@ -4,8 +4,7 @@ Events = new Meteor.Collection "events"
 @grid.Events = Events
 
 if Meteor.isServer
-  Meteor.publish "events", () ->
-    Events.find()
+  ReactiveTable.publish "events", Events, {'eidVal': "1"}
 
   Meteor.publish "event", (eidID) ->
     Events.find({'eidID': eidID})
