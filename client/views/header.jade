@@ -15,6 +15,14 @@ template(name="header")
             a(href="{{pathFor 'about'}}") About
           li
             a(href="{{pathFor 'events'}}") Emergence Events
+          li.dropdown
+            a.dropdown-toggle(href="#" data-toggle="dropdown") Download
+              span.caret
+            ul.dropdown-menu(role="menu")
+              li
+                a(href="{{pathFor 'sicki-grid.csv'}}", target="_blank") CSV
+              li
+                a(href="{{pathFor 'sicki-grid.json'}}", target="_blank") JSON
           li
             a(href="{{pathFor 'eventMap'}}") Event Map
           li
