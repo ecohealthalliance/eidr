@@ -99,8 +99,41 @@ def find_zotero_ref(ref, zoteroItems):
       if item.get('rights') and (int(ref) == int(item.get('rights'))):
         return item
     except Exception as e:
-      print e
       return None
+
+REFERENCE_FIELDS = [
+  'refEIDCategory',
+  'refAbstract',
+  'refDriver',
+  'refDiseaseValPrecis',
+  'refPubDateISO',
+  'refStartDate',
+  'refEndDate',
+  'refDuration',
+  'refNumberInfected',
+  'refNumDeaths',
+  'refEventTransmissionVal',
+  'refGeneralTransmissionVal',
+  'refReportedSymptomsVal',
+  'refSampleType',
+  'refReportedZoonoticType',
+  'refHostAge',
+  'refHostUse',
+  'refInitiallyReportedPathogenNameVal',
+  'refPathogenSpecies',
+  'refHost',
+  'refInitiallyReportedHostVal',
+  'refLocationLocationName',
+  'refLocationName',
+  'refLocationCity',
+  'refLocationSubnationalRegion',
+  'refLocationNation',
+  'occupationRef',
+  'refAvgAgeOfInfectedrefAvgAgeDeath',
+  'refNumHospitalized',
+  'refPerCapitaNationalGDPInYearOfEvent',
+  'refAvgLifeExpectancyInCountryAndYearOfEvent',
+]
 
 def import_refs(db, zot):
   items = []
@@ -108,22 +141,30 @@ def import_refs(db, zot):
   while offset <= zot.num_items():
     items += zot.top(start=offset, limit=50)
     offset += 50
+  
   events = db.events
   for event in events.find():
     eidID = event.get('eidID')
-    refAbstract = event.get('refAbstract')
-    refStrings = refAbstract.split(',')
+
+    refStrings = []
+    for refField in REFERENCE_FIELDS:
+      if event.get(refField):
+        for ref in event.get(refField).split(','):
+          if not ref.strip() in refStrings:
+            refStrings.append(ref.strip())
+
     references = []
     for ref in refStrings:
-      if re.match('^[\d]{1,3}$', ref.strip()):
-        zotRef = find_zotero_ref(ref, items)
+      if re.match('^\{?[\d]{1,4}\}?\)?$', ref):
+        zotRef = find_zotero_ref(ref.replace('{', '').replace('}', ''), items)
         if zotRef:
           references.append(zotRef)
         else:
-          print "%s: no zotero reference for %s" % (eidID, ref)
-      elif len(references) > 0 and type(references[-1]) != dict:
-        # could be date or 2nd author, reattach to the previous ref
-        references[-1] = "%s, %s" % (references[-1], ref)
+          if len(references) > 0 and type(references[-1]) != dict and re.match("^[\d]{4}\}?\)?$", ref):
+            # could be date to reattach to the previous ref
+            references[-1] = "%s, %s" % (references[-1], ref)
+          else:
+            print "%s: no zotero reference for %s" % (eidID, ref)
       else:
         # this is a string reference
         references.append(ref)

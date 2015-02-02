@@ -41,21 +41,18 @@ template(name="statsTable")
           td {{getVal spreadsheetName ../event}}
 
 template(name="reference")
-  if isPMCID
-    a(href="http://www.ncbi.nlm.nih.gov/pmc/articles/{{archiveLocation}}")
+  .panel
+    if isPMCID
+      a(href="http://www.ncbi.nlm.nih.gov/pmc/articles/{{archiveLocation}}")
+        +referenceDescription
+    else if isPMID
+      a(href="http://www.ncbi.nlm.nih.gov/pubmed/{{archiveLocation}}")
+        +referenceDescription
+    else if rights
       +referenceDescription
-    br
-  else if isPMID
-    a(href="http://www.ncbi.nlm.nih.gov/pubmed/{{archiveLocation}}")
-      +referenceDescription
-    br
-  else if rights
-    +referenceDescription
-    br
-  else
-    p #{this}
-    br
+    else
+      b #{this}
 
 template(name="referenceDescription")
-  p {{formatAuthor}} #{date}
-  p #{title}
+  b {{formatAuthor}} #{date} 
+  i #{title}
