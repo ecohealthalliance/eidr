@@ -22,11 +22,9 @@ Router.route "/about"
 Router.route "/events",
   waitOn: () ->
     [
-      Meteor.subscribe "events"
       Meteor.subscribe "fields"
     ]
   data: () ->
-    eventList: Events().find({'eidVal': '1'})
     fields: Fields().find({'Event table': {'$ne': '0'}})
 
 Router.route "/event/:eidID",
