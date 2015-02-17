@@ -1,24 +1,57 @@
 template(name="about")
-  .container
+  .container-fluid.about
     .row.featurette
+      .col-md-12
+        .container
+          p.lead <strong>Sicki GRID (Global Repository of Infectious Diseases)</strong> is a user-friendly and interactive website describing novel emerging infectious disease events between 1940 and 2013. The goal of Sicki GRID is to unravel the origins of Emerging Infectious Disease (EID) events by providing a thorough, transparent, and reviewed investigation of the literature. The project builds upon previous work at EcoHealth Alliance, such as the Hotspots maps published by Jones et al. (2008) in the journal Nature. Sicki GRID will improve, and expand the data required by the global health community to model disease emergence. Information was extracted directly from the literature and is displayed in maps, tables, and short narratives.
+        
+        .container
+          h2 What is an EID emergence event?
+          p.lead Studying the origins of EIDs is a complex task. The term itself is not easily defined. In Sicki GRID, events are considered emerging if they satisfy any of the following characteristics: 
+          ol
+            li Expanded geographic region or host range,
+            li Increased incidence or virulence, 
+            li Novel drug resistance, 
+            li Evolution of an existing organism
+            li Reappearance after control or elimination. 
+            li The developers of Sicki GRID hope this web application will allow users to reflect on what definition(s) of emergence may be the most useful. 
+
+        .container
+          h2 How can you explore disease emergence using Sicki/GRID?
+          p.lead Emergence events can be sorted, compared, and investigated in a variety of ways. 
+          ul.row.exploring.list-unstyled
+            li.padded.col-lg-4
+              span.glyphicon.glyphicon-list-alt
+              h3 Emergence Events
+              p You can explore emergence events using an interactive table of EID events found in the ‘Emergence Events’ view. The information displayed in this table is customizable, allowing you to choose which Sicki GRID variables you want to view. You can perform specific searches within the table using a filter feature. You may want to search for events with a common variable, like a specific host, or pathogen. 
+            li.col-lg-4
+              span.glyphicon.glyphicon-info-sign
+              h3 Event Pages 
+              p You can explore individual EID events in greater detail through individual event pages. These event pages can be accessed from the ‘Emergence Events’ list by clicking an event in the table. Each EID event page contains a detailed report on the event, including a map showing the location of the event, a narrative abstract, and additional information on the event. References used for each event are also available in each event page.
+            li.col-lg-4 
+              span.glyphicon.glyphicon-map-marker
+              h3 Event Map 
+              p This map provides a broad spatial depiction of all EID events within the Sicki GRID repository.
+
+        .container
+          h2 Is the data used in Sicki GRID available for public use? 
+          p  Yes. You can download the entire repository of data from Sicki GRID as a CSV or JSON file using the download button. The data is shared under the 
+            a(href='http://creativecommons.org/licenses/by-sa/4.0/') Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0). 
+          
+
       .col-md-6
-        h2.featurette-heading Background,
-          span.text-muted Sicki @ EcoHealth Alliance
-        p.lead Sicki GRID (Global Repository of Infectious Diseases) is a user-friendly and interactive website describing novel emerging infectious disease events between 1940 and 2013. The goal of Sicki GRID is to unravel the origins of Emerging Infectious Disease (EID) events by providing a thorough, transparent, and reviewed investigation of the literature. The project builds upon previous work at EcoHealth Alliance, such as the Hotspots maps published by Jones et al. (2008) in the journal Nature. Sicki GRID will improve, and expand the data required by the global health community to model disease emergence. Information was extracted directly from the literature and is displayed in maps, tables, and short narratives. 
-      .col-md-6
-        br
-        br
-        br
-        br
-        br
-        a(href="http://www.ecohealthalliance.org")
+        //a(href="http://www.ecohealthalliance.org")
           img.featurette-image.image-responsive(src="/eha_square.png")
     hr.featurette-divider
-    .row.featurette
-      .col-md-4
-        img.featurette-image.image-responsive(src="/dtra_logo.png")
-      .col-md-4
-        img.featurette-image.image-responsive(src="/usaid_logo.png")
-      .col-md-4
-        h2.featurette-heading Funding
-        p.lead The Sicki GRID project has been supported by DTRA and USAID.
+      
+    .container
+      h2.featurette-heading Funding
+      p.lead The Sicki GRID project has been supported by DTRA and USAID.
+        
+      .row.featurette
+        .col-md-2
+          a(href='') 
+            img.featurette-image.img-responsive(src="/dtra_logo.png")
+        .col-md-2
+          a(href='') 
+            img.featurette-image.img-responsive(src="/usaid_logo.png")

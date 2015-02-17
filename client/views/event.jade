@@ -2,36 +2,59 @@ template(name="event")
   .container
     .dash
       .row
-        .col-md-12.eventHead
-          if isEID
-            .ribbon-wrapper(style="float:left")
-              .ribbon-front
-                h2.eid &nbsp; EID
-              .ribbon-edge-topleft
-              .ribbon-edge-topright
-              .ribbon-edge-bottomleft
-              .ribbon-edge-bottomright
-              .ribbon-back-left
-              .ribbon-back-right
-          h2 #{event.eventNameVal}
+        .col-lg-12.eventHead
+          with event
+            h1 {{simpleTitle}}
+            if diseaseVal
+              h2.minor Disease:
+                span #{diseaseVal}
+            h3 {{displayDates}}
 
-      .row
-        .col-md-1.facto
-          h3.rotate Fact Sheet
-
-        .col-md-11
+          .row.fact-sheet
+            with event
+              .col-lg-6
+                p #{Abstract}
+                +facts
+              .col-lg-6
+                +locationInfo
+        .col-lg-12
           .row
             with event
-              .col-md-4
-                .row#info
-                  .col-md-12
-                    br
-                    .row
-                      if diseaseVal
-                        h2.label Disease: #{diseaseVal}
-                .row
-                .row
-                  +map
-
-              .col-md-7
+              .col-lg-12
                 +tabs
+
+
+template(name="facts")
+  .row
+    .col-lg-6
+      h3 Emergence Type
+      p #{eidCategoryVal}
+    .col-lg-6
+      h3 Driver
+      p #{driverVal}
+
+  .row
+    .col-lg-6
+      h4 Number Infected
+      p #{numberInfectedVal}
+    .col-lg-6
+      h4 Number of Deaths
+      p #{numberDeathsVal}
+
+  h3 Event Transmission
+  p #{eventTransmissionVal}
+
+  if zoonoticTypeVal
+
+    .row
+      .col-lg-6
+        h3 Zoonotic Type
+        p #{zoonoticTypeVal}
+      .col-lg-6
+        h3 Host
+        p #{hostVal}
+
+template(name="locationInfo")
+    +map
+    h3. Location
+    +statsTable stats=economicsStats event=this

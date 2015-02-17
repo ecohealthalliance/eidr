@@ -1,44 +1,45 @@
 template(name="tabs")
   #tabs.tabs
-    ul
-      li
-        a(href="#tabs-1") Abstract
-      li
-        a(href="#tabs-2") Stats
-      li
-        a(href="#tabs-3") Pathogen
-      li
-        a(href="#tabs-4") Location
-      li
-        a(href="#tabs-5") Economics
-      li
-        a(href="#tabs-6") References
 
-    #tabs-1 #{Abstract}
+    +statsTable stats=stats event=this
 
-    #tabs-2
-      +statsTable stats=stats event=this
+    .panel.panel-default
+      .panel-heading
+        h3.panel-title Pathogen Stats
+      .panel-body
+        +statsTable stats=pathogenStats event=this
 
-    #tabs-3
-      +statsTable stats=pathogenStats event=this
+    .row
+      .col-md-6
+        .panel.panel-default
+          .panel-heading
+            h3.panel-title Location Stats
+          .panel-body
+            +statsTable stats=locationStats event=this
 
-    #tabs-4
-      +statsTable stats=locationStats event=this
+      .col-md-6
+        .panel.panel-default
+          .panel-heading
+            h3.panel-title Economics Stats
+          .panel-body
+            +statsTable stats=economicsStats event=this
 
-    #tabs-5
-      +statsTable stats=economicsStats event=this
-
-    #tabs-6
-      each references
-        +reference
+    .panel.panel-default
+      .panel-heading
+        h3.panel-title References
+      .panel-body
+        each references
+          +reference
 
 template(name="statsTable")
-  table.table.table-striped.table-hover
-    each stats
-      if showStat spreadsheetName ../event
-        tr.stats-field(data-toggle="tooltip", data-placement="bottom", title="{{getDescription ../event}}")
-          td #{displayName}:
-          td {{getVal spreadsheetName ../event}}
+  table.table.table-striped.table-bordered
+    
+    tbody
+      each stats
+        if showStat spreadsheetName ../event
+          tr.stats-field(data-toggle="tooltip", data-placement="bottom", title="{{getDescription ../event}}")
+            td #{displayName}:
+            td {{getVal spreadsheetName ../event}}
 
 template(name="reference")
   .panel

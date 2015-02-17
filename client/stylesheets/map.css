@@ -1,8 +1,8 @@
 .map {
     position: relative;
     background-position: -20px -20px;
-    width: 400px;
-    height: 400px;
+    width: 100%;
+    min-height:230px;
 }
 
 .map circle.public {

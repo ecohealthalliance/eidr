@@ -1,8 +1,8 @@
 fields = () =>
   @grid.Fields
 
-Template.tabs.rendered = () ->
-  $('#tabs').tabs()
+# Template.tabs.rendered = () ->
+#   $('#tabs').tabs()
 
 
 Template.statsTable.showStat = (key, object) ->
