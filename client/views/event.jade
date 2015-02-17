@@ -16,12 +16,12 @@ template(name="event")
                 p #{Abstract}
                 +facts
               .col-lg-6
-                +locationInfo economicsStats=economicsStats
+                +locationInfo economicsStats=economicsStats event=this
         .col-lg-12
           .row
             with event
               .col-lg-12
-                +tabs economicsStats=economicsStats
+                +tabs economicsStats=economicsStats event=this
 
 
 template(name="facts")
@@ -57,4 +57,4 @@ template(name="facts")
 template(name="locationInfo")
     +map
     h3. Location
-    +statsTable stats=economicsStats event=this
+    +statsTable stats=economicsStats event=event
