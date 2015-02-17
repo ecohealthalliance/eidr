@@ -28,7 +28,8 @@ Template.tabs.pathogenStats = () ->
 Template.tabs.locationStats = () ->
   fields().find({"tab": "Location"}, {"sort": {"order": 1}})
 
-Template.tabs.economicsStats = () ->
+Template.event.economicsStats = () ->
+  console.log 'economicsStats'
   fields().find({"tab": "Economics"}, {"sort": {"order": 1}})
 
 Template.referenceDescription.formatAuthor = () ->
