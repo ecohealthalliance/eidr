@@ -27,10 +27,10 @@
   transform rotate(270deg) translate(-250px, -80px)
 
 .fact-sheet-wrap
-  background #FFF
+  background #EEF8F5
   padding-top 30px
   padding-bottom 20px
-  margin-bottom 20px
+  margin-bottom 30px
 
 .stats-field
   border-bottom 1px dotted #000
@@ -46,7 +46,7 @@
     font-size 18px
 
 .minor
-  color #999
+  color #666
   font-size 20px
   font-weight normal
   margin 0
@@ -60,6 +60,8 @@ table tr td:first-child
 .location-table
   width 450px
   border 0
+  tr:first-child td
+    border-top 0
   
 svg 
   border-radius 5px 5px 0 0
@@ -67,7 +69,7 @@ svg
 .main-facts
   margin: 20px 0
   border-radius 5px
-  background-color #f9f9f9
+  background-color #FFF
   &:after
     clear both
     content ''
@@ -81,13 +83,15 @@ svg
   text-align center
   dt
     border-bottom: 1px solid #CCC
-    padding:5px
+    padding 5px
+    font-size 16px
   dd
     padding 15px 10px 10px 10px
+    font-size 16px
   &:last-child
     border 0
 
-.lrg
+dd.lrg
   font-size 30px
   
 .attention
