@@ -1,59 +1,58 @@
 template(name="tabs")
-  #tabs.tabs
+  .row
+    .col-md-7
+      .panel.panel-default
+        .panel-heading
+          h3 Stats
+        +statsTable stats=stats event=event className='table-striped'
 
-    +statsTable stats=stats event=event
-
-    .panel.panel-default
-      .panel-heading
-        h3.panel-title Pathogen Stats
-      .panel-body
-        +statsTable stats=pathogenStats event=event
-
-    .row
-      .col-md-6
-        .panel.panel-default
-          .panel-heading
-            h3.panel-title Location Stats
-          .panel-body
-            +statsTable stats=locationStats event=event
-
-      .col-md-6
-        .panel.panel-default
-          .panel-heading
-            h3.panel-title Economics Stats
-          .panel-body
-            +statsTable stats=economicsStats event=event
-
-    .panel.panel-default
-      .panel-heading
-        h3.panel-title References
-      .panel-body
-        each event.references
-          +reference
+    .col-md-5
+      .panel.panel-default
+        .panel-heading
+          h3 Pathogen
+        +statsTable stats=pathogenStats event=event className='table-striped'
+        
+      .panel.panel-default
+        .panel-heading
+          h3 Economics
+        +statsTable stats=economicsStats event=event className='table-striped'
+      
+  .panel.panel-default
+    .panel-heading
+      h3.panel-title References
+    .panel-body
+      each event.references
+        +reference
 
 template(name="statsTable")
-  table.table.table-striped.table-bordered
-    
+  table.table(class=className)
     tbody
       each stats
         if showStat spreadsheetName ../event
           tr.stats-field(data-toggle="tooltip", data-placement="bottom", title="{{getDescription ../event}}")
-            td #{displayName}:
+            td #{displayName} 
+              span.glyphicon.glyphicon-info-sign.table-icon
             td {{getVal spreadsheetName ../event}}
 
 template(name="reference")
   .panel
     if isPMCID
       a(href="http://www.ncbi.nlm.nih.gov/pmc/articles/{{archiveLocation}}")
-        +referenceDescription
+        +referenceLink
+      +referenceDescription
     else if isPMID
       a(href="http://www.ncbi.nlm.nih.gov/pubmed/{{archiveLocation}}")
-        +referenceDescription
+        +referenceLink
+      +referenceDescription
     else if rights
       +referenceDescription
     else
       b #{this}
 
+template(name="referenceLink")
+  span.glyphicon.glyphicon-link
+
 template(name="referenceDescription")
   b {{formatAuthor}} #{date} 
+  br
   i #{title}

@@ -1,29 +1,28 @@
 template(name="header")
-  header.navbar
-    .navbar-default.navbar-fixed-top(role="navigation")
-      .container.disclaimer(style="background-color:#edddaa; width:100%;") 
-        i.fa.fa-exclamation-triangle &nbsp;&nbsp;
-        | Sicki GRID's data is currently under review and this application is a prototype. Contact
-        a(href="mailto:admin@ecohealth.io") admin@ecohealth.io
-        | for more information.
-      .container
-        .navbar-header
-          img.logo(src="/grid_logo.png")
-          a.navbar-brand(href="{{pathFor 'splash'}}") Sicki GRID
-        ul.nav.navbar-nav
-          li
-            a(href="{{pathFor 'about'}}") About
-          li
-            a(href="{{pathFor 'events'}}") Emergence Events
-          li.dropdown
-            a.dropdown-toggle(href="#" data-toggle="dropdown") Download
-              span.caret
-            ul.dropdown-menu(role="menu")
-              li
-                a(href="{{pathFor 'sicki-grid.csv'}}", target="_blank") CSV
-              li
-                a(href="{{pathFor 'sicki-grid.json'}}", target="_blank") JSON
-          li
-            a(href="{{pathFor 'eventMap'}}") Event Map
-          li
-            a(href="mailto:admin@ecohealth.io") Contact Us
+  header.navbar.navbar-default.navbar-fixed-top(role="navigation")
+    //- .container.disclaimer(style="background-color:#edddaa; width:100%;") 
+    //-   i.fa.fa-exclamation-triangle &nbsp;&nbsp;
+    //-   | Sicki GRID's data is currently under review and this application is a prototype. Contact
+    //-   a(href="mailto:admin@ecohealth.io") admin@ecohealth.io
+    //-   | for more information.
+    .container
+      .navbar-header
+        a.navbar-brand(href="{{pathFor 'splash'}}")
+
+      ul.nav.navbar-nav
+        li
+          a(href="{{pathFor 'about'}}") About
+        li
+          a(href="{{pathFor 'events'}}") Emergence Events
+        li.dropdown
+          a.dropdown-toggle(href="#" data-toggle="dropdown") Download
+            span.caret
+          ul.dropdown-menu(role="menu")
+            li
+              a(href="{{pathFor 'sicki-grid.csv'}}", target="_blank") CSV
+            li
+              a(href="{{pathFor 'sicki-grid.json'}}", target="_blank") JSON
+        li
+          a(href="{{pathFor 'eventMap'}}") Event Map
+        li
+          a(href="mailto:admin@ecohealth.io") Contact Us

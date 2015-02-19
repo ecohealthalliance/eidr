@@ -25,10 +25,10 @@ Template.tabs.stats = () ->
 Template.tabs.pathogenStats = () ->
   fields().find({"tab": "Pathogen"}, {"sort": {"order": 1}})
 
-Template.tabs.locationStats = () ->
+Template.event.locationStats = () ->
   fields().find({"tab": "Location"}, {"sort": {"order": 1}})
 
-Template.event.economicsStats = () ->
+Template.tabs.economicsStats = () ->
   console.log 'economicsStats'
   fields().find({"tab": "Economics"}, {"sort": {"order": 1}})
 
