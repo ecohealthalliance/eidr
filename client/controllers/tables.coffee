@@ -1,8 +1,8 @@
 fields = () =>
   @grid.Fields
 
-# Template.tabs.rendered = () ->
-#   $('#tabs').tabs()
+# Template.tables.rendered = () ->
+#   $('#tables').tables()
 
 
 Template.statsTable.showStat = (key, object) ->
@@ -19,17 +19,16 @@ Template.statsTable.getDescription = (event) ->
   else
     @description
 
-Template.tabs.stats = () ->
+Template.tables.stats = () ->
   fields().find({"tab": "Stats"}, {"sort": {"order": 1}})
 
-Template.tabs.pathogenStats = () ->
+Template.tables.pathogenStats = () ->
   fields().find({"tab": "Pathogen"}, {"sort": {"order": 1}})
 
 Template.event.locationStats = () ->
   fields().find({"tab": "Location"}, {"sort": {"order": 1}})
 
-Template.tabs.economicsStats = () ->
-  console.log 'economicsStats'
+Template.tables.economicsStats = () ->
   fields().find({"tab": "Economics"}, {"sort": {"order": 1}})
 
 Template.referenceDescription.formatAuthor = () ->

@@ -21,11 +21,11 @@ template(name="event")
                 .col-lg-5
                   +map
                   +statsTable stats=locationStats event=this className='location-table'
-  .container
+  .container.tables
     .row
       with event
         .col-lg-12
-          +tabs economicStats=economicStats event=this
+          +tables economicStats=economicStats event=this
 
 
 template(name="facts")
