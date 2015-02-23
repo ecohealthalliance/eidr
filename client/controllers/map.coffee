@@ -1,5 +1,5 @@
 Template.map.rendered = () ->
-  w = 450
+  w = 400
   h = 230
 
   eid = @data.eidID

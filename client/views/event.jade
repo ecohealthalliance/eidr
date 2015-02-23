@@ -1,59 +1,37 @@
 template(name="event")
-  .container-fluid.fact-sheet-wrap.main-content
-    .container
-        .row
-          .col-lg-12.event-head
+  .container
+    .dash
+      .row
+        .col-md-12.eventHead
+          if isEID
+            .ribbon-wrapper(style="float:left")
+              .ribbon-front
+                h2.eid &nbsp; EID
+              .ribbon-edge-topleft
+              .ribbon-edge-topright
+              .ribbon-edge-bottomleft
+              .ribbon-edge-bottomright
+              .ribbon-back-left
+              .ribbon-back-right
+          h2 #{event.eventNameVal}
+
+      .row
+        .col-md-1.facto
+          h3.rotate Fact Sheet
+
+        .col-md-11
+          .row
             with event
-              .basic-info
+              .col-md-4
+                .row#info
+                  .col-md-12
+                    br
+                    .row
+                      if diseaseVal
+                        h2.label Disease: #{diseaseVal}
                 .row
-                  .col-lg-10
-                    h1 {{simpleTitle}}
-                    if diseaseVal
-                      h2.minor Disease:
-                        span #{diseaseVal}
-                    h3 {{displayDates}}
-
-            .row.fact-sheet
-              with event
-                .col-lg-7
-                  p #{Abstract}
-                  +facts
-                .col-lg-5
+                .row
                   +map
-                  +statsTable stats=locationStats event=this className='location-table'
-  .container.tables
-    .row
-      with event
-        .col-lg-12
-          +tables economicStats=economicStats event=this
 
-
-template(name="facts")
-  dl
-    .main-facts
-      .col-lg-4.main-fact.col-sm-6
-        dt Emergence Type
-        dd #{eidCategoryVal}
-      .col-lg-4.main-fact.col-sm-6
-        dt Driver
-        dd #{driverVal}
-      .col-lg-2.main-fact.col-sm-6
-        dt Infected
-        dd.lrg #{numberInfectedVal}
-      .col-lg-2.main-fact.col-sm-6
-        dt Deaths
-        dd.lrg #{numberDeathsVal}
-
-    .main-facts
-      .col-lg-6.main-fact
-        dt Event Transmission
-        dd #{eventTransmissionVal}
-        //- {{showIcon}}
-
-      if zoonoticTypeVal
-        .col-lg-3.main-fact
-          dt Zoonotic Type
-          dd #{zoonoticTypeVal}
-        .col-lg-3.main-fact
-          dt Host
-          dd #{hostVal}
+              .col-md-7
+                +tabs
