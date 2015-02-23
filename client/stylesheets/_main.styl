@@ -16,18 +16,26 @@ h1,
 h2,
 h3,
 h4
-	text-shadow 1px 1px 0 rgba(255,255,255, .3)
+	text-shadow 1px 1px 0 rgba(255,255,255, .4)
 
-button
-	text-shadow none
-	
+a, 
+button,
+tr
+	transition .2s
+	&:hover
+		transition .2s
+
+.btn
+	text-shadow 1px 1px 0 rgba(0,0,0, .2)
+	letter-spacing .03em
+
 h1
 	font-weight 600
 	color primary
 	font-size 40px
 
 #main
-	margin-top 60px
+	margin-top 80px
 
 .main-content
 	padding-top:30px
@@ -51,3 +59,11 @@ table tr:last-child
 .panel-heading
 	h3
 		margin 0
+		
+.content-block
+	padding-top 50px
+	padding-bottom 50px
+  
+.default-block
+	@extend .content-block
+	background #f9f9f9

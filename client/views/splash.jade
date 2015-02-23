@@ -1,9 +1,15 @@
 template(name="splash")
-  .jumbotron
-    .container
-      img(src="/eidr-logo.png")
-      h4.small A program of EcoHealth Alliance
-      p Sicki GRID contains resources and data related to global Infectious Disease (ID) events from 1940 to present. This web platform is developed and maintained by EcoHealth Alliance in New York City, USA.
-      p.btns
-        a.btn.btn-primary.btn-large(href="{{pathFor 'about'}}", role="button") Learn More &raquo;
-        a.btn.btn-primary.btn-large(href="{{pathFor 'events'}}", role="button") View Emergence Events &raquo;
+	.jumbotron
+			.container.intro-info
+				h1 EIDR
+				.container
+					p EIDR contains resources and data related to global Infectious Disease (ID) events from 1940 to 2013. This web platform is developed and maintained by EcoHealth Alliance in New York City, USA.
+					.row
+						.col-lg-6
+							a.btn.btn-primary.btn-lg.btn-block(href="{{pathFor 'events'}}", role="button") View Emergence Events
+						.col-lg-4
+							a.btn.btn-primary.btn-lg.btn-block(href="{{pathFor 'about'}}", role="button") Learn More
+				.program
+					span.lead A program of
+					a(href="http://ecohealthalliance.org")
+						img(src="eha-logo.gif")
