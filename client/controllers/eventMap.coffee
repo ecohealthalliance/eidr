@@ -1,6 +1,6 @@
 Template.eventMap.rendered = () ->
   L.Icon.Default.imagePath = "/packages/fuatsengul_leaflet/images"
-  map = L.map('event-map').setView([0, -0], 2)
+  map = L.map('event-map').setView([10, -0], 2)
   window.map = map
   L.tileLayer('//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 18
