@@ -1,20 +1,15 @@
 template(name="header")
-  header.navbar.navbar-default.navbar-fixed-top(role="navigation")
-    .disclaimer
-      .container 
+  header.navbar
+    .navbar-default.navbar-fixed-top(role="navigation")
+      .container.disclaimer(style="background-color:#edddaa; width:100%;") 
         i.fa.fa-exclamation-triangle &nbsp;&nbsp;
-        | EIDR's data is currently under review and this application is a prototype. Contact
+        | Sicki GRID's data is currently under review and this application is a prototype. Contact
         a(href="mailto:admin@ecohealth.io") admin@ecohealth.io
         | for more information.
-    .container
-      .navbar-header
-        a.navbar-brand(href="{{pathFor 'splash'}}")
-        button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-1')
-          span.sr-only Toggle navigation
-          span.icon-bar
-          span.icon-bar
-          span.icon-bar
-      collapse.navbar-collapse
+      .container
+        .navbar-header
+          img.logo(src="/grid_logo.png")
+          a.navbar-brand(href="{{pathFor 'splash'}}") Sicki GRID
         ul.nav.navbar-nav
           li
             a(href="{{pathFor 'about'}}") About

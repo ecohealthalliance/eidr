@@ -1,0 +1,58 @@
+template(name="tabs")
+  #tabs.tabs
+    ul
+      li
+        a(href="#tabs-1") Abstract
+      li
+        a(href="#tabs-2") Stats
+      li
+        a(href="#tabs-3") Pathogen
+      li
+        a(href="#tabs-4") Location
+      li
+        a(href="#tabs-5") Economics
+      li
+        a(href="#tabs-6") References
+
+    #tabs-1 #{Abstract}
+
+    #tabs-2
+      +statsTable stats=stats event=this
+
+    #tabs-3
+      +statsTable stats=pathogenStats event=this
+
+    #tabs-4
+      +statsTable stats=locationStats event=this
+
+    #tabs-5
+      +statsTable stats=economicsStats event=this
+
+    #tabs-6
+      each references
+        +reference
+
+template(name="statsTable")
+  table.table.table-striped.table-hover
+    each stats
+      if showStat spreadsheetName ../event
+        tr.stats-field(data-toggle="tooltip", data-placement="bottom", title="{{getDescription ../event}}")
+          td #{displayName}:
+          td {{getVal spreadsheetName ../event}}
+
+template(name="reference")
+  .panel
+    if isPMCID
+      a(href="http://www.ncbi.nlm.nih.gov/pmc/articles/{{archiveLocation}}")
+        +referenceDescription
+    else if isPMID
+      a(href="http://www.ncbi.nlm.nih.gov/pubmed/{{archiveLocation}}")
+        +referenceDescription
+    else if rights
+      +referenceDescription
+    else
+      b #{this}
+
+template(name="referenceDescription")
+  b {{formatAuthor}} #{date} 
+  i #{title}
