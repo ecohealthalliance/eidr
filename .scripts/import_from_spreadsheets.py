@@ -203,7 +203,7 @@ if __name__ == "__main__":
   import_events(events_tsv, db)
 
   one_to_one_gids = [4, 3, 6] # pathogen, host, economics
-  one_to_many_gids = [{'gid': 2, 'name': 'location'}]
+  one_to_many_gids = [{'gid': 2, 'name': 'locations'}]
   
   for gid in one_to_one_gids:
     sheet_tsv = gs.download(config.events_spreadsheet_id, gid=gid, format="tsv")

@@ -1,10 +1,10 @@
 Template.map.rendered = () ->
-  latLngs = ([location.locationLatitude, location.locationLongitude] for location in @data.location)
+  latLngs = ([location.locationLatitude, location.locationLongitude] for location in @data.locations)
   if latLngs.length is 1
     eventMap = L.map('map').setView(latLngs[0], 4)
   else
     eventMap = L.map('map').fitBounds(latLngs, {padding: [15,15]})
-  for location in @data.location
+  for location in @data.locations
     latLng = [location.locationLatitude, location.locationLongitude]
     displayName = location[location.fieldUsed]
 
