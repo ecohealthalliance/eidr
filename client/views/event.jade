@@ -20,8 +20,7 @@ template(name="event")
                   +facts
                 .col-lg-5
                   +map
-                  each location
-                    +statsTable stats=locationStats event=this className='location-table'
+                  .location-list {{locationList location}}
   .container.tables
     .row
       with event
