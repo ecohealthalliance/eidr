@@ -1,5 +1,8 @@
 Template.map.rendered = () ->
   eventMap = L.map('map')
+  L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', 
+    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors')
+  .addTo eventMap
   markers = []
   
   @autorun () ->
@@ -19,9 +22,7 @@ Template.map.rendered = () ->
         latLng = [location.locationLatitude, location.locationLongitude]
         displayName = location[location.fieldUsed]
 
-        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', 
-          attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors')
-          .addTo eventMap
+
         circle = L.circleMarker(latLng, {
           stroke: false
           fillColor: '#1BAA4A',
