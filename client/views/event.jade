@@ -20,7 +20,9 @@ template(name="event")
                   +facts
                 .col-lg-5
                   +map
-                  +statsTable stats=locationStats event=this className='location-table'
+                  .location-list {{locationList locations}}
+                  div
+                    small *This was the most specific location information found for the event.
   .container.tables
     .row
       with event
