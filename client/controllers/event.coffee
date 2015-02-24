@@ -1,6 +1,12 @@
 Template.event.isEID = () ->
   @event?.eidVal is "1"
 
+Template.event.rendered = () ->
+	$('[data-toggle="tooltip"]').tooltip(
+			container: 'body'
+		)
+	return
+
 Template.event.helpers 
 	simpleTitle : ->
 		reg = /\(([^)]+)\)/
@@ -17,9 +23,12 @@ Template.event.helpers
 		else
 			"Approximate date: "+ @approxDate.substring(0,4)
 
+
+
 Template.facts.helpers 
 	parseTypes : ->
 		@icons = @eventTransmissionVal.split(',').map (icon) ->
 			className: "type-"+icon.trim().split(' ')[0], 
 			fullName: icon
 		return
+
