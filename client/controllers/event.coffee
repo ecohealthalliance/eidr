@@ -19,9 +19,10 @@ Template.event.helpers
       "Approximate date: "+ @approxDate.substring(0,4)        
 
   locationList : (locations) ->
-    prefix = if locations.length > 1 then 'Locations: ' else 'Location: '
-    list = (location[location.fieldUsed] for location in locations).join(", ")
-    "#{prefix}#{list}"
+    if locations
+      prefix = if locations?.length > 1 then 'Locations: ' else 'Location: '
+      list = (location[location.fieldUsed] for location in locations).join(", ")
+      "#{prefix}#{list}"
     
 Template.facts.showIcon = () ->
   @typeIcons = @eventTransmissionVal.split(',')
