@@ -30,9 +30,17 @@ template(name="statsTable")
     tbody
       each stats
         if showStat spreadsheetName ../event
-            tr.stats-field(data-toggle="tooltip", data-placement="bottom", title="{{getDescription ../event}}")
-              td #{displayName} 
+            tr.stats-field
+              td #{displayName}
+                .icon-wrap
+                  .description-wrap(data-toggle="tooltip", data-placement="bottom", title="{{getDescription ../event}}")
+                    span.description
               td {{getVal spreadsheetName ../event}}
+                .icon-wrap
+                  span.reference(data-toggle="tooltip", data-placement="bottom", title="{{getDescription ../event}}")
+                  span.quote(data-toggle="tooltip", data-placement="bottom", title="{{getDescription ../event}}")
+
+
 
 template(name="reference")
   li.list-group-item

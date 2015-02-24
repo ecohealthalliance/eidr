@@ -52,7 +52,7 @@ template(name="facts")
           if icons
             each icons
               if this
-                li(class="#{this.className}" title="#{this.fullName}")
+                li(class="#{this.className}" title="#{this.fullName}", data-toggle="tooltip", data-placement="bottom")
           else 
             li.unknown
 
