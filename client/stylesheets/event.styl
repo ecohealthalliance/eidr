@@ -1,3 +1,6 @@
+.icons
+  font-family icons
+
 subtle-green = #EEF8F5
 
 .fact-sheet-wrap
@@ -32,11 +35,18 @@ subtle-green = #EEF8F5
   td:first-child
     width 40%
     border-right 1px solid #DDD
-  
+    padding-right 20px
+  td
+    position relative
+  td:last-child
+    padding-right 80px
+
 .location-table
   width 450px
   tr:first-child td
     border-top 0
+  td
+    position relative
   
 svg 
   border-radius 5px 5px 0 0
@@ -84,12 +94,14 @@ dd.lrg
     text-decoration none
 
 .transmission-icons
+  padding 15px 10px 10px 10px
   li
-    font-family icons
+    @extend .icons
     font-size 65px
     color #333
     padding 0 5px
     display inline-block
+    line-height 65px
   .type-close
     &::before
       content "c"
@@ -98,7 +110,7 @@ dd.lrg
       content "v"
   .type-vertical
     &::before
-      content "u"        
+      content "u"
   .type-NF
     &::before
       content "n"
@@ -120,3 +132,50 @@ dd.lrg
   .type-sexual
     &::before
       content "s"    
+
+.icon-wrap
+  position absolute
+  right 0
+  top 0
+  bottom 0
+  text-align right
+  color #CCC
+  span
+    &:hover
+      color #1BAA4A
+
+.right-icon
+  display inline-block
+  font-size 20px
+  margin-right 6px
+  margin-top 6px
+
+.description-wrap
+  position: absolute
+  top 0
+  bottom 0
+  width 20px
+  right 0
+  &:hover
+    color #1BAA4A
+  
+.description
+  position absolute
+  right 10px
+  top 8px
+  &::before
+    content 'i'
+    @extend .icons
+    display inline-block
+.reference
+  @extend .right-icon
+  &::before
+    content 'r'
+    @extend .icons
+    display inline-block
+.quote
+  @extend .right-icon
+  &::before
+    content 'Q'
+    @extend .icons
+    display inline-block
