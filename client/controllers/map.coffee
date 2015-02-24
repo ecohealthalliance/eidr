@@ -14,20 +14,24 @@ Template.map.rendered = () ->
     
     if data.locations
       latLngs = ([location.locationLatitude, location.locationLongitude] for location in data.locations)
+      latLngs = _.filter(latLngs, (latLng) ->
+        latLng[0] isnt 'NF' and latLng[1] isnt 'NF'
+      )
       if latLngs.length is 1
         eventMap.setView(latLngs[0], 4)
       else
         eventMap.fitBounds(latLngs, {padding: [15,15]})
       for location in data.locations
         latLng = [location.locationLatitude, location.locationLongitude]
-        displayName = location[location.fieldUsed]
+        if latLng[0] isnt 'NF' and latLng[1] isnt 'NF'
+          displayName = location[location.fieldUsed]
 
 
-        circle = L.circleMarker(latLng, {
-          stroke: false
-          fillColor: '#1BAA4A',
-          fillOpacity: 0.8,
-        }).addTo(eventMap)
+          circle = L.circleMarker(latLng, {
+            stroke: false
+            fillColor: '#1BAA4A',
+            fillOpacity: 0.8,
+          }).addTo(eventMap)
 
-        circle.bindPopup displayName
-        markers.push circle
+          circle.bindPopup displayName
+          markers.push circle
