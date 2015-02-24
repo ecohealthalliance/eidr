@@ -8,3 +8,6 @@ if Meteor.isServer
 
   Meteor.publish "event", (eidID) ->
     Events.find({'eidID': eidID})
+    
+  Meteor.publish "locations", () ->
+    Events.find({}, {fields: {'locations.locationLatitude': 1, 'locations.locationLongitude': 1, eidID: 1, eventNameVal: 1}})
