@@ -15,6 +15,10 @@ Template.statsTable.getDescription = (event) ->
   else
     @description
 
+Template.statsTable.getQuote = (event) ->
+  if @Quotations isnt 0 and @Quotations isnt ''
+    quote = Template.statsTable.getVal(@Quotations, event)
+
 Template.tables.stats = () ->
   fields().find({"tab": "Stats"}, {"sort": {"order": 1}})
 
@@ -35,3 +39,4 @@ Template.reference.isPMCID = () ->
 
 Template.reference.isPMID = () ->
   @archive is 'PMID'
+
