@@ -30,17 +30,17 @@ template(name="statsTable")
     tbody
       each stats
         if showStat spreadsheetName ../event
-            tr.stats-field
-              td #{displayName}
-                .icon-wrap
-                  .description-wrap(data-toggle="tooltip", data-placement="bottom", title="{{getDescription ../event}}")
-                    span.description
-              td {{getVal spreadsheetName ../event}}
-                .icon-wrap
-                  span.reference(data-toggle="tooltip", data-placement="bottom", title="{{getDescription ../event}}")
-                  span.quote(data-toggle="tooltip", data-placement="bottom", title="{{getDescription ../event}}")
-
-
+          tr.stats-field
+            td #{displayName}
+              .icon-wrap
+                .description-wrap(data-toggle="tooltip", data-placement="bottom", title="{{getDescription ../event}}")
+                  span.description
+            td {{getVal spreadsheetName ../event}}
+              .icon-wrap
+                  //- if getReference ../event
+                  //-   span.reference(data-toggle="tooltip", data-placement="bottom", title="")
+                  if getQuote ../event
+                    span.quote(data-toggle="popover", data-placement="bottom", data-content="{{getQuote ../event}}")
 
 template(name="reference")
   li.list-group-item

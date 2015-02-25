@@ -2,6 +2,14 @@
   font-family icons
 
 subtle-green = #EEF8F5
+table-border = 1px solid #DDD
+.event
+  .table
+      td:first-child
+        width 40%
+        border-right 1px solid #DDD
+        padding-right 20px
+  
 
 .fact-sheet-wrap
   background subtle-green
@@ -30,11 +38,11 @@ subtle-green = #EEF8F5
 
 .basic-info
   margin-bottom 20px
-  
+
 .tables 
   td:first-child
     width 40%
-    border-right 1px solid #DDD
+    border-right table-border
     padding-right 20px
   td
     position relative
@@ -53,29 +61,24 @@ svg
   
 .main-facts
   margin: 20px 0
-  border-radius 5px
+  text-align center
+  margin-bottom 40px
+  th, td
+    border-right table-border
+    text-align center
+  th
+    font-size 16px
+    border-bottom table-border
+  th:last-child,
+  td:last-child
+    border-right 0
   &:after
     clear both
     content ''
     display block
-    
-.main-fact
-  min-height 125px
-  border-right 1px solid #CCC
-  padding 0
-  text-align center
-  dt
-    border-bottom: 1px solid #CCC
-    padding 5px
-    font-size 16px
-  dd
-    padding 15px 10px 10px 10px
-  &:last-child
-    border 0
+  .lrg
+    font-size 18px
 
-dd.lrg
-  font-size 18px
-  
 .attention
   background-color #f8ecec
   
@@ -94,7 +97,6 @@ dd.lrg
     text-decoration none
 
 .transmission-icons
-  padding 15px 10px 10px 10px
   li
     @extend .icons
     font-size 65px
@@ -149,6 +151,7 @@ dd.lrg
   font-size 20px
   margin-right 6px
   margin-top 6px
+  cursor  pointer
 
 .description-wrap
   position: absolute
