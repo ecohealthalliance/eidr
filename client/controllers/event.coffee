@@ -5,7 +5,7 @@ Template.event.helpers
 	simpleTitle : ->
 		reg = /\(([^)]+)\)/
 		@approxDate = reg.exec(@eventName)[1].split(',')[1].trim()
-		@eventName.replace(reg, '')
+		@eventNameVal.replace(reg, '')
 	displayDates : ->
 		if @startDateISO and @startDateISO isnt "NF" and @endDateISO and @endDateISO isnt "NF"
 			startYear = @startDateISO.substring(0,4)
