@@ -4,7 +4,7 @@ Template.event.isEID = () ->
 Template.event.helpers 
 	simpleTitle : ->
 		reg = /\(([^)]+)\)/
-		@approxDate = reg.exec(@eventName)[1].split(',')[1].trim()
+		@approxDate = reg.exec(@eventNameVal)[1].split(',')[1].trim()
 		@eventNameVal.replace(reg, '')
 	displayDates : ->
 		if @startDateISO and @startDateISO isnt "NF" and @endDateISO and @endDateISO isnt "NF"
@@ -16,12 +16,18 @@ Template.event.helpers
 				startYear + " - " + endYear
 		else
 			"Approximate date: "+ @approxDate.substring(0,4)
-
-  locationList : (locations) ->
+	locationList : (locations) ->
     if locations
       prefix = if locations?.length > 1 then 'Locations: ' else 'Location: '
       list = (location[location.fieldUsed] for location in locations).join(", ")
       "#{prefix}#{list}"
-    
-Template.facts.showIcon = () ->
-  @typeIcons = @eventTransmissionVal.split(',')
+
+Template.facts.helpers
+	icons : ->
+		@eventTransmissionVal.split(',').map (icon) ->
+			if icon is 'NF'
+				description = 'Transmission method not found'
+			else
+				description = @grid.Fields.findOne({"displayName" : "Event Transmission"})['dropdownExplanations'][icon]
+			className: "type-"+icon.trim().split(" ")[0]
+			fullName: icon + ': ' + description

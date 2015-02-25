@@ -49,8 +49,11 @@ template(name="facts")
     .main-facts
       .col-lg-6.main-fact
         dt Event Transmission
-        dd #{eventTransmissionVal}
-        //- {{showIcon}}
+        ul.transmission-icons.list-unstyled
+          each icons
+            li(class="#{className}" title="#{fullName}")
+          else 
+            li.unknown
 
       if zoonoticTypeVal
         .col-lg-3.main-fact
