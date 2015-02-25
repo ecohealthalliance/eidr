@@ -5,6 +5,9 @@ Template.event.rendered = () ->
 	$('[data-toggle="tooltip"]').tooltip(
 			container: 'body'
 		)
+	$('[data-toggle="popover"]').popover(
+			container: 'body'
+		)
 	return
 
 Template.event.helpers 
@@ -22,8 +25,6 @@ Template.event.helpers
 				startYear + " - " + endYear
 		else
 			"Approximate date: "+ @approxDate.substring(0,4)
-
-
 
 Template.facts.helpers 
 	parseTypes : ->
