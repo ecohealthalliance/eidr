@@ -40,7 +40,7 @@ template(name="statsTable")
                   //- if getReference ../event
                   //-   span.reference(data-toggle="tooltip", data-placement="bottom", title="")
                   if getQuote ../event
-                    span.quote(data-toggle="popover", data-placement="bottom", data-content="{{getQuote ../event}}")
+                    span.quote(data-toggle="popover", data-placement="bottom", data-content="#{quote}")
 
 template(name="reference")
   li.list-group-item

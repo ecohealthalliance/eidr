@@ -17,7 +17,7 @@ Template.statsTable.getDescription = (event) ->
 
 Template.statsTable.getQuote = (event) ->
   if @Quotations isnt 0 and @Quotations isnt ''
-    quote = Template.statsTable.getVal(@Quotations, event)
+    @quote = Template.statsTable.getVal(@Quotations, event)
 
 Template.tables.stats = () ->
   fields().find({"tab": "Stats"}, {"sort": {"order": 1}})
