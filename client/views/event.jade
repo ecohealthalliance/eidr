@@ -47,12 +47,9 @@ template(name="facts")
     .main-facts
       .col-lg-6.main-fact
         dt Event Transmission
-        {{parseTypes}}
         ul.transmission-icons.list-unstyled
-          if icons
-            each icons
-              if this
-                li(class="#{this.className}" title="#{this.fullName}")
+          each icons
+            li(class="#{className}" title="#{fullName}")
           else 
             li.unknown
 

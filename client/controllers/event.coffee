@@ -17,9 +17,10 @@ Template.event.helpers
 		else
 			"Approximate date: "+ @approxDate.substring(0,4)
 
-Template.facts.helpers 
-	parseTypes : ->
-		@icons = @eventTransmissionVal.split(',').map (icon) ->
-			className: "type-"+icon.trim().split(' ')[0], 
-			fullName: icon
-		return
+Template.facts.helpers
+	icons : ->
+		@eventTransmissionVal.split(',').map (icon) ->
+			if icon is "NF"
+				fullName = "not found"
+			className: "type-"+icon.trim().split(" ")[0]
+			fullName: fullName
