@@ -1,0 +1,60 @@
+template(name="tables")
+  .row
+    .col-md-7
+      .panel.panel-default
+        .panel-heading
+          h3 Stats
+        +statsTable stats=stats event=event className='table-striped'
+
+    .col-md-5
+      .panel.panel-default
+        .panel-heading
+          h3 Pathogen
+        +statsTable stats=pathogenStats event=event className='table-striped'
+      
+      .panel.panel-default     
+        .panel-heading
+          h3 Economics
+        +statsTable stats=economicsStats event=event className='table-striped'
+  .row
+    .col-lg-7
+      .panel.panel-default.references
+        .panel-heading
+          h3.panel-title References
+        ul.list-group
+          each event.references
+            +reference
+
+template(name="statsTable")
+  table.table(class=className)
+    tbody
+      each stats
+        if showStat spreadsheetName ../event
+            tr.stats-field(data-toggle="tooltip", data-placement="bottom", title="{{getDescription ../event}}")
+              td #{displayName} 
+              td {{getVal spreadsheetName ../event}}
+
+template(name="reference")
+  li.list-group-item
+    if isPMCID
+      a.ref-link(href="http://www.ncbi.nlm.nih.gov/pmc/articles/{{archiveLocation}}")
+        +author
+        span.glyphicon.glyphicon-link
+      +referenceDescription
+    else if isPMID
+      a.ref-link(href="http://www.ncbi.nlm.nih.gov/pubmed/{{archiveLocation}}")
+        +author
+        span.glyphicon.glyphicon-link
+      +referenceDescription
+    else if rights
+      +author
+      +referenceDescription
+    else
+      b #{this}
+
+template(name="author")
+  h2 {{formatAuthor}}
+
+template(name="referenceDescription")
+  p.date #{date}
+  p #{title}
