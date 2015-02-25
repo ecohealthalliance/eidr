@@ -1,10 +1,6 @@
 fields = () =>
   @grid.Fields
 
-Template.tabs.rendered = () ->
-  $('#tabs').tabs()
-
-
 Template.statsTable.showStat = (key, object) ->
   object[key] isnt 'undefined' and object[key] isnt '' and object[key] isnt 'NF' and object[key] isnt 'NAP'
 
@@ -19,19 +15,19 @@ Template.statsTable.getDescription = (event) ->
   else
     @description
 
-Template.tabs.stats = () ->
+Template.tables.stats = () ->
   fields().find({"tab": "Stats"}, {"sort": {"order": 1}})
 
-Template.tabs.pathogenStats = () ->
+Template.tables.pathogenStats = () ->
   fields().find({"tab": "Pathogen"}, {"sort": {"order": 1}})
 
-Template.tabs.locationStats = () ->
+Template.event.locationStats = () ->
   fields().find({"tab": "Location"}, {"sort": {"order": 1}})
 
-Template.tabs.economicsStats = () ->
+Template.tables.economicsStats = () ->
   fields().find({"tab": "Economics"}, {"sort": {"order": 1}})
 
-Template.referenceDescription.formatAuthor = () ->
+Template.author.formatAuthor = () ->
   @creators[0].lastName
 
 Template.reference.isPMCID = () ->
