@@ -17,6 +17,8 @@ template(name="event")
               with event
                 .col-lg-7
                   p #{Abstract}
+                  if notes
+                    p.notes #{notes}
                   +facts
                 .col-lg-5
                   +map
@@ -42,21 +44,6 @@ template(name="facts")
         td #{driverVal}
         td.lrg #{numberInfectedVal}
         td.lrg #{numberDeathsVal}
-
-  //- dl
-  //-   .main-facts
-  //-     .col-lg-4.main-fact.col-sm-6
-  //-       dt Emergence Type
-  //-       dd #{eidCategoryVal}
-  //-     .col-lg-4.main-fact.col-sm-6
-  //-       dt Driver
-  //-       dd #{driverVal}
-  //-     .col-lg-2.main-fact.col-sm-6
-  //-       dt Infected
-  //-       dd.lrg #{numberInfectedVal}
-  //-     .col-lg-2.main-fact.col-sm-6
-  //-       dt Deaths
-  //-       dd.lrg #{numberDeathsVal}
 
   table.main-facts.table(style="width:100%")
     thead

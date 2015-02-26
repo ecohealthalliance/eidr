@@ -2,12 +2,8 @@ Template.event.isEID = () ->
   @event?.eidVal is "1"
 
 Template.event.rendered = () ->
-	$('[data-toggle="tooltip"]').tooltip(
-			container: 'body'
-		)
-	$('[data-toggle="popover"]').popover(
-			container: 'body'
-		)
+	$('[data-toggle="tooltip"]').tooltip(container: 'body')
+	$('[data-toggle="popover"]').popover(container: 'body')
 	return
 
 Template.event.helpers 
