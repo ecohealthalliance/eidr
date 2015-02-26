@@ -73,14 +73,18 @@ template(name="comments")
           h3 Comments
         .panel-body
           if showCommentButton
-            .row
-              .col-lg-10
-                textarea.form-control.comment(name="comment" class="new-comment" placeholder="General comment about this event.")
-            .row
-              .col-lg-6.col-sm-12
-                button.btn.btn-primary.btn-lg.btn-block Add comment
+            form#add-comment
+              .row
+                .col-lg-10
+                  textarea.form-control.comment(name="comment" class="new-comment" placeholder="General comment about this event.")
+              .row
+                .col-lg-6.col-sm-12
+                  button.btn.btn-primary.btn-lg.btn-block(type="submit") Add comment
           else
             a.btn.btn-primary(href='../sign-in') Sign in to add comment
-          //- if getComments
-          //-   each comment
+          if getComments event.eidID
+            ul
+              each comment
+                li #{this}
+
 
