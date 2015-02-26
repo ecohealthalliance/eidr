@@ -22,7 +22,9 @@ template(name="event")
                   +facts
                 .col-lg-5
                   +map
-                  +statsTable stats=locationStats event=this className='location-table'
+                  .location-list {{locationList locations}}
+                  div
+                    small *This represents the most specific location information found for the event.
   .container.tables
     .row
       with event
@@ -55,12 +57,10 @@ template(name="facts")
     tbody
       tr
         td 
-          {{parseTypes}}
           ul.transmission-icons.list-unstyled
             if icons
               each icons
-                if this
-                  li(class="#{this.className}" title="#{this.fullName}", data-toggle="tooltip", data-placement="bottom")
+                li(class="#{className}" title="#{fullName}" data-toggle="tooltip")
             else 
               li.unknown
         if zoonoticTypeVal      

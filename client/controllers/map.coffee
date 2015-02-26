@@ -1,71 +1,37 @@
 Template.map.rendered = () ->
-  w = 450
-  h = 230
+  eventMap = L.map('map')
+  L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', 
+    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors')
+  .addTo eventMap
+  markers = []
+  
+  @autorun () ->
+    data = Template.currentData()
+    
+    for marker in markers
+      eventMap.removeLayer marker
+    markers = []
+    
+    if data.locations
+      latLngs = ([location.locationLatitude, location.locationLongitude] for location in data.locations)
+      latLngs = _.filter(latLngs, (latLng) ->
+        latLng[0] isnt 'NF' and latLng[1] isnt 'NF'
+      )
+      if latLngs.length is 1
+        eventMap.setView(latLngs[0], 4)
+      else
+        eventMap.fitBounds(latLngs, {padding: [15,15]})
+      for location in data.locations
+        latLng = [location.locationLatitude, location.locationLongitude]
+        if latLng[0] isnt 'NF' and latLng[1] isnt 'NF'
+          displayName = location[location.fieldUsed]
 
-  eid = @data.eidID
 
-  projection = d3.geo.mercator()
-    .translate([w/2, h/2])
-    .scale([50])
+          circle = L.circleMarker(latLng, {
+            stroke: false
+            fillColor: '#1BAA4A',
+            fillOpacity: 0.8,
+          }).addTo(eventMap)
 
-  path = d3.geo.path()
-    .projection(projection)
-    .pointRadius(4)
-
-  svg = d3.select('.map')
-    .append('svg')
-    .attr('width', w)
-    .attr('height', h)
-    .style('background-color', 'steelblue')
-
-  world = svg.append('g')
-  eventArea = svg.append('g')
-
-
-  d3.json '/world-110m2.json', (error, topology) ->
-    world.selectAll("path")
-      .data(topojson.object(topology, topology.objects.countries).geometries)
-    .enter()
-      .append("path")
-      .attr("d", path)
-      .style("fill", "beige")
-
-    d3.json "/maps/HED_#{eid}.json", (featureCollection) ->
-      eventArea.selectAll("path")
-        .data(featureCollection.features)
-        .enter()
-        .append("path")
-        .attr("d", path)
-        .style "fill", "crimson"
-        .style "stroke", "crimson"
-        .style "stroke-width", "1.5px"
-
-      feature = featureCollection.features[0]
-      zoomFactor = .02
-      if feature.geometry.type is 'MultiPolygon'
-        zoomFactor = .05
-      bounds = path.bounds(feature)
-      dx = bounds[1][0] - bounds[0][0]
-      dy = bounds[1][1] - bounds[0][1]
-      x = (bounds[0][0] + bounds[1][0]) / 2
-      y = (bounds[0][1] + bounds[1][1]) / 2
-      scale = zoomFactor / Math.max(dx / w, dy / h)
-      translate = [w / 2 - scale * x, h / 2 - scale * y]
-
-      world.attr("transform", "translate(" + translate + ")scale(" + scale + ")")
-      eventArea.style("stroke-width", 1.5 / scale + "px")
-        .attr("transform", "translate(" + translate + ")scale(" + scale + ")")
-
-      zoom = d3.behavior.zoom()
-        .scale(scale)
-        .translate(translate)
-        .on "zoom", () ->
-          world.attr "transform", "translate(" + d3.event.translate.join(",") + ")scale(" + d3.event.scale + ")"
-          world.selectAll("path")
-            .attr "d", path.projection(projection)
-          eventArea.attr "transform", "translate(" + d3.event.translate.join(",") + ")scale(" + d3.event.scale + ")"
-          eventArea.selectAll("path")
-            .attr "d", path.projection(projection)
-            .attr "stroke-width", 1.5 / d3.event.scale + "px"
-
-      svg.call(zoom)
+          circle.bindPopup displayName
+          markers.push circle
