@@ -50,10 +50,10 @@ template(name="statsTable")
                   span.description
             td {{getVal spreadsheetName ../event}}
               .icon-wrap
-                  if getReference ../event
-                    span.reference(data-toggle="tooltip", data-placement="bottom", title="{{getReference ../event}}")
                   if getQuote ../event
-                    span.quote(data-toggle="popover" data-content="{{getQuote ../event}}")
+                    span.quote(data-toggle="popover-quote" data-content="{{getQuote ../event}}")
+                  if getReference ../event
+                    span.reference(data-toggle="popover" data-content="{{getReference ../event}}")
 
 template(name="reference")
   li.list-group-item
