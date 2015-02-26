@@ -32,3 +32,8 @@ template(name="header")
             a(href="{{pathFor 'eventMap'}}") Event Map
           li
             a(href="mailto:admin@ecohealth.io") Contact Us
+    +account
+
+template(name="account")
+  if auth
+    button.btn#logOut Log Out

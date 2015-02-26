@@ -43,3 +43,6 @@ Router.route "/eventMap",
     Meteor.subscribe "locations"
   data: () ->
     events: Events().find()
+
+Router.route "/sign-in",
+  name: 'signIn'

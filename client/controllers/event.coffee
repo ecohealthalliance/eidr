@@ -31,3 +31,7 @@ Template.facts.helpers
 				description = @grid.Fields.findOne({"displayName" : "Event Transmission"})['dropdownExplanations'][icon]
 			className: "type-"+icon.trim().split(" ")[0]
 			fullName: icon + ': ' + description
+
+Template.comments.helpers
+	showCommentButton : () ->
+		Template.account.auth()

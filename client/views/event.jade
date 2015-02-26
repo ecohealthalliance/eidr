@@ -28,6 +28,8 @@ template(name="event")
       with event
         .col-lg-12
           +tables economicStats=economicStats event=this
+  .container.comments
+    +comments
 
 
 template(name="facts")
@@ -62,3 +64,15 @@ template(name="facts")
         .col-lg-3.main-fact
           dt Host
           dd #{hostVal}
+
+template(name="comments")
+  if showCommentButton
+    .row
+      .col-lg-7
+        textarea.form-control(name="comment" class="new-comment")
+        button.btn.btn-primary.btn-lrg Add a comment
+  else
+    a.btn.btn-primary(href='../sign-in') Sign in to comment
+  //- if getComments
+  //-   each comment
+
