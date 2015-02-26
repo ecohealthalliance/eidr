@@ -76,7 +76,7 @@ def import_events(file, db):
       d['_id'] = str(ObjectId())
       events.insert(d)
 
-def import_other_sheet(file, db):
+def import_one_to_one_sheet(file, db):
   events = db.events
   tsv = csv.reader(file, delimiter='\t')
   columns = None
@@ -90,6 +90,24 @@ def import_other_sheet(file, db):
         print "No event for %s" % d['eventName']
       else:
         events.update({'_id': e['_id']}, {'$set': d})
+        
+def import_one_to_many_sheet(file, db, sheetName):
+  events = db.events
+  tsv = csv.reader(file, delimiter='\t')
+  columns = None
+  for row in tsv:
+    if not columns:
+      columns = row
+    else:
+      d = dict(zip(columns, row))
+      e = events.find_one({'eventName': d['eventName']})
+      if e is None:
+        print "No event for %s" % d['eventName']
+      else:
+        value = e.get(sheetName, [])
+        del d['eventName']
+        value.append(d)
+        events.update({'_id': e['_id']}, {'$set': {sheetName: value}})
 
 def find_zotero_ref(ref, zoteroItems):
   for item in zoteroItems:
@@ -184,11 +202,16 @@ if __name__ == "__main__":
   events_tsv = gs.download(config.events_spreadsheet_id, gid=events_gid, format="tsv")
   import_events(events_tsv, db)
 
-  other_gids = [4, 3, 2, 6] # pathogen, host, economics, location
-
-  for gid in other_gids:
+  one_to_one_gids = [4, 3, 6] # pathogen, host, economics
+  one_to_many_gids = [{'gid': 2, 'name': 'locations'}]
+  
+  for gid in one_to_one_gids:
     sheet_tsv = gs.download(config.events_spreadsheet_id, gid=gid, format="tsv")
-    import_other_sheet(sheet_tsv, db)
+    import_one_to_one_sheet(sheet_tsv, db)
+    
+  for gid in one_to_many_gids:
+    sheet_tsv = gs.download(config.events_spreadsheet_id, gid=gid['gid'], format="tsv")
+    import_one_to_many_sheet(sheet_tsv, db, gid['name'])
 
   zot = zotero.Zotero(config.zotero_library_id, config.zotero_library_type, config.zotero_api_key)
   import_refs(db, zot)
