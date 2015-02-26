@@ -17,13 +17,26 @@ template(name="tables")
           h3 Economics
         +statsTable stats=economicsStats event=event className='table-striped'
   .row
-    .col-lg-7
-      .panel.panel-default.references
-        .panel-heading
-          h3.panel-title References
-        ul.list-group
-          each event.references
-            +reference
+    if event.eidDiscussion
+      .col-lg-6
+        .panel.panel-default.references
+          .panel-heading
+            h3 Discussion
+          .panel-body
+            p #{event.eidDiscussion}
+      .col-lg-6
+        +references
+    else 
+      .col-lg-7
+        +references
+
+template(name="references")
+  .panel.panel-default.references
+    .panel-heading
+      h3 References
+    ul.list-group
+      each event.references
+        +reference
 
 template(name="statsTable")
   table.table(class=className)
