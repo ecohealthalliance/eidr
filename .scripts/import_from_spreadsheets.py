@@ -166,46 +166,56 @@ def import_refs(db, zot):
   while offset <= zot.num_items():
     items += zot.top(start=offset, limit=50)
     offset += 50
+    
+  references = db.references
+  for item in items:
+    if not item.get('rights'):
+      item = item.get('data')
+    if item.get('rights'):
+      item['zoteroId'] = int(item['rights'])
+      references.insert(item)
+    
   
   events = db.events
   for event in events.find():
     eidID = event.get('eidID')
-
-    refStrings = []
+    
+    eventReferences = {}
     for refField in REFERENCE_FIELDS:
+      refStrings = []
       if event.get(refField):
         for ref in event.get(refField).split(','):
           if not ref.strip() in refStrings:
             refStrings.append(ref.strip())
 
-    references = []
-    for ref in refStrings:
-      if re.match('^\{?[\d]{1,4}\}?\)?$', ref):
-        zotRef = find_zotero_ref(ref.replace('{', '').replace('}', ''), items)
-        if zotRef:
-          references.append(zotRef)
-        else:
-          if len(references) > 0 and type(references[-1]) != dict and re.match("^[\d]{4}\}?\)?$", ref):
-            # could be date to reattach to the previous ref
-            references[-1] = "%s, %s" % (references[-1], ref)
+      references = []
+      for ref in refStrings:
+        if re.match('^\{?[\d]{1,4}\}?\)?$', ref):
+          if find_zotero_ref(ref.replace('{', '').replace('}', ''), items):
+            references.append(int(ref.replace('{', '').replace('}', '')))
           else:
-            print "%s: no zotero reference for %s" % (eidID, ref)
-      else:
-        matched = False
-        for refPattern, zoteroId in REFS_TO_REPLACE.iteritems():
-          if re.match(refPattern, ref):
-            zotRef = find_zotero_ref(zoteroId, items)
-            if zotRef:
-              if not zotRef in references:
-                references.append(zotRef)
+            if len(references) > 0 and type(references[-1]) != dict and re.match("^[\d]{4}\}?\)?$", ref):
+              # could be date to reattach to the previous ref
+              references[-1] = "%s, %s" % (references[-1], ref)
             else:
-              print "%s: no zotero reference for %s, replaced with %s" % (eidId, ref, zoteroId)
-            matched = True
-            break
-        if not matched:
-          # this is a string reference
-          references.append(ref)
-    events.update({'_id': event['_id']}, {'$set': {'references': references}})
+              print "%s: no zotero reference for %s" % (eidID, ref)
+        else:
+          matched = False
+          for refPattern, zoteroId in REFS_TO_REPLACE.iteritems():
+            if re.match(refPattern, ref):
+              if find_zotero_ref(zoteroId, items):
+                if not zoteroId in references:
+                  references.append(zoteroId)
+              else:
+                print "%s: no zotero reference for %s, replaced with %s" % (eidID, ref, zoteroId)
+              matched = True
+              break
+          if not matched:
+            # this is a string reference
+            references.append(ref)
+      field = refField[3:6].lower() + refField[6:]
+      eventReferences[field] = references
+    events.update({'_id': event['_id']}, {'$set': {"references": eventReferences}})
 
 if __name__ == "__main__":
 
@@ -213,7 +223,8 @@ if __name__ == "__main__":
   db = pymongo.Connection("localhost", config.meteor_mongo_port)[config.meteor_db_name]
   db.fields.drop()
   db.events.drop()
-
+  db.references.drop()
+  
   fields_tsv = gs.download(config.fields_spreadsheet_id, gid=0, format="tsv")
   import_fields(fields_tsv, db)
 

@@ -35,7 +35,7 @@ template(name="references")
     .panel-heading
       h3 References
     ul.list-group
-      each event.references
+      each getReferences
         +reference
 
 template(name="statsTable")
@@ -50,10 +50,10 @@ template(name="statsTable")
                   span.description
             td {{getVal spreadsheetName ../event}}
               .icon-wrap
-                  //- if getReference ../event
-                  //-   span.reference(data-toggle="tooltip", data-placement="bottom", title="")
+                  if getReference ../event
+                    span.reference(data-toggle="tooltip", data-placement="bottom", title="{{getReference ../event}}")
                   if getQuote ../event
-                    span.quote(data-toggle="popover" data-content="#{quote}")
+                    span.quote(data-toggle="popover" data-content="{{getQuote ../event}}")
 
 template(name="reference")
   li.list-group-item
