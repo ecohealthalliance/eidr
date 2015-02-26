@@ -153,6 +153,13 @@ REFERENCE_FIELDS = [
   'refAvgLifeExpectancyInCountryAndYearOfEvent',
 ]
 
+REFS_TO_REPLACE = {
+  '^NIH$': 1087,
+  '^CDC$': 1088,
+  '.*worldbank\.org.*': 1089,
+  '^http\:\/\/www\.ncbi\.nlm\.nih\.gov$': 1090,
+}
+
 def import_refs(db, zot):
   items = []
   offset = 0
@@ -184,8 +191,20 @@ def import_refs(db, zot):
           else:
             print "%s: no zotero reference for %s" % (eidID, ref)
       else:
-        # this is a string reference
-        references.append(ref)
+        matched = False
+        for refPattern, zoteroId in REFS_TO_REPLACE.iteritems():
+          if re.match(refPattern, ref):
+            zotRef = find_zotero_ref(zoteroId, items)
+            if zotRef:
+              if not zotRef in references:
+                references.append(zotRef)
+            else:
+              print "%s: no zotero reference for %s, replaced with %s" % (eidId, ref, zoteroId)
+            matched = True
+            break
+        if not matched:
+          # this is a string reference
+          references.append(ref)
     events.update({'_id': event['_id']}, {'$set': {'references': references}})
 
 if __name__ == "__main__":
