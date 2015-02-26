@@ -34,7 +34,6 @@ Template.facts.helpers
 				description = 'Transmission method not found'
 			else
 				description = @grid.Fields.findOne({"displayName" : "Event Transmission"})['dropdownExplanations'][icon]
-			console.log @grid.Fields.findOne({"displayName" : "Event Transmission"})
 			iconName = icon.trim().split(" ")[0]
 			className: "type-"+iconName
 			fullName: iconName.charAt(0).toUpperCase()+iconName.substr(1).toLowerCase()+': ' + description
