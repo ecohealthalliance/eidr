@@ -1,5 +1,6 @@
-Template.comments.getComments = (eventID) ->
-  grid.Comments.find({"event": eventID})
+Template.comments.helpers 
+  checkComments : () ->
+    @comments.count() > 0
 
 Template.comments.events
   "submit #add-comment" : (e) ->

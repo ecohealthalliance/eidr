@@ -82,9 +82,9 @@ template(name="comments")
                   button.btn.btn-primary.btn-lg.btn-block(type="submit") Add comment
           else
             a.btn.btn-primary(href='../sign-in') Sign in to add comment
-          if getComments event.eidID
+          if checkComments
             ul
-              each comment
-                li #{this}
+              each comments
+                li #{comment}
 
 
