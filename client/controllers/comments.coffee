@@ -10,6 +10,5 @@ Template.comments.events
       event: @event.eidID
       user: Meteor.user()._id
       email: Meteor.user().emails[0].address
-      timeStamp: new Date()
     e.target.comment.value = ''
     return false

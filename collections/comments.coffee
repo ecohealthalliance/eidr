@@ -6,4 +6,5 @@ Comments = new Meteor.Collection "comments"
 if Meteor.isServer
   Comments.allow
     insert: (userID, doc) ->
+      doc.timeStamp = new Date()
       userID
