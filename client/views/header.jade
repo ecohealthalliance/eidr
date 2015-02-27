@@ -36,6 +36,6 @@ template(name="header")
             +account
 
 template(name="account")
-  if auth
+  if currentUser
     a(href="")#logOut Sign Out
       span.glyphicon.glyphicon-log-out

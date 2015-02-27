@@ -73,7 +73,7 @@ template(name="comments")
           h3 Comments
         .panel-body.comments-container
           .comment-form
-            if showCommentButton
+            if currentUser
               form#add-comment
                 .row
                   .col-lg-12
@@ -91,7 +91,7 @@ template(name="comments")
                   .row.comment-info
                     .col-lg-6.user
                       p 
-                        a(href="mailto:#{user}") #{user}
+                        a(href="mailto:#{email}") #{email}
                     .col-lg-6.time
                       p #{timeStamp}
 
