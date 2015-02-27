@@ -1,7 +1,7 @@
 .navbar
   min-height 5px
   background-color #FFF
-  border-bottom 2px solid #1BAA4A
+  border-bottom 2px solid secondary
   li > a
   	padding 25px 15px
   	font-size 15px
@@ -11,9 +11,9 @@
 .navbar-default .navbar-nav > li > a
 	font-size 16px
 	&:hover
-		background-color #1BAA4A
+		background-color secondary
 		color #FFF
-		text-shadow 1px 1px 0 rgba(0,0,0, .2)
+		@extend .dark-shadow
 
 .dropdown-menu 
 	> li > a
