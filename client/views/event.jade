@@ -16,9 +16,12 @@ template(name="event")
             .row.fact-sheet
               with event
                 .col-lg-7
-                  p #{Abstract}
+                  if Abstract
+                    p.abstract #{Abstract}
                   if notes
-                    p.notes #{notes}
+                    .notes
+                      h3 Notes
+                      p #{notes}
                   +facts
                 .col-lg-5
                   +map
