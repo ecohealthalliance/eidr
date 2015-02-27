@@ -58,24 +58,31 @@ template(name="statsTable")
 template(name="reference")
   li.list-group-item
     if isPMCID
-      a.ref-link(href="http://www.ncbi.nlm.nih.gov/pmc/articles/{{archiveLocation}}")
+      a.ref-link(href="http://www.ncbi.nlm.nih.gov/pmc/articles/{{archiveLocation}}" target="_blank")
         +author
         span.glyphicon.glyphicon-link
       +referenceDescription
     else if isPMID
-      a.ref-link(href="http://www.ncbi.nlm.nih.gov/pubmed/{{archiveLocation}}")
+      a.ref-link(href="http://www.ncbi.nlm.nih.gov/pubmed/{{archiveLocation}}" target="_blank")
         +author
         span.glyphicon.glyphicon-link
       +referenceDescription
-    else if rights
-      +author
+    else if url
+      a(href="{{url}}" target="_blank")
+        +author
       +referenceDescription
     else
       b #{this}
+    a.ref-link(href="https://www.zotero.org/groups/252452/items/itemKey/{{key}}" target="_blank") Zotero
 
 template(name="author")
-  h2 {{formatAuthor}}
+  if creators
+    if date
+      h2 {{formatAuthor}}, {{date}}
+    else
+      h2 {{formatAuthor}}
+  else if date
+    h2 {{date}}
 
 template(name="referenceDescription")
-  p.date #{date}
   p #{title}
