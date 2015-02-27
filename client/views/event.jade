@@ -28,7 +28,7 @@ template(name="event")
       with event
         .col-lg-12
           +tables economicStats=economicStats event=this
-  .container.comments
+  .container.comments-wrap
     +comments
 
 
@@ -67,24 +67,34 @@ template(name="facts")
 
 template(name="comments")
   .row
-    .col-lg-9
+    .col-lg-7
       .panel.panel-default
         .panel-heading
           h3 Comments
-        .panel-body
-          if showCommentButton
-            form#add-comment
-              .row
-                .col-lg-10
-                  textarea.form-control.comment(name="comment" class="new-comment" placeholder="General comment about this event.")
-              .row
-                .col-lg-6.col-sm-12
-                  button.btn.btn-primary.btn-lg.btn-block(type="submit") Add comment
-          else
-            a.btn.btn-primary(href='../sign-in') Sign in to add comment
+        .panel-body.comments-container
+          .comment-form
+            if showCommentButton
+              form#add-comment
+                .row
+                  .col-lg-12
+                    textarea.form-control.new-comment(name="comment" placeholder="General comment about this event.")
+                .row
+                  .col-lg-6.col-sm-12
+                    button.btn.btn-primary.btn-lg.btn-block(type="submit") Add comment
+            else
+              a.btn.btn-primary.btn-lg(href='../sign-in') Sign in to comment
           if checkComments
-            ul
+            ul.list-group.comment-list
               each comments
-                li #{comment}
+                li.list-group-item.comment
+                  p #{comment}
+                  .row.comment-info
+                    .col-lg-6.user
+                      p 
+                        a(href="mailto:#{user}") #{user}
+                    .col-lg-6.time
+                      p #{timeStamp}
+
+
 
 
