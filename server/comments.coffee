@@ -1,2 +1,2 @@
-Meteor.publish "comments", () ->
-  grid.Comments.find()
+Meteor.publish "comments", (eventID) ->
+  grid.Comments.find({"event": eventID})
