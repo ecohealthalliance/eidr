@@ -44,5 +44,4 @@ Router.route "/eventMap",
   data: () ->
     events: Events().find()
 
-Router.route "/sign-in",
-  name: 'signIn'
+AccountsTemplates.configureRoute('signIn');

@@ -72,7 +72,7 @@ template(name="comments")
         .panel-heading
           h3 Comments
         .panel-body
-          if showCommentButton
+          if currentUser
             .row
               .col-lg-10
                 textarea.form-control.comment(name="comment" class="new-comment" placeholder="General comment about this event.")
