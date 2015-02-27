@@ -70,6 +70,7 @@ template(name="reference")
     else if url
       a(href="{{url}}" target="_blank")
         +author
+        span.glyphicon.glyphicon-link
       +referenceDescription
     else
       b #{this}
