@@ -16,17 +16,15 @@ template(name="tables")
         .panel-heading
           h3 Economics
         +statsTable stats=economicsStats event=event className='table-striped'
-  .row
-    if event.eidDiscussion
-      .col-lg-6
+  if event.eidDiscussionVal
+    .row
+      .col-lg-7
         .panel.panel-default.references
           .panel-heading
             h3 Discussion
           .panel-body
-            p #{event.eidDiscussion}
-      .col-lg-6
-        +references
-    else 
+            p #{event.eidDiscussionVal}
+  .row
       .col-lg-7
         +references
 
