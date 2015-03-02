@@ -3,11 +3,11 @@ Template.event.isEID = () ->
 
 Template.event.rendered = () ->
 	$('[data-toggle="tooltip"]').tooltip(container: 'body', placement: 'bottom')
-	$('[data-toggle="popover"]').popover(container: 'body', placement: 'bottom')
+	$('[data-toggle="popover"]').popover(container: 'body', placement: 'auto right')
 	$('[data-toggle="popover-quote"]').popover
 		template: '<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content quote-text"></div></div>'
 		container: 'body'
-		placement: 'bottom'
+		placement: 'auto right'
 	return
 
 Template.event.helpers 
