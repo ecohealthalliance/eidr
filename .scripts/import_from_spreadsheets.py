@@ -54,7 +54,7 @@ def import_fields(file, db):
       d['order'] = order
       order = order + 1
       parsedDropdownExplanations = dict()
-      dropdownExplanations = d['dropdownExplanations'].split(",")
+      dropdownExplanations = d['dropdownExplanations'].split(";")
       for exp in dropdownExplanations:
         if ":" in exp:
           key, val = exp.strip().split(":")
