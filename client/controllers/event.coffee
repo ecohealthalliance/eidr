@@ -7,15 +7,17 @@ Template.event.helpers
 		@approxDate = reg.exec(@eventNameVal)[1].split(',')[1].trim()
 		@eventNameVal.replace(reg, '')
 	displayDates : ->
-		if @startDateISO and @startDateISO isnt "NF" and @endDateISO and @endDateISO isnt "NF"
-			startYear = @startDateISO.substring(0,4)
-			endYear = @endDateISO.substring(0,4)
-			if @startDateISO.substring(0,4) == @endDateISO.substring(0,4)
+		if @startDateISOVal and @startDateISOVal isnt "NF" and @endDateISOVal and @endDateISOVal isnt "NF"
+			startYear = @startDateISOVal.substring(0,4)
+			endYear = @endDateISOVal.substring(0,4)
+			if @startDateISOVal.substring(0,4) == @endDateISOVal.substring(0,4)
 				startYear
 			else 
 				startYear + " - " + endYear
-		else
-			"Approximate date: "+ @approxDate.substring(0,4)
+		else if @startDateISOValVal
+			"Approximate date: "+ @startDateISOValVal.substring(0,4)
+		else 
+			"Date not found"
 	locationList : (locations) ->
     if locations
       prefix = if locations?.length > 1 then 'Locations: ' else 'Location: '
