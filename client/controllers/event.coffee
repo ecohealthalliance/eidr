@@ -34,10 +34,10 @@ Template.event.helpers
 Template.facts.helpers
 	icons : ->
 		@eventTransmissionVal.split(',').map (icon) ->
+			icon = icon.trim()
 			if icon is 'NF'
 				description = 'Transmission method not found'
 			else
 				description = @grid.Fields.findOne({"displayName" : "Event Transmission"})['dropdownExplanations'][icon]
-			iconName = icon.trim().split(" ")[0]
-			className: "type-"+iconName
-			fullName: icon.trim().charAt(0).toUpperCase()+icon.substr(1)+': ' + description
+			className: "type-"+icon.split(" ")[0]
+			fullName: icon.charAt(0).toUpperCase()+icon.substr(1)+': ' + description
