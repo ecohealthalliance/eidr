@@ -1,15 +1,12 @@
-.icons
-  font-family icons
-
 subtle-green = #EEF8F5
 table-border = 1px solid #DDD
+
 .event
   .table
       td:first-child
         width 40%
         border-right 1px solid #DDD
         padding-right 20px
-  
 
 .event-wrap
   margin-bottom 20px
@@ -42,11 +39,16 @@ table-border = 1px solid #DDD
 .basic-info
   margin-bottom 20px
 
+.notes
+  margin-bottom 30px
+  h3
+    color #666
+
 .tables 
   td:first-child
     width 40%
     border-right table-border
-    padding-right 20px
+    padding-right 25px
   td
     position relative
   td:last-child
@@ -96,89 +98,3 @@ table-border = 1px solid #DDD
   &:hover
     text-decoration none
 
-.transmission-icons
-  li
-    @extend .icons
-    font-size 65px
-    color #333
-    padding 0 5px
-    display inline-block
-    line-height 65px
-  .type-close
-    &::before
-      content "c"
-  .type-vector
-    &::before
-      content "v"
-  .type-vertical
-    &::before
-      content "u"
-  .type-NF
-    &::before
-      content "n"
-  .type-nosocomial
-    &::before
-      content "h"
-  .type-unknown
-    &::before
-      content "u"
-  .type-airborne
-    &::before
-      content "a"
-  .type-transmission
-    &::before
-      content "t"
-  .type-foodborne
-    &::before
-      content "f"      
-  .type-sexual
-    &::before
-      content "s"    
-
-.icon-wrap
-  position absolute
-  right 0
-  top 0
-  bottom 0
-  text-align right
-  color #CCC
-  span
-    &:hover
-      color #1BAA4A
-
-.right-icon
-  display inline-block
-  font-size 20px
-  margin-right 6px
-  margin-top 6px
-  cursor  pointer
-
-.description-wrap
-  position: absolute
-  top 0
-  bottom 0
-  width 20px
-  right 0
-  &:hover
-    color #1BAA4A
-  
-.description
-  position absolute
-  right 10px
-  top 8px
-  &::before
-    content 'i'
-    @extend .icons
-    display inline-block
-.reference
-  @extend .right-icon
-  &::before
-    content 'r'
-    @extend .icons
-    display inline-block
-.quote
-  @extend .right-icon
-  &::before
-    content 'Q'
-    @extend .icons
-    display inline-block

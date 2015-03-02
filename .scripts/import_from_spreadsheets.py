@@ -119,40 +119,6 @@ def find_zotero_ref(ref, zoteroItems):
     except Exception as e:
       return None
 
-REFERENCE_FIELDS = [
-  'refEIDCategory',
-  'refAbstract',
-  'refDriver',
-  'refDiseaseValPrecis',
-  'refPubDateISO',
-  'refStartDate',
-  'refEndDate',
-  'refDuration',
-  'refNumberInfected',
-  'refNumDeaths',
-  'refEventTransmissionVal',
-  'refGeneralTransmissionVal',
-  'refReportedSymptomsVal',
-  'refSampleType',
-  'refReportedZoonoticType',
-  'refHostAge',
-  'refHostUse',
-  'refInitiallyReportedPathogenNameVal',
-  'refPathogenSpecies',
-  'refHost',
-  'refInitiallyReportedHostVal',
-  'refLocationLocationName',
-  'refLocationName',
-  'refLocationCity',
-  'refLocationSubnationalRegion',
-  'refLocationNation',
-  'occupationRef',
-  'refAvgAgeOfInfectedrefAvgAgeDeath',
-  'refNumHospitalized',
-  'refPerCapitaNationalGDPInYearOfEvent',
-  'refAvgLifeExpectancyInCountryAndYearOfEvent',
-]
-
 REFS_TO_REPLACE = {
   '^NIH$': 1087,
   '^CDC$': 1088,
@@ -181,40 +147,41 @@ def import_refs(db, zot):
     eidID = event.get('eidID')
     
     eventReferences = {}
-    for refField in REFERENCE_FIELDS:
-      refStrings = []
-      if event.get(refField):
-        for ref in event.get(refField).split(','):
-          if not ref.strip() in refStrings:
-            refStrings.append(ref.strip())
+    for refField in event.keys():
+      if 'ref' in refField[0:3] and not 'references' in refField:
+        refStrings = []
+        if event.get(refField):
+          for ref in event.get(refField).split(','):
+            if not ref.strip() in refStrings:
+              refStrings.append(ref.strip())
 
-      references = []
-      for ref in refStrings:
-        if re.match('^\{?[\d]{1,4}\}?\)?$', ref):
-          if find_zotero_ref(ref.replace('{', '').replace('}', ''), items):
-            references.append(int(ref.replace('{', '').replace('}', '')))
-          else:
-            if len(references) > 0 and type(references[-1]) != dict and re.match("^[\d]{4}\}?\)?$", ref):
-              # could be date to reattach to the previous ref
-              references[-1] = "%s, %s" % (references[-1], ref)
+        references = []
+        for ref in refStrings:
+          if re.match('^\{?[\d]{1,4}\}?\)?$', ref):
+            if find_zotero_ref(ref.replace('{', '').replace('}', ''), items):
+              references.append(int(ref.replace('{', '').replace('}', '')))
             else:
-              print "%s: no zotero reference for %s" % (eidID, ref)
-        else:
-          matched = False
-          for refPattern, zoteroId in REFS_TO_REPLACE.iteritems():
-            if re.match(refPattern, ref):
-              if find_zotero_ref(zoteroId, items):
-                if not zoteroId in references:
-                  references.append(zoteroId)
+              if len(references) > 0 and type(references[-1]) != dict and re.match("^[\d]{4}\}?\)?$", ref):
+                # could be date to reattach to the previous ref
+                references[-1] = "%s, %s" % (references[-1], ref)
               else:
-                print "%s: no zotero reference for %s, replaced with %s" % (eidID, ref, zoteroId)
-              matched = True
-              break
-          if not matched:
-            # this is a string reference
-            references.append(ref)
-      field = refField[3:6].lower() + refField[6:]
-      eventReferences[field] = references
+                print "%s: no zotero reference for %s" % (eidID, ref)
+          else:
+            matched = False
+            for refPattern, zoteroId in REFS_TO_REPLACE.iteritems():
+              if re.match(refPattern, ref):
+                if find_zotero_ref(zoteroId, items):
+                  if not zoteroId in references:
+                    references.append(zoteroId)
+                else:
+                  print "%s: no zotero reference for %s, replaced with %s" % (eidID, ref, zoteroId)
+                matched = True
+                break
+            if not matched:
+              # this is a string reference
+              references.append(ref)
+        field = refField[3:6].lower() + refField[6:]
+        eventReferences[field] = references
     events.update({'_id': event['_id']}, {'$set': {"references": eventReferences}})
 
 if __name__ == "__main__":

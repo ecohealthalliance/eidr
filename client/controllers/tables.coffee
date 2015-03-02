@@ -25,9 +25,9 @@ Template.statsTable.getQuote = (event) ->
 Template.statsTable.getReference = (event) ->
   fieldName = @spreadsheetName.slice(0, -3) # cut off "Val"
   zoteroIds = event.references[fieldName]
-  refs = _.map zoteroIds, (zoteroId) ->
-    references().findOne({zoteroId: zoteroId})
-  ("#{ref.title}" for ref in refs).join(", ")
+  refs = _.map zoteroIds, (zoteroIdOrString) ->
+    references().findOne({zoteroId: zoteroIdOrString})?.title or zoteroIdOrString
+  refs.join(", ")
   
 
 Template.tables.stats = () ->
