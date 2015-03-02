@@ -1,5 +1,8 @@
 fields = () =>
   @grid.Fields
+  
+references = () =>
+  @grid.References
 
 Template.statsTable.showStat = (key, object) ->
   object[key] isnt 'undefined' and object[key] isnt '' and object[key] isnt 'NF' and object[key] isnt 'NAP'
@@ -14,6 +17,18 @@ Template.statsTable.getDescription = (event) ->
     "#{@description} (#{val}: #{explanation})"
   else
     @description
+
+Template.statsTable.getQuote = (event) ->
+  if @Quotations isnt 0 and @Quotations isnt ''
+    Template.statsTable.getVal(@Quotations, event)
+    
+Template.statsTable.getReference = (event) ->
+  fieldName = @spreadsheetName.slice(0, -3) # cut off "Val"
+  zoteroIds = event.references[fieldName]
+  refs = _.map zoteroIds, (zoteroId) ->
+    references().findOne({zoteroId: zoteroId})
+  ("#{ref.title}" for ref in refs).join(", ")
+  
 
 Template.tables.stats = () ->
   fields().find({"tab": "Stats"}, {"sort": {"order": 1}})
@@ -35,3 +50,4 @@ Template.reference.isPMCID = () ->
 
 Template.reference.isPMID = () ->
   @archive is 'PMID'
+

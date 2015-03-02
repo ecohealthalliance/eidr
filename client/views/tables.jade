@@ -17,44 +17,73 @@ template(name="tables")
           h3 Economics
         +statsTable stats=economicsStats event=event className='table-striped'
   .row
-    .col-lg-7
-      .panel.panel-default.references
-        .panel-heading
-          h3.panel-title References
-        ul.list-group
-          each event.references
-            +reference
+    if event.eidDiscussion
+      .col-lg-6
+        .panel.panel-default.references
+          .panel-heading
+            h3 Discussion
+          .panel-body
+            p #{event.eidDiscussion}
+      .col-lg-6
+        +references
+    else 
+      .col-lg-7
+        +references
+
+template(name="references")
+  .panel.panel-default.references
+    .panel-heading
+      h3 References
+    ul.list-group
+      each getReferences
+        +reference
 
 template(name="statsTable")
   table.table(class=className)
     tbody
       each stats
         if showStat spreadsheetName ../event
-            tr.stats-field(data-toggle="tooltip", data-placement="bottom", title="{{getDescription ../event}}")
-              td #{displayName} 
-              td {{getVal spreadsheetName ../event}}
+          tr.stats-field
+            td #{displayName}
+              .icon-wrap
+                .description-wrap(data-toggle="tooltip" title="{{getDescription ../event}}")
+                  span.description
+            td {{getVal spreadsheetName ../event}}
+              .icon-wrap
+                  if getReference ../event
+                    span.reference(data-toggle="tooltip", data-placement="bottom", title="{{getReference ../event}}")
+                  if getQuote ../event
+                    span.quote(data-toggle="popover" data-content="{{getQuote ../event}}")
 
 template(name="reference")
   li.list-group-item
     if isPMCID
-      a.ref-link(href="http://www.ncbi.nlm.nih.gov/pmc/articles/{{archiveLocation}}")
+      a.ref-link(href="http://www.ncbi.nlm.nih.gov/pmc/articles/{{archiveLocation}}" target="_blank")
         +author
         span.glyphicon.glyphicon-link
       +referenceDescription
     else if isPMID
-      a.ref-link(href="http://www.ncbi.nlm.nih.gov/pubmed/{{archiveLocation}}")
+      a.ref-link(href="http://www.ncbi.nlm.nih.gov/pubmed/{{archiveLocation}}" target="_blank")
         +author
         span.glyphicon.glyphicon-link
       +referenceDescription
-    else if rights
-      +author
+    else if url
+      a(href="{{url}}" target="_blank")
+        +author
+        span.glyphicon.glyphicon-link
       +referenceDescription
     else
       b #{this}
+    a.ref-link(href="https://www.zotero.org/groups/252452/items/itemKey/{{key}}" target="_blank") Zotero
 
 template(name="author")
-  h2 {{formatAuthor}}
+  if creators
+    if date
+      h2 {{formatAuthor}}, {{date}}
+    else
+      h2 {{formatAuthor}}
+  else if date
+    h2 {{date}}
 
 template(name="referenceDescription")
-  p.date #{date}
   p #{title}

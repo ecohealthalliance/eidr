@@ -1,4 +1,15 @@
+.icons
+  font-family icons
+
 subtle-green = #EEF8F5
+table-border = 1px solid #DDD
+.event
+  .table
+      td:first-child
+        width 40%
+        border-right 1px solid #DDD
+        padding-right 20px
+  
 
 .event-wrap
   margin-bottom 20px
@@ -30,42 +41,44 @@ subtle-green = #EEF8F5
 
 .basic-info
   margin-bottom 20px
-  
+
 .tables 
   td:first-child
     width 40%
-    border-right 1px solid #DDD
+    border-right table-border
+    padding-right 20px
+  td
+    position relative
+  td:last-child
+    padding-right 80px
   
 .location-list
   width 450px
   tr:first-child td
     border-top 0
+  td
+    position relative
   
 .main-facts
   margin: 20px 0
-  border-radius 5px
+  text-align center
+  margin-bottom 40px
+  th, td
+    border-right table-border
+    text-align center
+  th
+    font-size 16px
+    border-bottom table-border
+  th:last-child,
+  td:last-child
+    border-right 0
   &:after
     clear both
     content ''
     display block
-    
-.main-fact
-  min-height 125px
-  border-right 1px solid #CCC
-  padding 0
-  text-align center
-  dt
-    border-bottom: 1px solid #CCC
-    padding 5px
-    font-size 16px
-  dd
-    padding 15px 10px 10px 10px
-  &:last-child
-    border 0
+  .lrg
+    font-size 18px
 
-dd.lrg
-  font-size 18px
-  
 .attention
   background-color #f8ecec
   
@@ -85,11 +98,12 @@ dd.lrg
 
 .transmission-icons
   li
-    font-family icons
+    @extend .icons
     font-size 65px
     color #333
     padding 0 5px
     display inline-block
+    line-height 65px
   .type-close
     &::before
       content "c"
@@ -98,7 +112,7 @@ dd.lrg
       content "v"
   .type-vertical
     &::before
-      content "u"        
+      content "u"
   .type-NF
     &::before
       content "n"
@@ -119,6 +133,52 @@ dd.lrg
       content "f"      
   .type-sexual
     &::before
-      content "s"
-  
+      content "s"    
 
+.icon-wrap
+  position absolute
+  right 0
+  top 0
+  bottom 0
+  text-align right
+  color #CCC
+  span
+    &:hover
+      color #1BAA4A
+
+.right-icon
+  display inline-block
+  font-size 20px
+  margin-right 6px
+  margin-top 6px
+  cursor  pointer
+
+.description-wrap
+  position: absolute
+  top 0
+  bottom 0
+  width 20px
+  right 0
+  &:hover
+    color #1BAA4A
+  
+.description
+  position absolute
+  right 10px
+  top 8px
+  &::before
+    content 'i'
+    @extend .icons
+    display inline-block
+.reference
+  @extend .right-icon
+  &::before
+    content 'r'
+    @extend .icons
+    display inline-block
+.quote
+  @extend .right-icon
+  &::before
+    content 'Q'
+    @extend .icons
+    display inline-block

@@ -1,6 +1,11 @@
 Template.event.isEID = () ->
   @event?.eidVal is "1"
 
+Template.event.rendered = () ->
+	$('[data-toggle="tooltip"]').tooltip(container: 'body', placement: 'bottom')
+	$('[data-toggle="popover"]').popover(container: 'body', placement: 'bottom')
+	return
+
 Template.event.helpers 
 	simpleTitle : ->
 		reg = /\(([^)]+)\)/
@@ -29,6 +34,6 @@ Template.facts.helpers
 				description = 'Transmission method not found'
 			else
 				description = @grid.Fields.findOne({"displayName" : "Event Transmission"})['dropdownExplanations'][icon]
-			className: "type-"+icon.trim().split(" ")[0]
-			fullName: icon + ': ' + description
-			
+			iconName = icon.trim().split(" ")[0]
+			className: "type-"+iconName
+			fullName: icon.trim().charAt(0).toUpperCase()+icon.substr(1)+': ' + description
