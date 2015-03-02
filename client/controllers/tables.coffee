@@ -11,7 +11,7 @@ Template.statsTable.getVal = (key, object) ->
   object[key]
 
 Template.statsTable.getDescription = (event) ->
-  val = Template.statsTable.getVal(@spreadsheetName, event)
+  val = Template.statsTable.getVal(@spreadsheetName, event).trim()
   explanation = @dropdownExplanations[val]
   if explanation
     "#{@description} (#{val}: #{explanation})"
