@@ -11,10 +11,10 @@ Template.statsTable.getVal = (key, object) ->
   object[key]
 
 Template.statsTable.getDescription = (event) ->
-  val = Template.statsTable.getVal(@spreadsheetName, event).trim()
-  explanation = @dropdownExplanations[val]
-  if explanation
-    "#{@description} (#{val}: #{explanation})"
+  vals = Template.statsTable.getVal(@spreadsheetName, event).trim().split(", ")
+  explanations = ("#{val}: #{@dropdownExplanations[val]}" for val in vals when @dropdownExplanations[val]).join("; ")
+  if explanations
+    "#{@description} (#{explanations})"
   else
     @description
 
