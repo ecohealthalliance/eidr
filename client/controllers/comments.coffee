@@ -8,7 +8,7 @@ Template.comments.events
     grid.Comments.insert
       comment: e.target.comment.value
       event: @event.eidID
-      user: Meteor.user()._id
+      userID: Meteor.user()._id
       username: Meteor.user().username
     e.target.comment.value = ''
     return false

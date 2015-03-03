@@ -2,6 +2,9 @@ Template.account.events
   "click #logOut" : () ->
     Meteor.logout()
 
+AccountsTemplates.configure
+  showForgotPasswordLink: true
+
 AccountsTemplates.addField({
     _id: 'username',
     type: 'text',
@@ -11,5 +14,3 @@ AccountsTemplates.addField({
     required: true,
     minLength: 4
 });
-
-AccountsTemplates.configureRoute()
