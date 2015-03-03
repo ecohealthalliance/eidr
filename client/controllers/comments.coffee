@@ -9,6 +9,6 @@ Template.comments.events
       comment: e.target.comment.value
       event: @event.eidID
       user: Meteor.user()._id
-      email: Meteor.user().emails[0].address
+      username: Meteor.user().username
     e.target.comment.value = ''
     return false

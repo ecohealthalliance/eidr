@@ -89,7 +89,7 @@ template(name="comments")
                   .col-lg-6.col-sm-12
                     button.btn.btn-primary.btn-lg.btn-block(type="submit") Add comment
             else
-              a.btn.btn-primary.btn-lg(href='../sign-in') Sign in to comment
+              {{> atForm }}
           if checkComments
             ul.list-group.comment-list
               each comments
