@@ -49,11 +49,3 @@ Router.route "/eventMap",
     Meteor.subscribe "locations"
   data: () ->
     events: Events().find()
-
-AccountsTemplates.configureRoute('signIn', {
-    redirect: () ->
-})
-
-AccountsTemplates.configureRoute('enrollAccount', {
-    redirect: () ->
-})

@@ -2,6 +2,14 @@ Template.account.events
   "click #logOut" : () ->
     Meteor.logout()
 
+AccountsTemplates.configureRoute('signIn', {
+    redirect: false
+})
+
+AccountsTemplates.configureRoute('enrollAccount', {
+    redirect: false
+})
+
 AccountsTemplates.configure
   showForgotPasswordLink: true
 
