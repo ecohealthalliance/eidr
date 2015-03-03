@@ -15,7 +15,7 @@ Template.event.helpers
 			else 
 				startYear + " - " + endYear
 		else if @startDateISOValVal
-			"Approximate date: "+ @startDateISOValVal.substring(0,4)
+			"Approximate date: "+ @startDateISOVal.substring(0,4)
 		else 
 			"Date not found"
 	locationList : (locations) ->
