@@ -87,7 +87,7 @@ template(name="comments")
                     textarea.form-control.new-comment(name="comment" placeholder="General comment about this event.")
                 .row
                   .col-lg-6.col-sm-12
-                    button.btn.btn-primary.btn-lg.btn-block(type="submit") Add comment
+                    button.btn.btn-primary.btn-lg.btn-block.add-comment(type="submit") Add comment
             else
               {{> atForm }}
           if checkComments
@@ -97,7 +97,6 @@ template(name="comments")
                   p #{comment}
                   .row.comment-info
                     .col-lg-6.user
-                      p 
-                        a(href="mailto:#{email}") #{email}
+                      p #{username}
                     .col-lg-6.time
                       p #{timeStamp}

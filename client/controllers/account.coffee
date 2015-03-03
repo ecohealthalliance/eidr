@@ -11,3 +11,5 @@ AccountsTemplates.addField({
     required: true,
     minLength: 4
 });
+
+AccountsTemplates.configureRoute()
