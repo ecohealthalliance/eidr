@@ -33,6 +33,7 @@ Router.route "/event/:eidID",
     [
       Meteor.subscribe "event", @params.eidID
       Meteor.subscribe "fields"
+      Meteor.subscribe "references", @params.eidID
     ]
   data: () ->
     event: Events().findOne({'eidID': @params.eidID})

@@ -1,6 +1,15 @@
 Template.event.isEID = () ->
   @event?.eidVal is "1"
 
+Template.event.rendered = () ->
+  $('[data-toggle="tooltip"]').tooltip(container: 'body', placement: 'bottom')
+  $('[data-toggle="popover"]').popover(container: 'body', placement: 'auto right')
+  $('[data-toggle="popover-quote"]').popover
+    template: '<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content quote-text"></div></div>'
+    container: 'body'
+    placement: 'auto right'
+  return
+
 Template.event.helpers 
 	simpleTitle : ->
 		reg = /\(([^)]+)\)/
@@ -25,11 +34,14 @@ Template.event.helpers
       "#{prefix}#{list}"
 
 Template.facts.helpers
-	icons : ->
-		@eventTransmissionVal.split(',').map (icon) ->
-			if icon is 'NF'
-				description = 'Transmission method not found'
-			else
-				description = @grid.Fields.findOne({"displayName" : "Event Transmission"})['dropdownExplanations'][icon]
-			className: "type-"+icon.trim().split(" ")[0]
-			fullName: icon + ': ' + description
+  icons : ->
+    @eventTransmissionVal.split(',').map (icon) ->
+      icon = icon.trim()
+      if icon is 'NF'
+        description = 'Transmission method not found'
+        fullName = icon+': ' + description
+      else
+        description = @grid.Fields.findOne({"displayName" : "Event Transmission"})['dropdownExplanations'][icon]
+        fullName = icon.charAt(0).toUpperCase()+icon.substr(1)+': ' + description
+      className: "type-"+icon.split(" ")[0]
+      fullName: fullName

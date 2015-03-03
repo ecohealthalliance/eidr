@@ -1,5 +1,5 @@
 template(name="event")
-  .container-fluid.fact-sheet-wrap.main-content
+  .container-fluid.fact-sheet-wrap.main-content.event
     .container
         .row
           .col-lg-12.event-head
@@ -16,7 +16,12 @@ template(name="event")
             .row.fact-sheet
               with event
                 .col-lg-7
-                  p #{Abstract}
+                  if Abstract
+                    p.abstract #{Abstract}
+                  if notes
+                    .notes
+                      h3 Notes
+                      p #{notes}
                   +facts
                 .col-lg-5
                   +map
@@ -31,34 +36,36 @@ template(name="event")
 
 
 template(name="facts")
-  dl
-    .main-facts
-      .col-lg-4.main-fact.col-sm-6
-        dt Emergence Type
-        dd #{eidCategoryVal}
-      .col-lg-4.main-fact.col-sm-6
-        dt Driver
-        dd #{driverVal}
-      .col-lg-2.main-fact.col-sm-6
-        dt Infected
-        dd.lrg #{numberInfectedVal}
-      .col-lg-2.main-fact.col-sm-6
-        dt Deaths
-        dd.lrg #{numberDeathsVal}
+  table.main-facts.table
+    thead
+      tr
+        th Emergence Type
+        th Driver
+        th Infected
+        th Deaths
+    tbody
+      tr
+        td #{eidCategoryVal}
+        td #{driverVal}
+        td.lrg #{numberInfectedVal}
+        td.lrg #{numberDeathsVal}
 
-    .main-facts
-      .col-lg-6.main-fact
-        dt Event Transmission
-        ul.transmission-icons.list-unstyled
-          each icons
-            li(class="#{className}" title="#{fullName}")
-          else 
-            li.unknown
-
-      if zoonoticTypeVal
-        .col-lg-3.main-fact
-          dt Zoonotic Type
-          dd #{zoonoticTypeVal}
-        .col-lg-3.main-fact
-          dt Host
-          dd #{hostVal}
+  table.main-facts.table(style="width:100%")
+    thead
+      tr
+        th Event Transmission
+        if zoonoticTypeVal
+          th Zoonotic Type
+          th Host
+    tbody
+      tr
+        td 
+          ul.transmission-icons.list-unstyled
+            if icons
+              each icons
+                li(class="#{className}" title="#{fullName}" data-toggle="tooltip")
+            else 
+              li.unknown
+        if zoonoticTypeVal      
+          td #{zoonoticTypeVal}          
+          td #{hostVal}
