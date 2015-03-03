@@ -5,7 +5,10 @@ Fields = () ->
   @grid.Fields
 
 removePopovers = () ->
-  $('.popover').remove()
+  pops = $('.popover')
+  if pops
+    pops.remove()
+  @next()
 
 Router.configure
   layoutTemplate: "layout"
