@@ -5,7 +5,12 @@ references = () =>
   @grid.References
 
 Template.statsTable.showStat = (key, object) ->
-  object[key] isnt 'undefined' and object[key] isnt '' and object[key] isnt 'NF' and object[key] isnt 'NAP'
+  if grid.Fields.findOne({"spreadsheetName" : key}).Quotations isnt 0
+    quote = @Quotations
+  if object[key] isnt 'undefined' and object[key] isnt '' and object[key] isnt 'NAP' and object[key] isnt 'NF'
+    object[key]
+  else if object[key] is 'NF' and object[quote] and (object[quote] isnt 'undefined' or object[quote] isnt '')
+    object[key]
 
 Template.statsTable.getVal = (key, object) ->
   object[key]
