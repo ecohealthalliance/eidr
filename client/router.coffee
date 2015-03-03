@@ -4,6 +4,9 @@ Events = () ->
 Fields = () ->
   @grid.Fields
 
+removePopovers = () ->
+  $('.popover').remove()
+
 Router.configure
   layoutTemplate: "layout"
   loadingTemplate: "loading"
@@ -13,6 +16,7 @@ Router.onRun () ->
     analytics.page @path
   @next()
 
+Router.onBeforeAction(removePopovers)
 
 Router.route "/",
   name: 'splash'
@@ -37,6 +41,7 @@ Router.route "/event/:eidID",
     ]
   data: () ->
     event: Events().findOne({'eidID': @params.eidID})
+
 
 Router.route "/eventMap",
   name: 'eventMap'
