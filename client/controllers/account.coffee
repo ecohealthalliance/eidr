@@ -3,11 +3,11 @@ Template.account.events
     Meteor.logout()
 
 AccountsTemplates.configureRoute('signIn', {
-    redirect: false
+    redirect: () ->
 })
 
 AccountsTemplates.configureRoute('enrollAccount', {
-    redirect: false
+    redirect: () ->
 })
 
 AccountsTemplates.configure
