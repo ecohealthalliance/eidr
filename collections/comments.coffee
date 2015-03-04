@@ -7,4 +7,4 @@ if Meteor.isServer
   Comments.allow
     insert: (userID, doc) ->
       doc.timeStamp = new Date()
-      userID
+      doc.userID = Meteor.user()._id

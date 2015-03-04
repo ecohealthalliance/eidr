@@ -16,7 +16,6 @@ Router.onRun () ->
     analytics.page @path
   @next()
 
-
 Router.route "/",
   name: 'splash'
 
@@ -49,5 +48,3 @@ Router.route "/eventMap",
     Meteor.subscribe "locations"
   data: () ->
     events: Events().find()
-
-AccountsTemplates.configureRoute('signIn');
