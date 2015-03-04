@@ -2,23 +2,35 @@ Template.account.events
   "click #logOut" : () ->
     Meteor.logout()
 
-AccountsTemplates.configureRoute('signIn', {
-    redirect: () ->
-})
+checkPage = () ->
+  if window.location.pathname == '/sign-in'
+        Router.go '/'
 
-AccountsTemplates.configureRoute('enrollAccount', {
-    redirect: () ->
-})
+AccountsTemplates.configureRoute 'signIn',
+  redirect: checkPage
+
+AccountsTemplates.configureRoute 'enrollAccount',
+  redirect: checkPage
+    
 
 AccountsTemplates.configure
   showForgotPasswordLink: true
 
-AccountsTemplates.addField({
-    _id: 'username',
-    type: 'text',
-    placeholder: {
-        signUp: "Username"
-    },
+AccountsTemplates.addFields [
+  {
+    _id: 'username'
+    type: 'text'
+    placeholder:
+      signUp: "Username"
     required: true,
     minLength: 4
-});
+  }
+  {
+    _id: 'email'
+    type: 'email'
+    required: true
+    displayName: "email"
+    re: /.+@(.+){2,}\.(.+){2,}/
+    errStr: 'Invalid email'
+  }
+]
