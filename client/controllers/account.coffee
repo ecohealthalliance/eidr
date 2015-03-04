@@ -25,12 +25,4 @@ AccountsTemplates.addFields [
     required: true,
     minLength: 4
   }
-  {
-    _id: 'email'
-    type: 'email'
-    required: true
-    displayName: "email"
-    re: /.+@(.+){2,}\.(.+){2,}/
-    errStr: 'Invalid email'
-  }
 ]
