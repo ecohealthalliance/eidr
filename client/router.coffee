@@ -16,7 +16,6 @@ Router.onRun () ->
     analytics.page @path
   @next()
 
-
 Router.route "/",
   name: 'splash'
 
