@@ -2,9 +2,16 @@ Template.account.events
   "click #logOut" : () ->
     Meteor.logout()
 
-AccountsTemplates.configureRoute 'signIn', redirect: () ->
+checkPage = () ->
+  if window.location.pathname == '/sign-in'
+        Router.go '/'
 
-AccountsTemplates.configureRoute 'enrollAccount', redirect: () ->
+AccountsTemplates.configureRoute 'signIn',
+  redirect: checkPage
+
+AccountsTemplates.configureRoute 'enrollAccount',
+  redirect: checkPage
+    
 
 AccountsTemplates.configure
   showForgotPasswordLink: true
