@@ -2,11 +2,12 @@ L.Icon.Default.imagePath = "/packages/fuatsengul_leaflet/images"
 
 Template.eventMap.rendered = () ->
   
-  map = L.map('event-map').setView([10, -0], 2)
+  map = L.map('event-map').setView([10, -0], 3)
   
   L.tileLayer('//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 18
     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    noWrap: true
   }).addTo(map);
   
   events = @data.events
