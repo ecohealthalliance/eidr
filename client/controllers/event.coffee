@@ -16,7 +16,6 @@ Template.event.helpers
 		@approxDate = reg.exec(@eventNameVal)[1].split(',')[1].trim()
 		@eventNameVal.replace(reg, '')
 	displayDates : ->
-		if (@startDateISOVal and @startDateISOVal isnt "NF") or (@endDateISOVal and @endDateISOVal isnt "NF")
       startYear = @startDateISOVal.substring(0,4)
       endYear = @endDateISOVal.substring(0,4)
       console.log startYear+" "+endYear
@@ -24,12 +23,13 @@ Template.event.helpers
         startYear
       else if startYear isnt "NF" and endYear isnt "NF"
         startYear + " - " + endYear
-      else if startYear and (!endYear or endYear is "NF")
+      else if startYear and startYear isnt "NF" and (!endYear or endYear == "NF")
+        console.log "asdfgasdfsdfasdfassdf"
         startYear
-      else if endYear and (!startYear or startYear is "NF")
+      else if endYear and endYear isnt "NF" and (!startYear or startYear is "NF")
         endYear
-		else
-      "Date not found"
+      else
+        "Date not found"
 	locationList : (locations) ->
     if locations
       prefix = if locations?.length > 1 then 'Locations: ' else 'Location: '
