@@ -9,6 +9,9 @@ removePopovers = () ->
   if pops
     pops.remove()
   @next()
+  
+Comments = () ->
+  @grid.Comments
 
 Router.configure
   layoutTemplate: "layout"
@@ -40,10 +43,12 @@ Router.route "/event/:eidID",
     [
       Meteor.subscribe "event", @params.eidID
       Meteor.subscribe "fields"
+      Meteor.subscribe "comments", @params.eidID
       Meteor.subscribe "references", @params.eidID
     ]
   data: () ->
     event: Events().findOne({'eidID': @params.eidID})
+    comments: Comments().find({'event': @params.eidID}, {sort: {timeStamp: -1}})
 
 
 Router.route "/eventMap",
