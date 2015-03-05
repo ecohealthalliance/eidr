@@ -5,7 +5,9 @@ Meteor.startup () ->
       { '$set': {
         clientId: Meteor.settings.google_oauth_client_id
         secret: Meteor.settings.google_oauth_client_secret
-        hd: "ecohealthalliance.org"
       }}
       { upsert: true }
     )
+
+Accounts.config
+ restrictCreationByEmailDomain: "ecohealthalliance.org"
