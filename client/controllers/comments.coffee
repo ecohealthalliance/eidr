@@ -11,5 +11,5 @@ Template.comments.events
         comment: e.target.comment.value
         event: @event.eidID
         userID: Meteor.user()._id
-        username: Meteor.user().username
+        username: Meteor.user().profile?.name
       e.target.comment.value = ''
