@@ -11,26 +11,22 @@ Template.event.rendered = () ->
   return
 
 Template.event.helpers 
-	simpleTitle : ->
-		reg = /\(([^)]+)\)/
-		@approxDate = reg.exec(@eventNameVal)[1].split(',')[1].trim()
-		@eventNameVal.replace(reg, '')
-	displayDates : ->
+  simpleTitle : ->
+    @eventNameVal.replace(/\(([^)]+)\)/, '')
+  displayDates : ->
       startYear = @startDateISOVal.substring(0,4)
       endYear = @endDateISOVal.substring(0,4)
-      console.log startYear+" "+endYear
       if startYear == endYear and startYear isnt "NF"
         startYear
       else if startYear isnt "NF" and endYear isnt "NF"
         startYear + " - " + endYear
       else if startYear and startYear isnt "NF" and (!endYear or endYear == "NF")
-        console.log "asdfgasdfsdfasdfassdf"
         startYear
       else if endYear and endYear isnt "NF" and (!startYear or startYear is "NF")
         endYear
       else
         "Date not found"
-	locationList : (locations) ->
+  locationList : (locations) ->
     if locations
       prefix = if locations?.length > 1 then 'Locations: ' else 'Location: '
       list = (location[location.fieldUsed] for location in locations).join(", ")
