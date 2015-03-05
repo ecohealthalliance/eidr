@@ -3,8 +3,9 @@ Meteor.startup () ->
     ServiceConfiguration.configurations.update(
       { service: 'google' }
       { '$set': {
-        appId: Meteor.settings.google_oauth_client_id
+        clientId: Meteor.settings.google_oauth_client_id
         secret: Meteor.settings.google_oauth_client_secret
+        hd: "ecohealthalliance.org"
       }}
       { upsert: true }
     )
