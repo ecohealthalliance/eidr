@@ -16,4 +16,5 @@ fortawesome:fontawesome
 aslagle:reactive-table
 fuatsengul:leaflet
 useraccounts:bootstrap
-accounts-password
+service-configuration
+accounts-google
