@@ -4,13 +4,11 @@ Events = () ->
 Fields = () ->
   @grid.Fields
 
-signInRedirect = () ->
-  if !Meteor.user()
-    @redirect('/sign-in')
-
 downloadCSV = () ->
-  @response.setHeader('Content-Type', 'text/csv')
   
+  unless @userId
+    throw new Meteor.Error(403, "Must be signed in to download data")
+
   fields = Fields().find().fetch()
   events = Events().find({eidVal: "1"}, {sort: {eidID: 1}}).fetch()
 
@@ -20,13 +18,12 @@ downloadCSV = () ->
   for event in events
     csvRows.push ("\"#{event[field.spreadsheetName] or ''}\"" for field in fields).join(",")
 
-  @response.end(csvRows.join("\n"))
-
-Router.route "/sicki-grid.csv", onBeforeAction: signInRedirect, downloadCSV, {where: 'server'}
+  csvRows.join("\n")
 
 
 downloadJSON = () ->
-  @response.setHeader('Content-Type', 'application/json')
+  unless @userId
+    throw new Meteor.Error(403, "Must be signed in to download data")
   
   fields = Fields().find().fetch()
   events = Events().find({eidVal: "1"}, {sort: {eidID: 1}}).fetch()
@@ -40,6 +37,8 @@ downloadJSON = () ->
       
       eventsOutput.push eventObject
       
-  @response.end(JSON.stringify(eventsOutput))
+  JSON.stringify(eventsOutput)
     
-Router.route "sicki-grid.json", onBeforeAction: signInRedirect, downloadJSON, {where: 'server'}
+Meteor.methods
+  downloadCSV: downloadCSV
+  downloadJSON: downloadJSON

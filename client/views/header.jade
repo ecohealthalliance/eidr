@@ -20,15 +20,15 @@ template(name="header")
             a(href="{{pathFor 'about'}}") About
           li
             a(href="{{pathFor 'events'}}") Emergence Events
-          if checkUser
+          if currentUser
             li.dropdown
               a.dropdown-toggle(href="#" data-toggle="dropdown") Download
                 span.caret
               ul.dropdown-menu(role="menu")
                 li
-                  a(href="{{pathFor 'sicki-grid.csv'}}", target="_blank") CSV
+                  a(href="{{pathFor 'downloadCSV'}}") CSV
                 li
-                  a(href="{{pathFor 'sicki-grid.json'}}", target="_blank") JSON
+                  a(href="{{pathFor 'downloadJSON'}}") JSON
           li
             a(href="{{pathFor 'eventMap'}}") Event Map
           li
