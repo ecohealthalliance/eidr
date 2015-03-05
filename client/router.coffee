@@ -4,6 +4,9 @@ Events = () ->
 Fields = () ->
   @grid.Fields
 
+Comments = () ->
+  @grid.Comments
+
 Router.configure
   layoutTemplate: "layout"
   loadingTemplate: "loading"
@@ -12,7 +15,6 @@ Router.onRun () ->
   if Session.equals('AnalyticsJS_loaded', true)
     analytics.page @path
   @next()
-
 
 Router.route "/",
   name: 'splash'
@@ -33,10 +35,12 @@ Router.route "/event/:eidID",
     [
       Meteor.subscribe "event", @params.eidID
       Meteor.subscribe "fields"
+      Meteor.subscribe "comments", @params.eidID
       Meteor.subscribe "references", @params.eidID
     ]
   data: () ->
     event: Events().findOne({'eidID': @params.eidID})
+    comments: Comments().find({'event': @params.eidID}, {sort: {timeStamp: -1}})
 
 Router.route "/eventMap",
   name: 'eventMap'

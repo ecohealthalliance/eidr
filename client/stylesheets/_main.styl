@@ -1,6 +1,6 @@
 primary = #d26b32
 primaryLight = #FED18C
-secondary = #427daa
+secondary = #26A94E
 secondaryLight = #EEF8F5
 tableRadius = 5px
 
@@ -33,6 +33,12 @@ tr
 	&:hover
 		transition .2s
 
+.main-btn
+  background-color secondary
+  border 1px solid secondary
+  &:hover
+  	background-color darken(secondary, 10%)
+
 .btn
 	text-shadow 1px 1px 0 rgba(0,0,0, .2)
 	letter-spacing .03em
@@ -64,7 +70,10 @@ table tr:last-child
 .table-icon
 	font-size 15px
 	color #CCC
-	
+
+.panel
+	overflow hidden	
+
 .panel-heading
 	h3
 		margin 0
@@ -84,4 +93,3 @@ table tr:last-child
   min-width 300px
 	.quote-text
 		font-style italic
-	
