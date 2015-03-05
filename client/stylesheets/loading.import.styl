@@ -1,20 +1,20 @@
 .loading
   text-align center
-  &::before,
-  &::after
-    color #CCC
+  color #CCC
+  p
+    font-size 16px
+    font-weight 300
+    margin 10px 0 0 0
   &::before
     font-family icons
     content "L"
     display block
     font-size 200px
+    line-height 200px
     -moz-animation spin 2s infinite linear
     -o-animation spin 2s infinite linear
     -webkit-animation spin 2s infinite linear
     animation spin 2s infinite linear
-  &::after
-    content "Loading"
-    display block
 
 @-moz-keyframes spin
   from

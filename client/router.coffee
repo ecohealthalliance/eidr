@@ -12,6 +12,9 @@ removePopovers = () ->
   if pops
     pops.remove()
   @next()
+  
+Comments = () ->
+  @grid.Comments
 
 Router.configure
   layoutTemplate: "layout"

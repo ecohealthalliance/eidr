@@ -86,10 +86,10 @@ template(name="comments")
                   .col-lg-12
                     textarea.form-control.new-comment(name="comment" placeholder="General comment about this event.")
                 .row
-                  .col-lg-6.col-sm-12
+                  .col-lg-4.col-lg-offset-8.col-sm-12
                     button.btn.btn-primary.btn-lg.btn-block.add-comment(type="submit") Add comment
             else
-              {{> atForm }}
+              +atForm
           if checkComments
             ul.list-group.comment-list
               each comments
