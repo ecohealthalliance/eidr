@@ -33,7 +33,14 @@ Template.statsTable.getReference = (event) ->
   refs = _.map zoteroIds, (zoteroIdOrString) ->
     references().findOne({zoteroId: zoteroIdOrString})?.title or zoteroIdOrString
   refs.join(", ")
-  
+
+Template.tables.checkStats = (table, event) ->
+  values = []
+  table.forEach (t) ->
+    value = Template.statsTable.getVal(t.spreadsheetName, event)
+    if (value and value != 'NF' and value != 'NAP')
+      values.push(value)
+  values.length > 0
 
 Template.tables.stats = () ->
   fields().find({"tab": "Stats"}, {"sort": {"order": 1}})
