@@ -24,6 +24,7 @@ download = () ->
         output = _.unique(element[field.spreadsheetName] for element in array).join(", ")
       else
         output = event[field.spreadsheetName] or ''
+      output = output.replace(/\"/g, "\"\"")
       row.push "\"#{output}\""
     csvRows.push row.join(",")
 
