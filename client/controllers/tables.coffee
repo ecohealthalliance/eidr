@@ -38,7 +38,7 @@ Template.tables.checkStats = (table, event) ->
   values = []
   table.forEach (t) ->
     value = Template.statsTable.getVal(t.spreadsheetName, event)
-    if (value and value != 'NF' and value != 'NAP')
+    if (value and value isnt 'NF' and value isnt 'NAP')
       values.push(value)
   values.length > 0
 
