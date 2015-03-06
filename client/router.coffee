@@ -71,11 +71,12 @@ Router.route "/download",
     @render('preparingDownload')
     controller = @
     Meteor.call('download', (err, result) ->
-      csvData = "data:text/csv;charset=utf-8," + result.csv
-      jsonData = "data:application/json;charset=utf-8," + result.json
-      controller.render('download', 
-        data:
-          jsonData: encodeURI(jsonData)
-          csvData: encodeURI(csvData)
-      )
+      unless err
+        csvData = "data:text/csv;charset=utf-8," + result.csv
+        jsonData = "data:application/json;charset=utf-8," + result.json
+        controller.render('download', 
+          data:
+            jsonData: encodeURI(jsonData)
+            csvData: encodeURI(csvData)
+        )
     )
