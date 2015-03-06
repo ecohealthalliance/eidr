@@ -12,19 +12,20 @@ Template.event.rendered = () ->
 
 Template.event.helpers 
   simpleTitle : ->
-    reg = /\(([^)]+)\)/
-    @approxDate = reg.exec(@eventNameVal)[1].split(',')[1].trim()
-    @eventNameVal.replace(reg, '')
+    @eventNameVal.replace(/\(([^)]+)\)/, '')
   displayDates : ->
-    if @startDateISO and @startDateISO isnt "NF" and @endDateISO and @endDateISO isnt "NF"
-      startYear = @startDateISO.substring(0,4)
-      endYear = @endDateISO.substring(0,4)
-      if @startDateISO.substring(0,4) == @endDateISO.substring(0,4)
+      startYear = @startDateISOVal.substring(0,4)
+      endYear = @endDateISOVal.substring(0,4)
+      if startYear == endYear and startYear isnt "NF"
         startYear
-      else 
+      else if startYear isnt "NF" and endYear isnt "NF"
         startYear + " - " + endYear
-    else
-      "Approximate date: "+ @approxDate.substring(0,4)
+      else if startYear and startYear isnt "NF" and (!endYear or endYear == "NF")
+        startYear
+      else if endYear and endYear isnt "NF" and (!startYear or startYear is "NF")
+        endYear
+      else
+        "Date not found"
   locationList : (locations) ->
     if locations
       prefix = if locations?.length > 1 then 'Locations: ' else 'Location: '

@@ -1,0 +1,34 @@
+.loading
+  text-align center
+  color #CCC
+  p
+    font-size 16px
+    font-weight 300
+    margin 10px 0 0 0
+  &::before
+    font-family icons
+    content "L"
+    display block
+    font-size 200px
+    line-height 200px
+    -moz-animation spin 2s infinite linear
+    -o-animation spin 2s infinite linear
+    -webkit-animation spin 2s infinite linear
+    animation spin 2s infinite linear
+
+@-moz-keyframes spin
+  from
+    -moz-transform: rotate(0deg)
+  to 
+    -moz-transform: rotate(360deg)
+@-webkit-keyframes spin
+  from 
+    -webkit-transform: rotate(0deg)
+  to 
+    -webkit-transform: rotate(360deg)
+@keyframes spin
+  from 
+    transform:rotate(0deg)
+  to 
+    transform:rotate(360deg)
+

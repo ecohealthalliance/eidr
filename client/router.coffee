@@ -4,6 +4,12 @@ Events = () ->
 Fields = () ->
   @grid.Fields
 
+removePopovers = () ->
+  pops = $('.popover')
+  if pops
+    pops.remove()
+  @next()
+  
 Comments = () ->
   @grid.Comments
 
@@ -15,6 +21,8 @@ Router.onRun () ->
   if Session.equals('AnalyticsJS_loaded', true)
     analytics.page @path
   @next()
+
+Router.onBeforeAction(removePopovers)
 
 Router.route "/",
   name: 'splash'
@@ -41,6 +49,7 @@ Router.route "/event/:eidID",
   data: () ->
     event: Events().findOne({'eidID': @params.eidID})
     comments: Comments().find({'event': @params.eidID}, {sort: {timeStamp: -1}})
+
 
 Router.route "/eventMap",
   name: 'eventMap'
