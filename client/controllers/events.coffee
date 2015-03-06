@@ -8,7 +8,7 @@ Template.events.settings = () ->
         hidden: field['Event table'] isnt '2'
         fn: (val, object) ->
           if field.arrayName
-            array = object[field.arrayName]
+            array = object[field.arrayName] or []
             output = _.unique(element[field.spreadsheetName] for element in array).join(", ")
           else
             output = val or ''

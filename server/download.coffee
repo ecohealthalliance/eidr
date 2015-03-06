@@ -17,7 +17,15 @@ download = () ->
   
   csvRows = [headerRow]
   for event in events
-    csvRows.push ("\"#{event[field.spreadsheetName] or ''}\"" for field in fields).join(",")
+    row = []
+    for field in fields
+      if field.arrayName
+        array = event[field.arrayName] or []
+        output = _.unique(element[field.spreadsheetName] for element in array).join(", ")
+      else
+        output = event[field.spreadsheetName] or ''
+      row.push "\"#{output}\""
+    csvRows.push row.join(",")
 
   csvData = csvRows.join("\n")
 
