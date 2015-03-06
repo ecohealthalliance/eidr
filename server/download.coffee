@@ -17,20 +17,34 @@ download = () ->
   
   csvRows = [headerRow]
   for event in events
-    csvRows.push ("\"#{event[field.spreadsheetName] or ''}\"" for field in fields).join(",")
+    row = []
+    for field in fields
+      if field.arrayName
+        array = event[field.arrayName] or []
+        output = _.unique(element[field.spreadsheetName] for element in array).join(", ")
+      else
+        output = event[field.spreadsheetName] or ''
+      output = output.replace(/\"/g, "\"\"")
+      row.push "\"#{output}\""
+    csvRows.push row.join(",")
 
   csvData = csvRows.join("\n")
 
   # json
   eventsOutput = []
   for event in events
-      eventObject = {}
-      for field in fields
-          if event[field.spreadsheetName]
-              eventObject[field.displayName] = event[field.spreadsheetName]
+    eventObject = {}
+    for field in fields
+      if field.arrayName
+        array = event[field.arrayName] or []
+        output = _.unique(element[field.spreadsheetName] for element in array).join(", ")
+      else
+        output = event[field.spreadsheetName]
+      if output
+        eventObject[field.displayName] = output
       
-      eventsOutput.push eventObject
-      
+    eventsOutput.push eventObject
+
   jsonData = JSON.stringify(eventsOutput)
   
   csv: csvData
