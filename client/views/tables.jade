@@ -41,21 +41,21 @@ template(name="references")
         +reference
 
 template(name="statsTable")
-    table.table(class=className)
-      tbody
-        each stats
-          if showStat spreadsheetName ../event
-            tr.stats-field
-              td #{displayName}
-                .icon-wrap
-                  .description-wrap(data-toggle="tooltip" title="{{getDescription ../event}}")
-                    span.description
-              td {{getVal spreadsheetName ../event}}
-                .icon-wrap
-                    if getQuote ../event
-                      span.quote(data-toggle="popover-quote" data-content="{{getQuote ../event}}")
-                    if getReference ../event
-                      span.reference(data-toggle="popover" data-content="{{getReference ../event}}")
+  table.table(class=className)
+    tbody
+      each stats
+        if showStat spreadsheetName ../event
+          tr.stats-field
+            td #{displayName}
+              .icon-wrap
+                .description-wrap(data-toggle="tooltip" title="{{getDescription ../event}}")
+                  span.description
+            td {{getVal spreadsheetName ../event}}
+              .icon-wrap
+                  if getQuote ../event
+                    span.quote(data-toggle="popover-quote" data-content="{{getQuote ../event}}")
+                  if getReference ../event
+                    span.reference(data-toggle="popover" data-content="{{getReference ../event}}")
 
 template(name="reference")
   li.list-group-item
