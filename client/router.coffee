@@ -4,6 +4,9 @@ Events = () ->
 Fields = () ->
   @grid.Fields
 
+Comments = () ->
+  @grid.Comments
+
 removePopovers = () ->
   pops = $('.popover')
   if pops
@@ -57,3 +60,23 @@ Router.route "/eventMap",
     Meteor.subscribe "locations"
   data: () ->
     events: Events().find()
+
+Router.route "/download",
+  name: 'download',
+  onBeforeAction: () ->
+    unless Meteor.userId()
+      @redirect '/sign-in'
+    @next()
+  action: () ->
+    @render('preparingDownload')
+    controller = @
+    Meteor.call('download', (err, result) ->
+      unless err
+        csvData = "data:text/csv;charset=utf-8," + result.csv
+        jsonData = "data:application/json;charset=utf-8," + result.json
+        controller.render('download', 
+          data:
+            jsonData: encodeURI(jsonData)
+            csvData: encodeURI(csvData)
+        )
+    )
