@@ -21,14 +21,8 @@ template(name="header")
           li
             a(href="{{pathFor 'events'}}") Emergence Events
           if currentUser
-            li.dropdown
-              a.dropdown-toggle(href="#" data-toggle="dropdown") Download
-                span.caret
-              ul.dropdown-menu(role="menu")
-                li
-                  a(href="{{pathFor 'downloadCSV'}}") CSV
-                li
-                  a(href="{{pathFor 'downloadJSON'}}") JSON
+            li
+              a(href="{{pathFor 'download'}}") Download
           li
             a(href="{{pathFor 'eventMap'}}") Event Map
           li

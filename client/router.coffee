@@ -60,23 +60,9 @@ Router.route "/eventMap",
     Meteor.subscribe "locations"
   data: () ->
     events: Events().find()
-    
-Router.route "/eidr.json",
-  name: 'downloadJSON',
-  onBeforeAction: () ->
-    unless Meteor.userId()
-      @redirect '/sign-in'
-    @next()
-  action: () ->
-    @render('preparingDownload')
-    controller = @
-    Meteor.call('downloadJSON', (err, result) ->
-      content = "data:application/json;charset=utf-8," + result
-      controller.render('jsonDownload', {data: encodeURI(content)})
-    )
 
-Router.route "/eidr.csv",
-  name: 'downloadCSV',
+Router.route "/download",
+  name: 'download',
   onBeforeAction: () ->
     unless Meteor.userId()
       @redirect '/sign-in'
@@ -84,7 +70,12 @@ Router.route "/eidr.csv",
   action: () ->
     @render('preparingDownload')
     controller = @
-    Meteor.call('downloadCSV', (err, result) ->
-      content = "data:text/csv;charset=utf-8," + result
-      controller.render('csvDownload', {data: encodeURI(content)})
+    Meteor.call('download', (err, result) ->
+      csvData = "data:text/csv;charset=utf-8," + result.csv
+      jsonData = "data:application/json;charset=utf-8," + result.json
+      controller.render('download', 
+        data:
+          jsonData: encodeURI(jsonData)
+          csvData: encodeURI(csvData)
+      )
     )

@@ -1,7 +1,13 @@
-template(name="jsonDownload")
-  .container
-    a(href="{{this}}" download="eidr.json" target="_blank") eidr.json 
-  
-template(name="csvDownload")
-  .container
-    a(href="{{this}}" download="eidr.csv" target="_blank") eidr.csv
+template(name="download")
+  .container.download-file.col-md-6.col-md-offset-3
+    a(href="{{csvData}}" download="eidr.csv" target="_blank")
+      span.link-text CSV file
+      +downloadIcon
+  .container.download-file.col-md-6.col-md-offset-3
+    a(href="{{jsonData}}" download="eidr.json" target="_blank")
+      span.link-text JSON file
+      +downloadIcon
+
+template(name="downloadIcon")
+  .download-icon
+    span.glyphicon.glyphicon-download
