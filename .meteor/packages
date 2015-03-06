@@ -10,12 +10,11 @@ stylus
 iron:router
 pinglamb:bootstrap3
 d3
-mrt:jquery-ui
-mrt:jquery-ui-bootstrap
 natestrauser:analyticsjs
 http
 fortawesome:fontawesome
 aslagle:reactive-table
 fuatsengul:leaflet
 useraccounts:bootstrap
-accounts-password
+service-configuration
+accounts-google

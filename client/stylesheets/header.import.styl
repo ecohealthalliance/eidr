@@ -3,21 +3,22 @@
   background-color #FFF
   border-bottom 2px solid secondary
   li > a
-  	padding 25px 15px
-  	font-size 15px
-  	color #333
-  	letter-spacing 0.02em
-  	
+    padding 25px 15px
+    font-size 15px
+    color #333
+    letter-spacing 0.02em
+    
 .navbar-default .navbar-nav > li > a
-	font-size 16px
-	&:hover
-		background-color secondary
-		color #FFF
-		@extend .dark-shadow
+  font-size 16px
+  color d-gray
+  &:hover
+    background-color secondary
+    color #FFF
+    @extend .dark-shadow
 
 .dropdown-menu 
-	> li > a
-		padding 3px 20px
+  > li > a
+    padding 3px 20px
 
 .logo
   height 50px
@@ -26,12 +27,17 @@
   padding-top 15px
 
 .navbar-brand
-	background-image url("eidr-logo.png")
-	background-size 85px 47px
-	background-repeat no-repeat
-	width 85px
-	margin-top 10px
-	
+  background-image url("eidr-logo.png")
+  background-size 85px 47px
+  background-repeat no-repeat
+  width 85px
+  margin-top 10px
+  
 .disclaimer
-	background-color #edddaa
-	width 100%
+  width 100%
+  padding 1px 0
+  background-color warning
+  a
+    color d-gray
+    &:hover
+      color #000

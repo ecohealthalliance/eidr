@@ -7,6 +7,15 @@ Fields = () ->
 Comments = () ->
   @grid.Comments
 
+removePopovers = () ->
+  pops = $('.popover')
+  if pops
+    pops.remove()
+  @next()
+  
+Comments = () ->
+  @grid.Comments
+
 Router.configure
   layoutTemplate: "layout"
   loadingTemplate: "loading"
@@ -16,6 +25,7 @@ Router.onRun () ->
     analytics.page @path
   @next()
 
+Router.onBeforeAction(removePopovers)
 
 Router.route "/",
   name: 'splash'
@@ -37,10 +47,12 @@ Router.route "/event/:eidID",
       Meteor.subscribe "event", @params.eidID
       Meteor.subscribe "fields"
       Meteor.subscribe "comments", @params.eidID
+      Meteor.subscribe "references", @params.eidID
     ]
   data: () ->
     event: Events().findOne({'eidID': @params.eidID})
     comments: Comments().find({'event': @params.eidID}, {sort: {timeStamp: -1}})
+
 
 Router.route "/eventMap",
   name: 'eventMap'
@@ -49,4 +61,22 @@ Router.route "/eventMap",
   data: () ->
     events: Events().find()
 
-AccountsTemplates.configureRoute('signIn');
+Router.route "/download",
+  name: 'download',
+  onBeforeAction: () ->
+    unless Meteor.userId()
+      @redirect '/sign-in'
+    @next()
+  action: () ->
+    @render('preparingDownload')
+    controller = @
+    Meteor.call('download', (err, result) ->
+      unless err
+        csvData = "data:text/csv;charset=utf-8," + result.csv
+        jsonData = "data:application/json;charset=utf-8," + result.json
+        controller.render('download', 
+          data:
+            jsonData: encodeURI(jsonData)
+            csvData: encodeURI(csvData)
+        )
+    )

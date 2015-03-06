@@ -1,34 +1,46 @@
 Template.event.isEID = () ->
   @event?.eidVal is "1"
 
+Template.event.rendered = () ->
+  $('[data-toggle="tooltip"]').tooltip(container: 'body', placement: 'bottom')
+  $('[data-toggle="popover"]').popover(container: 'body', placement: 'auto right')
+  $('[data-toggle="popover-quote"]').popover
+    template: '<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content quote-text"></div></div>'
+    container: 'body'
+    placement: 'auto right'
+  return
+
 Template.event.helpers 
-	simpleTitle : ->
-		reg = /\(([^)]+)\)/
-		@approxDate = reg.exec(@eventNameVal)[1].split(',')[1].trim()
-		@eventNameVal.replace(reg, '')
-	displayDates : ->
-		if @startDateISO and @startDateISO isnt "NF" and @endDateISO and @endDateISO isnt "NF"
-			startYear = @startDateISO.substring(0,4)
-			endYear = @endDateISO.substring(0,4)
-			if @startDateISO.substring(0,4) == @endDateISO.substring(0,4)
-				startYear
-			else 
-				startYear + " - " + endYear
-		else
-			"Approximate date: "+ @approxDate.substring(0,4)
-	locationList : (locations) ->
+  simpleTitle : ->
+    @eventNameVal.replace(/\(([^)]+)\)/, '')
+  displayDates : ->
+      startYear = @startDateISOVal.substring(0,4)
+      endYear = @endDateISOVal.substring(0,4)
+      if startYear == endYear and startYear isnt "NF"
+        startYear
+      else if startYear isnt "NF" and endYear isnt "NF"
+        startYear + " - " + endYear
+      else if startYear and startYear isnt "NF" and (!endYear or endYear == "NF")
+        startYear
+      else if endYear and endYear isnt "NF" and (!startYear or startYear is "NF")
+        endYear
+      else
+        "Date not found"
+  locationList : (locations) ->
     if locations
       prefix = if locations?.length > 1 then 'Locations: ' else 'Location: '
       list = (location[location.fieldUsed] for location in locations).join(", ")
       "#{prefix}#{list}"
 
 Template.facts.helpers
-	icons : ->
-		@eventTransmissionVal.split(',').map (icon) ->
-			if icon is 'NF'
-				description = 'Transmission method not found'
-			else
-				description = @grid.Fields.findOne({"displayName" : "Event Transmission"})['dropdownExplanations'][icon]
-			className: "type-"+icon.trim().split(" ")[0]
-			fullName: icon + ': ' + description
-			
+  icons : ->
+    @eventTransmissionVal.split(',').map (icon) ->
+      icon = icon.trim()
+      if icon is 'NF'
+        description = 'Transmission method not found'
+        fullName = icon+': ' + description
+      else
+        description = @grid.Fields.findOne({"displayName" : "Event Transmission"})['dropdownExplanations'][icon]
+        fullName = icon.charAt(0).toUpperCase()+icon.substr(1)+': ' + description
+      className: "type-"+icon.split(" ")[0]
+      fullName: fullName

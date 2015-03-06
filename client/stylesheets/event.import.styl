@@ -1,16 +1,18 @@
-subtle-green = #EEF8F5
+.event
+  .table
+      td:first-child
+        width 40%
+        border-right 1px solid #DDD
+        padding-right 20px
 
 .event-wrap
   margin-bottom 20px
 
 .fact-sheet-wrap
-  background subtle-green
+  background secondary-light
   padding-top 30px
   padding-bottom 20px
   margin-bottom 30px
-
-.stats-field
-  border-bottom 1px dotted #000
 
 .event-head
   h1
@@ -19,7 +21,7 @@ subtle-green = #EEF8F5
     font-size 24px
   h3
     margin 5px 0 0 0 
-    color #427daa
+    color blue
     font-size 18px
 
 .minor
@@ -30,44 +32,46 @@ subtle-green = #EEF8F5
 
 .basic-info
   margin-bottom 20px
-  
+
+.notes
+  margin-bottom 30px
+  h3
+    color #666
+
 .tables 
   td:first-child
     width 40%
-    border-right 1px solid #DDD
+    border-right table-border
+    padding-right 25px
+  td
+    position relative
+  td:last-child
+    padding-right 80px
   
 .location-list
   width 450px
   tr:first-child td
     border-top 0
+  td
+    position relative
   
 .main-facts
   margin: 20px 0
-  border-radius 5px
-  &:after
-    clear both
-    content ''
-    display block
-    
-.main-fact
-  min-height 125px
-  border-right 1px solid #CCC
-  padding 0
   text-align center
-  dt
-    border-bottom: 1px solid #CCC
-    padding 5px
+  margin-bottom 40px
+  th, td
+    border-right table-border
+    text-align center
+  th
     font-size 16px
-  dd
-    padding 15px 10px 10px 10px
-  &:last-child
-    border 0
-
-dd.lrg
-  font-size 18px
-  
-.attention
-  background-color #f8ecec
+    border-bottom table-border
+  th:last-child,
+  td:last-child
+    border-right 0
+  &:after
+    clearFix()
+  .lrg
+    font-size 18px
   
 .references
   h2
@@ -82,43 +86,5 @@ dd.lrg
 .ref-link
   &:hover
     text-decoration none
-
-.transmission-icons
-  li
-    font-family icons
-    font-size 65px
-    color #333
-    padding 0 5px
-    display inline-block
-  .type-close
-    &::before
-      content "c"
-  .type-vector
-    &::before
-      content "v"
-  .type-vertical
-    &::before
-      content "u"        
-  .type-NF
-    &::before
-      content "n"
-  .type-nosocomial
-    &::before
-      content "h"
-  .type-unknown
-    &::before
-      content "u"
-  .type-airborne
-    &::before
-      content "a"
-  .type-transmission
-    &::before
-      content "t"
-  .type-foodborne
-    &::before
-      content "f"      
-  .type-sexual
-    &::before
-      content "s"
   
 @import 'comments.import'
