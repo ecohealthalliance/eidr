@@ -1,24 +1,18 @@
-subtle-green = #EEF8F5
-table-border = 1px solid #DDD
-
 .event
   .table
-      td:first-child
-        width 40%
-        border-right 1px solid #DDD
-        padding-right 20px
+    td:first-child
+      width 40%
+      border-right 1px solid #DDD
+      padding-right 20px
 
 .event-wrap
   margin-bottom 20px
 
 .fact-sheet-wrap
-  background subtle-green
+  background secondary-light
   padding-top 30px
   padding-bottom 20px
   margin-bottom 30px
-
-.stats-field
-  border-bottom 1px dotted #000
 
 .event-head
   h1
@@ -27,7 +21,7 @@ table-border = 1px solid #DDD
     font-size 24px
   h3
     margin 5px 0 0 0 
-    color #427daa
+    color blue
     font-size 18px
 
 .minor
@@ -75,14 +69,9 @@ table-border = 1px solid #DDD
   td:last-child
     border-right 0
   &:after
-    clear both
-    content ''
-    display block
+    clearFix()
   .lrg
     font-size 18px
-
-.attention
-  background-color #f8ecec
   
 .references
   h2
@@ -97,4 +86,5 @@ table-border = 1px solid #DDD
 .ref-link
   &:hover
     text-decoration none
-
+  
+@import 'comments.import'

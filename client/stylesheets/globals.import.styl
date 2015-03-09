@@ -1,0 +1,68 @@
+body
+  color #333
+
+p
+  line-height 1.6em
+
+p, 
+ul,
+h1,
+h2,
+h3,
+h4
+  @extend .white-shadow
+
+a, 
+button,
+tr
+  transition .2s
+  &:hover
+    transition .2s
+
+.btn
+  @extend .dark-shadow
+  letter-spacing .03em
+
+h1
+  font-weight 600
+  color primary
+  font-size 40px
+
+#main
+  margin-top 90px
+  min-height 550px
+
+.main-content
+  padding-top:30px
+
+.navbar-nav
+  float right
+  
+.table-header
+  padding 10px
+  margin-bottom 0
+  border-radius tableRadius tableRadius 0 0
+  border 1px solid #CCC
+
+table tr:last-child
+  border 0
+
+.table-icon
+  font-size 15px
+  color #CCC
+  
+.panel-heading
+  h3
+    margin 0
+ 
+.default-block
+  @extend .content-block
+  background ll-gray
+  
+.tooltip-inner
+  max-width 350px
+  
+.popover
+  min-width 300px
+  .quote-text
+    font-style italic
