@@ -13,10 +13,7 @@
     margin 20px 0
     @extend .main-btn
   h1
-    background url('eidr-logo-lrg.png') no-repeat 0 -1px
-    background-size 500px 233px
-    width 500px
-    height 233px
+    bg('eidr-logo-lrg.png', 500px, 233px)
     text-indent -9999px
   p, 
   span
@@ -37,4 +34,16 @@
   text-align center
   span
     color #666
-  
+  img 
+    max-width 100%
+
+@media (max-width: 768px)
+  .intro-info
+    width 100%
+    .container
+      padding: 0
+  .jumbotron
+    h1
+      bg('eidr-logo-small.png', 250px, 160px)
+      margin 0 auto
+      margin-bottom 20px

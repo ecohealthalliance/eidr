@@ -6,34 +6,38 @@ template(name="header")
         | EIDR's data is currently under review and this application is a prototype. Contact
         a(href="mailto:admin@ecohealth.io") admin@ecohealth.io
         | for more information.
-    .container
-      .navbar-header
+    nav
+      .container
         a.navbar-brand(href="{{pathFor 'splash'}}")
         button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-1')
           span.sr-only Toggle navigation
           span.icon-bar
           span.icon-bar
           span.icon-bar
-      collapse.navbar-collapse
-        ul.nav.navbar-nav
-          li
-            a(href="{{pathFor 'about'}}") About
-          li
-            a(href="{{pathFor 'events'}}") Emergence Events
-          if currentUser
+        .collapse.navbar-collapse
+          ul.nav.navbar-nav
             li
-              a(href="{{pathFor 'download'}}") Download
-          li
-            a(href="{{pathFor 'eventMap'}}") Event Map
-          li
-            a(href="mailto:admin@ecohealth.io") Contact Us
-          li
-            +account
+              a(href="{{pathFor 'about'}}") About
+            li
+              a(href="{{pathFor 'events'}}") Emergence Events
+            if currentUser
+              li
+                a(href="{{pathFor 'download'}}") Download
+            li
+              a(href="{{pathFor 'eventMap'}}") Event Map
+            li
+              a(href="mailto:admin@ecohealth.io") 
+                span.link-text-nav Contact Us
+                span.glyphicon.glyphicon-envelope
+            li
+              +account
 
 template(name="account")
   if currentUser
-    a(href="")#logOut Sign Out
+    a(href="")#logOut
+      span.link-text-nav Sign Out
       span.glyphicon.glyphicon-log-out
   else
-    a(href="/sign-in") Sign In
+    a(href="/sign-in")
+      span.link-text-nav Sign In
       span.glyphicon.glyphicon-log-in

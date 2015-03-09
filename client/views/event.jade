@@ -15,7 +15,7 @@ template(name="event")
 
             .row.fact-sheet
               with event
-                .col-lg-7
+                .col-lg-7.col-md-12
                   if Abstract
                     p.abstract #{Abstract}
                   if notes
@@ -23,7 +23,7 @@ template(name="event")
                       h3 Notes
                       p #{notes}
                   +facts
-                .col-lg-5
+                .col-lg-5.col-md-12
                   +map
                   .location-list {{locationList locations}}
                   div

@@ -16,6 +16,9 @@
     color #FFF
     @extend .dark-shadow
 
+nav
+  min-height 70px
+
 .dropdown-menu 
   > li > a
     padding 3px 20px
@@ -41,3 +44,26 @@
     color d-gray
     &:hover
       color #000
+
+.link-text-nav
+  display inline-block
+  padding-right 3px
+  
+.glyphicon-envelope
+  top 2px
+  display none
+
+@media (min-width: 768px) and (max-width: 992px)
+  .navbar
+    .glyphicon
+      font-size 20px
+  .link-text-nav
+      display none
+  .glyphicon-envelope
+    display block
+  .navbar-default .navbar-nav > li > a
+    font-size 14px
+
+@media (max-width: 768px)
+  .disclaimer
+    display none

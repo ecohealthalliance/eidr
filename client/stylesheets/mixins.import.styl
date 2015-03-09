@@ -9,3 +9,20 @@ clearFix()
   clear both
   content ''
   display block
+  
+fluid-ratio(widthLarge, heightLarge, widthSmall, heightSmall)
+  slope = (heightLarge - heightSmall) / (widthLarge - widthSmall)
+  height = heightSmall - widthSmall * slope
+
+  padding-top slope * 100%
+  height height
+
+  background-size cover
+  -moz-background-size cover
+  background-position center
+  
+bg(path, w, h)
+  background url(path) no-repeat
+  background-size w h
+  width w
+  height h

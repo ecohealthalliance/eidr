@@ -1,15 +1,14 @@
 template(name="about")
   .container-fluid.about-intro.content-block
-    .container
-      h1 EIDR (Emerging Infectious Disease Repository) 
-      p.short-desc A user-friendly and interactive website describing novel emerging infectious disease events between 1940 and 2013.
-      .row
-        .col-lg-8
-          p.lead The goal of EIDR is to unravel the origins of Emerging Infectious Disease (EID) events by providing a thorough, transparent, and reviewed investigation of the literature. The project builds upon previous work at EcoHealth Alliance, such as the Hotspots maps published by Jones et al. (2008) in the journal Nature. 
-          p.lead EIDR will improve, and expand the data required by the global health community to model disease emergence. Information was extracted directly from the literature and is displayed in maps, tables, and short narratives.
-        .col-lg-4
-          a(href="http://ecohealthalliance.org")
-            img.eha-square(src="eha_square.png")
+    h1 EIDR (Emerging Infectious Disease Repository) 
+    p.short-desc A user-friendly and interactive website describing novel emerging infectious disease events between 1940 and 2013.
+    .row
+      .col-md-8
+        p.lead The goal of EIDR is to unravel the origins of Emerging Infectious Disease (EID) events by providing a thorough, transparent, and reviewed investigation of the literature. The project builds upon previous work at EcoHealth Alliance, such as the Hotspots maps published by Jones et al. (2008) in the journal Nature. 
+        p.lead EIDR will improve, and expand the data required by the global health community to model disease emergence. Information was extracted directly from the literature and is displayed in maps, tables, and short narratives.
+      .col-md-4
+        a(href="http://ecohealthalliance.org")
+          img.eha-square(src="eha_square.png")
 
   .container.content-block
     h2 What is an EID event?
@@ -26,24 +25,23 @@ template(name="about")
         p.lead The developers of EIDR hope this web application will allow users to reflect on what definition(s) of emergence may be the most useful. 
 
   .container-fluid.default-block.exploring-wrap
-    .container
-      h2 How can you explore disease emergence using EIDR?
-      p.lead Emergence events can be sorted, compared, and investigated in a variety of ways. 
-      ul.row.exploring.list-unstyled
-        li.col-lg-4
-          span.glyphicon.glyphicon-list-alt
-          h3 Emergence Events
-          p You can explore emergence events using an interactive table of EID events found in the ‘Emergence Events’ view. The information displayed in this table is customizable, allowing you to choose which EIDR variables you want to view. You can perform specific searches within the table using a filter feature. You may want to search for events with a common variable like a specific host, or pathogen. 
-          a.btn.btn-primary.btn-block(href="/events") View Emergence Events
-        li.col-lg-4
-          span.glyphicon.glyphicon-info-sign
-          h3 Event Pages 
-          p You can explore individual EID events in greater detail through individual event pages. These event pages can be accessed from the ‘Emergence Events’ list by clicking an event in the table. Each EID event page contains a detailed report on the event, including a map showing the location of the event, a narrative abstract, and additional information on the event. References used for each event are also available in each event page.
-        li.col-lg-4 
-          span.glyphicon.glyphicon-map-marker
-          h3 Event Map
-          p This map provides a broad spatial depiction of all EID events within the EIDR repository.
-          a.btn.btn-primary.btn-block(href="/eventMap") View Event Map
+    h2 How can you explore disease emergence using EIDR?
+    p.lead Emergence events can be sorted, compared, and investigated in a variety of ways. 
+    ul.row.exploring.list-unstyled
+      li.col-md-4
+        span.glyphicon.glyphicon-list-alt
+        h3 Emergence Events
+        p You can explore emergence events using an interactive table of EID events found in the ‘Emergence Events’ view. The information displayed in this table is customizable, allowing you to choose which EIDR variables you want to view. You can perform specific searches within the table using a filter feature. You may want to search for events with a common variable like a specific host, or pathogen. 
+        a.btn.btn-primary.btn-block(href="/events") View Emergence Events
+      li.col-md-4
+        span.glyphicon.glyphicon-info-sign
+        h3 Event Pages 
+        p You can explore individual EID events in greater detail through individual event pages. These event pages can be accessed from the ‘Emergence Events’ list by clicking an event in the table. Each EID event page contains a detailed report on the event, including a map showing the location of the event, a narrative abstract, and additional information on the event. References used for each event are also available in each event page.
+      li.col-md-4 
+        span.glyphicon.glyphicon-map-marker
+        h3 Event Map
+        p This map provides a broad spatial depiction of all EID events within the EIDR repository.
+        a.btn.btn-primary.btn-block(href="/eventMap") View Event Map
 
   .container.content-block
     h2 Is the data used in EIDR available for public use? 
@@ -53,12 +51,11 @@ template(name="about")
           a(href='http://creativecommons.org/licenses/by-sa/4.0/') Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0). 
       
   .container-fluid.default-block.funding
-    .container
-      p.lead The EIDR project has been supported by DTRA and USAID.
-      .row.featurette
-        .col-md-2
-          a(href='') 
-            img.featurette-image.img-responsive(src="/dtra_logo.png")
-        .col-md-2
-          a(href='') 
-            img.featurette-image.img-responsive(src="/usaid_logo.png")
+    p.lead The EIDR project has been supported by DTRA and USAID.
+    .row.featurette
+      .col-md-2
+        a(href='') 
+          img.featurette-image.img-responsive(src="/dtra_logo.png")
+      .col-md-2
+        a(href='') 
+          img.featurette-image.img-responsive(src="/usaid_logo.png")
