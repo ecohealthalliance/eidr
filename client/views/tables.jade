@@ -1,21 +1,25 @@
 template(name="tables")
   .row
     .col-md-7
-      .panel.panel-default
-        .panel-heading
-          h3 Stats
-        +statsTable stats=stats event=event className='table-striped'
+      if checkStats stats event
+        .panel.panel-default
+          .panel-heading
+            h3 Stats
+          +statsTable stats=stats event=event className='table-striped'
 
     .col-md-5
-      .panel.panel-default
-        .panel-heading
-          h3 Pathogen
-        +statsTable stats=pathogenStats event=event className='table-striped'
+      if checkStats pathogenStats event
+        .panel.panel-default
+          .panel-heading
+            h3 Pathogen
+          +statsTable stats=pathogenStats event=event className='table-striped'
       
-      .panel.panel-default     
-        .panel-heading
-          h3 Economics
-        +statsTable stats=economicsStats event=event className='table-striped'
+      if checkStats economicsStats event
+        .panel.panel-default     
+          .panel-heading
+            h3 Economics
+          +statsTable stats=economicsStats event=event className='table-striped'
+  
   if event.eidDiscussionVal
     .row
       .col-lg-7
