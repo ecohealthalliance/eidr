@@ -36,7 +36,6 @@ template(name="event")
   .container.comments-wrap
     +comments
 
-
 template(name="facts")
   table.main-facts.table
     thead
@@ -47,10 +46,14 @@ template(name="facts")
         th Deaths
     tbody
       tr
-        td #{eidCategoryVal}
-        td #{driverVal}
-        td.lrg #{numberInfectedVal}
-        td.lrg #{numberDeathsVal}
+        td(data-header="Emergence Type") 
+          span #{eidCategoryVal}
+        td(data-header="Driver") 
+          span #{driverVal}
+        td.lrg(data-header="Infected") 
+          span #{numberInfectedVal}
+        td.lrg(data-header="Deaths") 
+          span #{numberDeathsVal}
 
   table.main-facts.table(style="width:100%")
     thead
@@ -61,7 +64,7 @@ template(name="facts")
           th Host
     tbody
       tr
-        td 
+        td(data-header="Event Transmission")
           ul.transmission-icons.list-unstyled
             if icons
               each icons
@@ -69,8 +72,10 @@ template(name="facts")
             else 
               li.unknown
         if zoonoticTypeVal      
-          td #{zoonoticTypeVal}          
-          td #{hostVal}
+          td(data-header="Zoonotic Type") 
+            span #{zoonoticTypeVal}          
+          td(data-header="Host") 
+            span #{hostVal}
 
 template(name="comments")
   .row

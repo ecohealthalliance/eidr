@@ -87,6 +87,8 @@
   &:hover
     text-decoration none
 
+@import 'comments.import'
+
 @media (max-width: 768px)
   table, thead, tbody, th, td, tr
     display block
@@ -95,32 +97,19 @@
   td:first-child
     width 100%
 
-  thead tr { 
-    position: absolute;
-    top: -9999px;
-    left: -9999px;
-  }
+  thead tr
+    position absolute
+    top -9999px
+    left -9999px
   
-  tr { border: 0 }
+  tr 
+    border: 0
   
-  td { 
-    /* Behave  like a "row" */
-    border: none;
-    border-bottom: 1px solid #eee; 
-    position: relative;
-    padding-left: 50%; 
-  }
-  
-  td:before { 
-    /* Now like a table header */
-    position: absolute;
-    /* Top/left values mimic padding */
-    top: 6px;
-    left: 6px;
-    width: 45%; 
-    padding-right: 10px; 
-    white-space: nowrap;
-  }
+  td
+    border none
+    border-bottom 1px solid #eee 
+    position relative
+    padding-left 50% 
   
   .table-striped > tbody > tr:nth-child(odd) > td .table-striped > tbody > tr:nth-child(odd) > th
     background none
@@ -135,5 +124,19 @@
     margin-bottom 20px
     border-top 0
   
-
-@import 'comments.import'
+  .main-facts
+    th
+      display none
+    tr, td
+      border 0 !important
+    td
+      margin-bottom 20px
+      &::before
+        font-size 18px
+        content attr(data-header)
+        font-weight bold
+        display block
+        border-bottom table-border
+        width 100%
+        text-align center
+        margin-bottom 15px

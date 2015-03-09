@@ -1,0 +1,25 @@
+.reactive-table 
+  padding-left 0
+  padding-right 0
+  border-radius 5px
+  overflow hidden
+  border table-border
+  tr
+    cursor pointer
+
+@media (max-width: 768px)
+  .reactive-table 
+    td
+      display none
+      border-top 0 !important
+      &:first-child
+        display block
+  .reactive-table-filter
+    padding 0 0 15px 0
+  .reactive-table-options
+    margin 0
+    padding 0
+    .dropdown-toggle
+      display none
+  .reactive-table-input
+    padding 20px 10px

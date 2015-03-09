@@ -52,9 +52,10 @@ table tr:last-child
   color #CCC
   
 .panel-heading
+  padding-left 8px
   h3
     margin 0
- 
+
 .default-block
   @extend .content-block
   background ll-gray
@@ -66,3 +67,7 @@ table tr:last-child
   min-width 300px
   .quote-text
     font-style italic
+
+@media (max-width: 768px)
+  .popover
+    min-width 100px
