@@ -1,9 +1,8 @@
-.event
-  .table
-    td:first-child
-      width 40%
-      border-right 1px solid #DDD
-      padding-right 20px
+.tables
+  td:first-child
+    width 40%
+    border-right 1px solid #DDD
+    padding-right 20px
 
 .event-wrap
   margin-bottom 20px
@@ -48,20 +47,17 @@
   td:last-child
     padding-right 80px
   
+.location-list-wrap
+
 .location-list
-  width 450px
-  tr:first-child td
-    border-top 0
-  td
-    position relative
+  margin-bottom 5px
+    
   
 .main-facts
   margin: 20px 0
-  text-align center
   margin-bottom 40px
   th, td
     border-right table-border
-    text-align center
   th
     font-size 16px
     border-bottom table-border
@@ -90,6 +86,15 @@
 @import 'comments.import'
 
 @media (max-width: 768px)
+  .event-head
+    h1
+      font-size 2em
+    .minor
+      font-size 1.2em
+      margin .3em 0
+    h3
+      font-size 1.1em
+  
   table, thead, tbody, th, td, tr
     display block
 
@@ -111,14 +116,15 @@
     position relative
     padding-left 50% 
   
-  .table-striped > tbody > tr:nth-child(odd) > td .table-striped > tbody > tr:nth-child(odd) > th
+  .table-striped > tbody > tr:nth-child(odd) > td, 
+  .table-striped > tbody > tr:nth-child(odd) > th
     background none
     
   .tables td:first-child
     width 100%
     font-weight bold
     border-right 0
-    background ll-gray
+    background ll-gray !important
     
   .tables td:last-child
     margin-bottom 20px
@@ -130,6 +136,7 @@
     tr, td
       border 0 !important
     td
+      padding 0 0 3px 0 !important
       margin-bottom 20px
       &::before
         font-size 18px
@@ -138,5 +145,4 @@
         display block
         border-bottom table-border
         width 100%
-        text-align center
         margin-bottom 15px

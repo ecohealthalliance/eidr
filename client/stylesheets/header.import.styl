@@ -1,5 +1,5 @@
 .navbar
-  min-height 5px
+  min-height 75px
   background-color #FFF
   border-bottom 2px solid secondary
   li > a
@@ -67,3 +67,27 @@ nav
 @media (max-width: 768px)
   .disclaimer
     display none
+  .navbar-nav
+    float none
+  .navbar
+    li 
+      border-bottom table-border
+      > a
+        padding 15px 30px
+      &:last-child
+        border 0
+  .nav
+    margin 0
+  .container > .navbar-collapse
+    padding 0
+    margin-right -30px
+    margin-left -30px
+  .navbar-fixed-top .navbar-collapse
+    max-height 400px
+  .navbar-toggle
+    margin-right 0
+    margin-top  20px
+  .navbar-header
+    min-height 75px
+  .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus
+    background-color ll-gray
