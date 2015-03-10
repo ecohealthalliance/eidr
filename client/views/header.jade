@@ -1,11 +1,5 @@
 template(name="header")
   header
-    .disclaimer
-      .container 
-        i.fa.fa-exclamation-triangle &nbsp;&nbsp;
-        | EIDR's data is currently under review and this application is a prototype. Contact
-        a(href="mailto:admin@ecohealth.io") admin@ecohealth.io
-        | for more information.
     nav.navbar.navbar-default.navbar-fixed-top
       .container-fluid
         .container
@@ -18,22 +12,25 @@ template(name="header")
             a.navbar-brand(href="{{pathFor 'splash'}}")
           
           .collapse.navbar-collapse
-            ul.nav.navbar-nav
-              li
-                a(href="{{pathFor 'about'}}") About
-              li
-                a(href="{{pathFor 'events'}}") Emergence Events
-              if currentUser
-                li
-                  a(href="{{pathFor 'download'}}") Download
-              li
-                a(href="{{pathFor 'eventMap'}}") Event Map
-              li
-                a(href="mailto:admin@ecohealth.io") 
-                  span.link-text-nav Contact Us
-                  span.glyphicon.glyphicon-envelope
-              li
-                +account
+            +navLinks
+
+template(name="navLinks")
+  ul.nav.navbar-nav
+    li
+      a(href="{{pathFor 'about'}}") About
+    li
+      a(href="{{pathFor 'events'}}") Emergence Events
+    if currentUser
+      li
+        a(href="{{pathFor 'download'}}") Download
+    li
+      a(href="{{pathFor 'eventMap'}}") Event Map
+    li
+      a(href="mailto:admin@ecohealth.io") 
+        span.link-text-nav Contact Us
+        span.glyphicon.glyphicon-envelope
+    li
+      +account
 
 template(name="account")
   if currentUser
