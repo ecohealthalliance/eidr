@@ -1,6 +1,6 @@
 template(name="about")
-  .container-fluid.about-intro.content-block
-    .container
+  .container-fluid.about-intro
+    .container.content-block
       h1 EIDR (Emerging Infectious Disease Repository) 
       p.short-desc A user-friendly and interactive website describing novel emerging infectious disease events between 1940 and 2013.
       .row
@@ -11,24 +11,25 @@ template(name="about")
           a(href="http://ecohealthalliance.org")
             img.eha-square(src="eha_square.png")
 
-  .container.content-block
-    h2 What is an EID event?
-    .row
-      .col-lg-10
-        p.lead Studying the origins of EIDs is a complex task. The term itself is not easily defined. In EIDR, events are considered emerging if they satisfy any of the following characteristics: 
-        ol
-          li Expanded geographic region or host range
-          li Increased incidence or virulence
-          li Novel drug resistance
-          li Evolution of an existing organism
-          li Reappearance after control or elimination
-      
-        p.lead The developers of EIDR hope this web application will allow users to reflect on what definition(s) of emergence may be the most useful. 
+  .container
+    .content-block
+      h2 What is an EID event?
+      .row
+        .col-lg-10
+          p.lead Studying the origins of EIDs is a complex task. The term itself is not easily defined. In EIDR, events are considered emerging if they satisfy any of the following characteristics: 
+          ol
+            li Expanded geographic region or host range
+            li Increased incidence or virulence
+            li Novel drug resistance
+            li Evolution of an existing organism
+            li Reappearance after control or elimination
+        
+          p.lead The developers of EIDR hope this web application will allow users to reflect on what definition(s) of emergence may be the most useful. 
 
-  .container-fluid.default-block.exploring-wrap
+  .container-fluid.exploring-wrap.default-block
     .container
       h2 How can you explore disease emergence using EIDR?
-      p.lead Emergence events can be sorted, compared, and investigated in a variety of ways. 
+      p Emergence events can be sorted, compared, and investigated in a variety of ways. 
       ul.row.exploring.list-unstyled
         li.col-md-4
           span.glyphicon.glyphicon-list-alt
@@ -45,20 +46,21 @@ template(name="about")
           p This map provides a broad spatial depiction of all EID events within the EIDR repository.
           a.btn.btn-primary.btn-block(href="/eventMap") View Event Map
 
-  .container.content-block
-    h2 Is the data used in EIDR available for public use? 
-    .row
-      .col-lg-10
-        p  Yes. You can download the entire repository of data from EIDR as a CSV or JSON file using the download button. The data is shared under the 
-          a(href='http://creativecommons.org/licenses/by-sa/4.0/') Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0). 
+  .container
+    .content-block
+      h2 Is the data used in EIDR available for public use? 
+      .row
+        .col-lg-10
+          p  Yes. You can download the entire repository of data from EIDR as a CSV or JSON file using the download button. The data is shared under the 
+            a(href='http://creativecommons.org/licenses/by-sa/4.0/') Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0). 
       
-  .container-fluid.default-block.funding
+  .container-fluid.funding.default-block
     .container
       p.lead The EIDR project has been supported by DTRA and USAID.
       .row.featurette
-        .col-md-2
+        .col-xs-6.col-sm-3.col-md-2
           a(href='') 
             img.featurette-image.img-responsive(src="/dtra_logo.png")
-        .col-md-2
+        .col-xs-6.col-sm-3.col-md-2
           a(href='') 
             img.featurette-image.img-responsive(src="/usaid_logo.png")

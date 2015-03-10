@@ -1,5 +1,5 @@
 .navbar
-  min-height nav-height
+  min-height header-height
   background-color #FFF
   border-bottom 2px solid secondary
   li > a
@@ -66,7 +66,14 @@
     display none
   .navbar-nav
     float none
+  .navbar-brand
+    background-size 63px 35px
+    background-repeat no-repeat
+    width 63px
+    margin-top 10px
+    height 45px
   .navbar
+    min-height mobile-header-height
     li 
       border-bottom table-border
       > a
@@ -83,8 +90,8 @@
     max-height 400px
   .navbar-toggle
     margin-right 0
-    margin-top  20px
+    margin-top 10px
   .navbar-header
-    min-height nav-height
+    min-height mobile-header-height
   .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus
     background-color ll-gray
