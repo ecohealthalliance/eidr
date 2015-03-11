@@ -16,10 +16,13 @@
         display block
         padding-top 20px
         padding-bottom 20px
+      &:hover,
+      &:focus
+        background l-gray
     tr:last-child td:first-child
       border 0
   .reactive-table-filter
-    padding 0 0 15px 0
+    padding 10px 0 10px 0
   .reactive-table-options
     margin 0
     padding 0
@@ -29,3 +32,30 @@
     padding 20px 10px
   .next-page
     @extend .main-btn
+  .page-number
+    width 100%
+    float none
+    label 
+      display none
+    .previous-page,
+    .next-page
+      display block
+      width 45%
+      float left
+      background secondary
+      text-align center
+      padding 10px
+      color white
+      border-radius 3px
+      cursor pointer
+      &:focus,
+      &:hover
+        background primary //darken(secondary, 10%)
+        border primary
+        color white
+      
+    .next-page
+      float right
+      
+  .rows-per-page
+    display none

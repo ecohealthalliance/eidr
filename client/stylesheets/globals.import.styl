@@ -60,8 +60,7 @@ table tr:last-child
   h3
     margin 0
 
-.default-block
-  @extend .content-block
+.default-fullWidth
   background ll-gray
   
 .tooltip-inner
@@ -71,16 +70,31 @@ table tr:last-child
   min-width 300px
   .quote-text
     font-style italic
+.popover-content
+  overflow hidden
+  text-overflow ellipsis
 
 @media (max-width: 768px)
-  .popover
+  .popover,
+  .tooltip,
+  .tooltip-inner
     min-width 100px
+    max-width 225px
+  .tooltip
+    left 50% !important
+    transform translate(-50%, 0)
+  .tooltip-arrow
+    top 0 !important
   #main
-    margin-top 60px
+    margin-top 55px
     min-height 300px
-  .btn
-    parring-top 20px
-    parring-bottom 20px
-  .content-block,
-  .default-block
-    padding 15px 0
+  .main-content
+    padding-top 15px
+  a.btn,
+  a.btn-primary
+    padding-top 15px
+    padding-bottom 15px
+  .content-block
+    &:first-child
+      padding 15px 0 30px 0
+    

@@ -1,32 +1,33 @@
 template(name="event")
   .container-fluid.fact-sheet-wrap.main-content.event
-    .row
-      .col-lg-12.event-head
-        with event
-          .basic-info
-            .row
-              .col-lg-10
-                h1 {{simpleTitle}}
-                if diseaseVal
-                  h2.minor Disease:
-                    span #{diseaseVal}
-                h3 {{displayDates}}
-
-        .row.fact-sheet
+    .container.content-block
+      .row
+        .col-lg-12.event-head
           with event
-            .col-lg-7.col-md-12
-              if Abstract
-                p.abstract #{Abstract}
-              if notes
-                .notes
-                  h3 Notes
-                  p #{notes}
-              +facts
-            .col-lg-5.col-md-12
-              +map
-              .location-list-wrap
-                p.location-list {{locationList locations}}
-                small *This represents the most specific location information found for the event.
+            .basic-info
+              .row
+                .col-lg-10
+                  h1 {{simpleTitle}}
+                  if diseaseVal
+                    h2.minor Disease:
+                      span #{diseaseVal}
+                  h3 {{displayDates}}
+
+          .row.fact-sheet
+            with event
+              .col-lg-7.col-md-12
+                if Abstract
+                  p.abstract #{Abstract}
+                if notes
+                  .notes
+                    h3 Notes
+                    p #{notes}
+                +facts
+              .col-lg-5.col-md-12
+                +map
+                .location-list-wrap
+                  p.location-list {{locationList locations}}
+                  small *This represents the most specific location information found for the event.
   .container.tables
     .row
       with event

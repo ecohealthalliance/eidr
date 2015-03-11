@@ -11,8 +11,8 @@ template(name="about")
           a(href="http://ecohealthalliance.org")
             img.eha-square(src="eha_square.png")
 
-  .container
-    .content-block
+  .container-fluid
+    .container.content-block
       h2 What is an EID event?
       .row
         .col-lg-10
@@ -26,36 +26,36 @@ template(name="about")
         
           p.lead The developers of EIDR hope this web application will allow users to reflect on what definition(s) of emergence may be the most useful. 
 
-  .container-fluid.exploring-wrap.default-block
-    .container
+  .container-fluid.exploring-wrap.default-fullWidth
+    .container.content-block
       h2 How can you explore disease emergence using EIDR?
       p Emergence events can be sorted, compared, and investigated in a variety of ways. 
       ul.row.exploring.list-unstyled
-        li.col-md-4
+        li.col-xs-12.col-md-4
           span.glyphicon.glyphicon-list-alt
           h3 Emergence Events
           p You can explore emergence events using an interactive table of EID events found in the ‘Emergence Events’ view. The information displayed in this table is customizable, allowing you to choose which EIDR variables you want to view. You can perform specific searches within the table using a filter feature. You may want to search for events with a common variable like a specific host, or pathogen. 
           a.btn.btn-primary.btn-block(href="/events") View Emergence Events
-        li.col-md-4
+        li.col-xs-12.col-md-4
           span.glyphicon.glyphicon-info-sign
           h3 Event Pages 
           p You can explore individual EID events in greater detail through individual event pages. These event pages can be accessed from the ‘Emergence Events’ list by clicking an event in the table. Each EID event page contains a detailed report on the event, including a map showing the location of the event, a narrative abstract, and additional information on the event. References used for each event are also available in each event page.
-        li.col-md-4 
+        li.col-xs-12.col-md-4 
           span.glyphicon.glyphicon-map-marker
           h3 Event Map
           p This map provides a broad spatial depiction of all EID events within the EIDR repository.
           a.btn.btn-primary.btn-block(href="/eventMap") View Event Map
 
-  .container
-    .content-block
+  .container-fluid
+    .container.content-block
       h2 Is the data used in EIDR available for public use? 
       .row
         .col-lg-10
           p  Yes. You can download the entire repository of data from EIDR as a CSV or JSON file using the download button. The data is shared under the 
             a(href='http://creativecommons.org/licenses/by-sa/4.0/') Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0). 
       
-  .container-fluid.funding.default-block
-    .container
+  .container-fluid.funding.default-fullWidth
+    .container.content-block
       p.lead The EIDR project has been supported by DTRA and USAID.
       .row.featurette
         .col-xs-6.col-sm-3.col-md-2

@@ -8,12 +8,19 @@
     color #333
     letter-spacing 0.02em
     
+    
 .navbar-default .navbar-nav > li > a
   font-size 16px
   color d-gray
   &:hover
     background-color secondary
     color #FFF
+    @extend .dark-shadow
+
+.active a,
+.active
+    background-color secondary !important
+    color white !important
     @extend .dark-shadow
 
 .dropdown-menu 
@@ -49,6 +56,7 @@
 .glyphicon-envelope
   top 2px
   display none
+
 
 @media (min-width: 768px) and (max-width: 992px)
   .navbar
