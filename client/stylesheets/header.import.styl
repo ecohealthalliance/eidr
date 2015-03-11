@@ -17,11 +17,12 @@
     background-color secondary
     color #FFF
     @extend .dark-shadow
-
-.active a,
-.active
-    background-color secondary !important
-    color white !important
+    
+.navbar-default .navbar-nav > .active > a, 
+.navbar-default .navbar-nav > .active > a:hover, 
+.navbar-default .navbar-nav > .active > a:focus
+    background-color secondary
+    color white
     @extend .dark-shadow
 
 .dropdown-menu 
@@ -58,7 +59,6 @@
   top 2px
   display none
 
-
 @media (min-width: 768px) and (max-width: 992px)
   .navbar
     .glyphicon
@@ -89,6 +89,11 @@
         padding 15px 30px
       &:last-child
         border 0
+  .navbar-default .navbar-nav > .active > a,
+  .navbar-default .navbar-nav > .active > a:focus
+    background-color white
+    color d-gray
+    text-shadow none
   .nav
     margin 0
   .container > .navbar-collapse
