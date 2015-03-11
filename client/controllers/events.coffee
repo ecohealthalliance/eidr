@@ -42,3 +42,6 @@ Template.events.events
       window.open(url, "_blank")
     else
       Router.go "event", { eidID: @eidID }
+  "click .next-page, click .previous-page" : () ->
+    if (window.scrollY > 0)
+      $('body').animate({scrollTop:0,400})
