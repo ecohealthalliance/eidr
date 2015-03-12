@@ -2,16 +2,16 @@ Template.event.isEID = () ->
   @event?.eidVal is "1"
 
 Template.event.rendered = () ->
+  baseOpts = 
+    viewport: 'body'
+    container: 'body'
   if ($(window).width() > 768)
     ttOpts = placement: 'bottom'
   else 
-    ttOpts = placement: 'left auto'
-  $('[data-toggle="tooltip"]').tooltip(_.extend({container:'td'},ttOpts))
-  $('[data-toggle="popover"]').popover(container: 'body', placement: 'auto right')
-  $('[data-toggle="popover-quote"]').popover
-    template: '<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content quote-text"></div></div>'
-    container: 'body'
-    placement: 'auto right'
+    ttOpts = placement: 'right auto'
+  $('[data-toggle="tooltip"]').tooltip(_.extend(baseOpts,ttOpts))
+  $('[data-toggle="popover"]').popover(_.extend(baseOpts, {placement: 'auto right'}))
+  $('[data-toggle="popover-quote"]').popover(_.extend(baseOpts, {template: '<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content quote-text"></div></div>', placement: 'auto right'}))
   return
 
 Template.event.helpers 
