@@ -6,7 +6,27 @@
   border table-border
   tr
     cursor pointer
-
+.reactive-table-columns-dropdown
+  button
+    @extend .main-btn
+  float left !important
+  width auto
+  padding 0
+.reactive-table-options
+  float none
+  width 100%
+  padding 0
+.dropdown-menu
+  min-width 350px
+.dropdown-menu-right
+  left 0 !important
+  right 0
+     
+@media (min-width: 768px)
+  .reactive-table-filter
+    width 40%
+    padding 0
+    
 @media (max-width: 768px)
   .reactive-table 
     td
