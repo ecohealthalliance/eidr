@@ -3,9 +3,12 @@ Template.event.isEID = () ->
 
 Template.event.rendered = () ->
   baseOpts = 
-    viewport: 'body'
+    viewport:
+      selector: 'body'
+      padding: 10
     container: 'body'
     trigger: 'hover'
+    placement: 'auto'
   $('[data-toggle="popover"]').popover(baseOpts)
   $('[data-toggle="popover-quote"]').popover(_.extend(baseOpts, {template: '<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content quote-text"></div></div>'}))
   return
