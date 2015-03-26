@@ -5,10 +5,9 @@ Template.event.rendered = () ->
   baseOpts = 
     viewport: 'body'
     container: 'body'
-  ttOpts = placement: 'bottom'
-  $('[data-toggle="tooltip"]').tooltip(_.extend(baseOpts,ttOpts))
-  $('[data-toggle="popover"]').popover(_.extend(baseOpts, {placement: 'auto right'}))
-  $('[data-toggle="popover-quote"]').popover(_.extend(baseOpts, {template: '<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content quote-text"></div></div>', placement: 'auto right'}))
+    trigger: 'hover'
+  $('[data-toggle="popover"]').popover(baseOpts)
+  $('[data-toggle="popover-quote"]').popover(_.extend(baseOpts, {template: '<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content quote-text"></div></div>'}))
   return
 
 Template.event.helpers 
