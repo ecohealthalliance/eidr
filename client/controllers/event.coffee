@@ -11,7 +11,6 @@ Template.event.rendered = () ->
     viewport:
       selector: 'body'
       padding: 10
-    container: 'body'
     trigger: 'hover'
     placement: checkPosition
     animation: true

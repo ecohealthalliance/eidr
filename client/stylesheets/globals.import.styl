@@ -76,13 +76,16 @@ table tr:last-child
 .popover-content
   overflow hidden
   text-overflow ellipsis
+  color d-gray
+  font-weight normal
 
 @media (max-width: 768px)
   .popover,
   .tooltip,
-  .tooltip-inner
-    min-width 100px
-    max-width 225px
+  .tooltip-inner,
+  .popover-content
+    min-width 200px
+    max-width 325px
   .tooltip-arrow
     top 0 !important
   #main
