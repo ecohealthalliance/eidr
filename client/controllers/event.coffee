@@ -1,11 +1,9 @@
 Template.event.isEID = () ->
   @event?.eidVal is "1"
 
-
-
 Template.event.rendered = () ->
   checkPosition = () -> 
-    if($(this.$element).offset().top - $(window).scrollTop() < 200)
+    if($(this.$element).offset().top - $(window).scrollTop() < 150)
       'bottom'
     else 
       'top'
