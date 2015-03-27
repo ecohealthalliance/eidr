@@ -1,0 +1,147 @@
+.tables
+  td:first-child
+    width 40%
+    border-right 1px solid #DDD
+    padding-right 20px
+
+.event-wrap
+  margin-bottom 20px
+
+.fact-sheet-wrap
+  background secondary-light
+  padding-bottom 20px
+  margin-bottom 30px
+
+.event-head
+  h1
+    margin 0
+  .minor
+    font-size 24px
+  h3
+    margin 5px 0 0 0 
+    color blue
+    font-size 18px
+
+.minor
+  color #666
+  font-size 20px
+  font-weight normal
+  margin 0
+
+.basic-info
+  margin-bottom 20px
+
+.notes
+  margin-bottom 30px
+  h3
+    color #666
+
+.tables 
+  td:first-child
+    width 40%
+    border-right table-border
+    padding-right 25px
+  td
+    position relative
+  td:last-child
+    padding-right 80px
+  
+.location-list-wrap
+
+.location-list
+  margin-bottom 5px
+    
+  
+.main-facts
+  margin: 20px 0
+  margin-bottom 40px
+  th, td
+    border-right table-border
+  th
+    font-size 16px
+    border-bottom table-border
+  th:last-child,
+  td:last-child
+    border-right 0
+  &:after
+    clearFix()
+  .lrg
+    font-size 18px
+  
+.references
+  h2
+    font-size 16px
+    margin 0
+    display inline-block
+  p
+    font-style italics    
+  .date
+    margin 0
+    
+.ref-link
+  &:hover
+    text-decoration none
+
+@import 'comments.import'
+
+@media (max-width: 768px)
+  .event-head
+    h1
+      font-size 2em
+    .minor
+      font-size 1.2em
+      margin .3em 0
+    h3
+      font-size 1.1em
+  
+  table, thead, tbody, th, td, tr
+    display block
+
+  .event .table td:first-child,
+  td:first-child
+    width 100%
+
+  thead tr
+    position absolute
+    top -9999px
+    left -9999px
+  
+  tr 
+    border: 0
+  
+  td
+    border none
+    border-bottom 1px solid #eee 
+    position relative
+    padding-left 50% 
+  
+  .table-striped > tbody > tr:nth-child(odd) > td, 
+  .table-striped > tbody > tr:nth-child(odd) > th
+    background none
+    
+  .tables td:first-child
+    width 100%
+    font-weight bold
+    border-right 0
+    background ll-gray !important
+    
+  .tables td:last-child
+    margin-bottom 20px
+    border-top 0
+  
+  .main-facts
+    th
+      display none
+    tr, td
+      border 0 !important
+    td
+      padding 0 0 3px 0 !important
+      margin-bottom 20px
+      &::before
+        font-size 18px
+        content attr(data-header)
+        font-weight bold
+        display block
+        border-bottom table-border
+        width 100%
+        margin-bottom 15px

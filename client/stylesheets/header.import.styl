@@ -1,0 +1,111 @@
+.navbar
+  min-height header-height
+  background-color #FFF
+  border-bottom 2px solid secondary
+  z-index 2000
+  li > a
+    padding 25px 15px
+    font-size 15px
+    color #333
+    letter-spacing 0.02em
+    
+    
+.navbar-default .navbar-nav > li > a
+  font-size 16px
+  color d-gray
+  &:hover
+    background-color secondary
+    color #FFF
+    @extend .dark-shadow
+    
+.navbar-default .navbar-nav > .active > a, 
+.navbar-default .navbar-nav > .active > a:hover, 
+.navbar-default .navbar-nav > .active > a:focus
+    background-color secondary
+    color white
+    @extend .dark-shadow
+
+.dropdown-menu 
+  > li > a
+    padding 3px 20px
+
+.logo
+  height 50px
+  width 50px
+  float left
+  padding-top 15px
+
+.navbar-brand
+  background-image url("eidr-logo.png")
+  background-size 85px 47px
+  background-repeat no-repeat
+  width 85px
+  margin-top 10px
+  
+.disclaimer
+  width 100%
+  padding 1px 0
+  background-color warning
+  a
+    color d-gray
+    &:hover
+      color #000
+
+.link-text-nav
+  display inline-block
+  padding-right 3px
+  
+.glyphicon-envelope
+  top 2px
+  display none
+
+@media (min-width: 768px) and (max-width: 992px)
+  .navbar
+    .glyphicon
+      font-size 20px
+  .link-text-nav
+      display none
+  .glyphicon-envelope
+    display block
+  .navbar-default .navbar-nav > li > a
+    font-size 14px
+
+@media (max-width: 768px)
+  .disclaimer
+    display none
+  .navbar-nav
+    float none
+  .navbar-brand
+    background-size 63px 35px
+    background-repeat no-repeat
+    width 63px
+    margin-top 10px
+    height 45px
+  .navbar
+    min-height mobile-header-height
+    li 
+      border-bottom table-border
+      > a
+        padding 15px 30px
+      &:last-child
+        border 0
+  .navbar-default .navbar-nav > .active > a,
+  .navbar-default .navbar-nav > .active > a:focus
+    background-color white
+    color d-gray
+    text-shadow none
+  .nav
+    margin 0
+  .container > .navbar-collapse
+    padding 0
+    margin-right -30px
+    margin-left -30px
+  .navbar-fixed-top .navbar-collapse
+    max-height 400px
+  .navbar-toggle
+    margin-right 0
+    margin-top 10px
+  .navbar-header
+    min-height mobile-header-height
+  .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus
+    background-color ll-gray

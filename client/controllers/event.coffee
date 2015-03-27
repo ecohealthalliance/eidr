@@ -2,12 +2,20 @@ Template.event.isEID = () ->
   @event?.eidVal is "1"
 
 Template.event.rendered = () ->
-  $('[data-toggle="tooltip"]').tooltip(container: 'body', placement: 'bottom')
-  $('[data-toggle="popover"]').popover(container: 'body', placement: 'auto right')
-  $('[data-toggle="popover-quote"]').popover
-    template: '<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content quote-text"></div></div>'
-    container: 'body'
-    placement: 'auto right'
+  checkPosition = () -> 
+    if($(this.$element).offset().top - $(window).scrollTop() < 150)
+      'bottom'
+    else 
+      'top'
+  baseOpts = 
+    viewport:
+      selector: 'body'
+      padding: 10
+    trigger: 'hover'
+    placement: checkPosition
+    animation: true
+  $('[data-toggle="popover"]').popover(baseOpts)
+  $('[data-toggle="popover-quote"]').popover(_.extend(baseOpts, {template: '<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content quote-text"></div></div>'}))
   return
 
 Template.event.helpers 

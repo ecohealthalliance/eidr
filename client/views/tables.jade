@@ -48,7 +48,7 @@ template(name="statsTable")
           tr.stats-field
             td #{displayName}
               .icon-wrap
-                .description-wrap(data-toggle="tooltip" title="{{getDescription ../event}}")
+                .description-wrap(data-toggle="popover" data-content="{{getDescription ../event}}")
                   span.description
             td {{getVal spreadsheetName ../event}}
               .icon-wrap
