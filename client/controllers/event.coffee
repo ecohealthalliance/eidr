@@ -46,7 +46,8 @@ Template.facts.helpers
       icon = icon.trim()
       if icon is 'NF'
         description = 'Transmission method not found'
-        fullName = icon+': ' + description
+        fullName = 'Not Found: ' + description
+        icon = 'unknown'
       else
         description = @grid.Fields.findOne({"displayName" : "Event Transmission"})['dropdownExplanations'][icon]
         fullName = icon.charAt(0).toUpperCase()+icon.substr(1)+': ' + description
