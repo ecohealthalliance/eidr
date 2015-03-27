@@ -68,7 +68,7 @@ template(name="facts")
           ul.transmission-icons.list-unstyled
             if icons
               each icons
-                li(class="#{className}" data-content="#{fullName}" data-toggle="popover")
+                li(class="#{className}" data-content="#{fullName}" data-toggle="popover" data-container="body")
             else 
               li.unknown
         if zoonoticTypeVal      
