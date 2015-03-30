@@ -19,7 +19,7 @@ template(name="tables")
           .panel-heading
             h3 Economics
           +statsTable stats=economicsStats event=event className='table-striped'
-  
+
   if event.eidDiscussionVal
     .row
       .col-lg-7
@@ -29,8 +29,22 @@ template(name="tables")
           .panel-body
             p #{event.eidDiscussionVal}
   .row
-      .col-lg-7
-        +references
+    .col-lg-7
+      +references
+
+    .col-lg-5
+      if unknowns
+        .panel.panel-default     
+          .panel-heading
+            h3 Not Found and Not Applicable
+          table.table.table-striped
+            tbody
+              each unknowns
+                tr
+                  td #{name}
+                    .icon-wrap
+                      .description-wrap(data-toggle="popover" data-content="#{description}")
+                        span.description
 
 template(name="references")
   .panel.panel-default.references

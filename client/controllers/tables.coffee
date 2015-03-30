@@ -4,6 +4,8 @@ fields = () =>
 references = () =>
   @grid.References
 
+Template.tables.unknowns = []
+
 Template.statsTable.showStat = (key, object) ->
   if grid.Fields.findOne({"spreadsheetName" : key}).Quotations isnt 0
     quote = @Quotations
@@ -11,6 +13,8 @@ Template.statsTable.showStat = (key, object) ->
     object[key]
   else if object[key] is 'NF' and object[quote] and (object[quote] isnt 'undefined' or object[quote] isnt '')
     object[key]
+  # else if object[key] is 'NF' or object[key] is 'NAP'
+    # console.log("test", object)
 
 Template.statsTable.getVal = (key, object) ->
   object[key]
@@ -22,6 +26,11 @@ Template.statsTable.getDescription = (event) ->
     "#{@description} (#{explanations})"
   else
     @description
+
+Template.tables.getDescription = Template.statsTable.getDescription
+
+Template.tables.log = (t) ->
+  console.log t
 
 Template.statsTable.getQuote = (event) ->
   if @Quotations isnt 0 and @Quotations isnt ''
@@ -40,6 +49,9 @@ Template.tables.checkStats = (table, event) ->
     value = Template.statsTable.getVal(t.spreadsheetName, event)
     if (value and value isnt 'NF' and value isnt 'NAP')
       values.push(value)
+    else if value is 'NF' or value is 'NAP'
+      console.log t
+      Template.tables.unknowns.push({'name': t.displayName, 'description':t.description})
   values.length > 0
 
 Template.tables.stats = () ->
