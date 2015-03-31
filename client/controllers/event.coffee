@@ -55,7 +55,6 @@ Template.facts.helpers
       fullName: fullName
 
 Template.registerHelper 'checkValue', (value) ->
-  console.log value
   if value is 'NF'
     'Not Found'
   else if value is 'NAP'
