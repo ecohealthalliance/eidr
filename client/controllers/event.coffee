@@ -53,3 +53,12 @@ Template.facts.helpers
         fullName = icon.charAt(0).toUpperCase()+icon.substr(1)+': ' + description
       className: "type-"+icon.split(" ")[0]
       fullName: fullName
+
+Template.registerHelper 'checkValue', (value) ->
+  console.log value
+  if value is 'NF'
+    'Not Found'
+  else if value is 'NAP'
+    'Not Applicable'
+  else
+    value

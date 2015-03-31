@@ -33,13 +33,13 @@ template(name="tables")
       +references
 
     .col-lg-5
-      if unknowns
+      if notFounds
         .panel.panel-default     
           .panel-heading
-            h3 Not Found and Not Applicable
+            h3 Data Not Found 
           table.table.table-striped
             tbody
-              each unknowns
+              each notFounds
                 tr
                   td #{name}
                     .icon-wrap
