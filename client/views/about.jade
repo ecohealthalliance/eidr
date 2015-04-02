@@ -1,15 +1,18 @@
 template(name="about")
   .container-fluid.about-intro
     .container.content-block
-      h1 EIDR (Emerging Infectious Disease Repository) 
-      p.short-desc A user-friendly and interactive website describing novel emerging infectious disease events between 1940 and 2013.
       .row
-        .col-md-8
-          p.lead The goal of EIDR is to unravel the origins of Emerging Infectious Disease (EID) events by providing a thorough, transparent, and reviewed investigation of the literature. The project builds upon previous work at EcoHealth Alliance, such as the Hotspots maps published by Jones et al. (2008) in the journal Nature. 
-          p.lead EIDR will improve, and expand the data required by the global health community to model disease emergence. Information was extracted directly from the literature and is displayed in maps, tables, and short narratives.
-        .col-md-4
-          a(href="http://ecohealthalliance.org")
-            img.eha-square(src="eha_square.png")
+        .col-sm-5
+          h1 EIDR
+          p.lead Emerging Infectious Disease Repository
+          p.lead A user-friendly and interactive website describing novel emerging infectious disease events between 1940 and 2013.
+        .col-sm-7
+          .other
+            p.lead The goal of EIDR is to unravel the origins of Emerging Infectious Disease (EID) events by providing a thorough, transparent, and reviewed investigation of the literature. The project builds upon previous work at EcoHealth Alliance, such as the Hotspots maps published by Jones et al. (2008) in the journal Nature. 
+            p.lead EIDR will improve, and expand the data required by the global health community to model disease emergence. Information was extracted directly from the literature and is displayed in maps, tables, and short narratives.
+        //- .col-md-4
+        //-   a(href="http://ecohealthalliance.org")
+        //-     img.eha-square(src="eha_square.png")
 
   .container-fluid
     .container.content-block
@@ -26,7 +29,7 @@ template(name="about")
         
           p.lead The developers of EIDR hope this web application will allow users to reflect on what definition(s) of emergence may be the most useful. 
 
-  .container-fluid.exploring-wrap.default-fullWidth
+  .container-fluid.exploring-wrap
     .container.content-block
       h2 How can you explore disease emergence using EIDR?
       p.lead Emergence events can be sorted, compared, and investigated in a variety of ways. 
@@ -54,7 +57,7 @@ template(name="about")
           p  Yes. You can download the entire repository of data from EIDR as a CSV or JSON file using the download button. The data is shared under the 
             a(href='http://creativecommons.org/licenses/by-sa/4.0/') Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0). 
       
-  .container-fluid.funding.default-fullWidth
+  .container-fluid.funding
     .container.content-block
       p.lead The EIDR project has been supported by DTRA and USAID.
       .row.featurette
