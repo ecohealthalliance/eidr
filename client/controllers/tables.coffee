@@ -15,14 +15,6 @@ Template.statsTable.showStat = (key, object) ->
 Template.statsTable.getVal = (key, object) ->
   object[key]
 
-Template.statsTable.getDescription = (event) ->
-  vals = Template.statsTable.getVal(@spreadsheetName, event).trim().split(", ")
-  explanations = ("#{val}: #{@dropdownExplanations[val]}" for val in vals when @dropdownExplanations[val]).join("; ")
-  if explanations
-    "#{@description} (#{explanations})"
-  else
-    @description
-
 Template.statsTable.getQuote = (event) ->
   if @Quotations isnt 0 and @Quotations isnt ''
     Template.statsTable.getVal(@Quotations, event)

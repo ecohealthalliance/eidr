@@ -52,3 +52,11 @@ Template.facts.helpers
         fullName = icon.charAt(0).toUpperCase()+icon.substr(1)+': ' + description
       className: "type-"+icon.split(" ")[0]
       fullName: fullName
+
+Template.registerHelper 'getDescription', (event) ->
+  vals = Template.statsTable.getVal(@spreadsheetName, event).trim().split(", ")
+  explanations = ("#{val}: #{@dropdownExplanations[val]}" for val in vals when @dropdownExplanations[val]).join("; ")
+  if explanations
+    "#{@description} (#{explanations})"
+  else
+    @description
