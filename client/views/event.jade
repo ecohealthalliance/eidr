@@ -8,10 +8,7 @@ template(name="event")
               .row
                 .col-lg-10
                   h1 {{simpleTitle}}
-                  if diseaseVal
-                    h2.minor Disease:
-                      span #{diseaseVal}
-                  h3 {{displayDates}}
+                  h2 {{displayDates}}
 
           .row.fact-sheet
             with event
@@ -22,6 +19,11 @@ template(name="event")
                   .notes
                     h3 Notes
                     p #{notes}
+                if diseaseVal
+                  .disease
+                    h3 Disease
+                      +descriptionInline(field="diseaseVal" event=../event position="inline")
+                    span #{diseaseVal}
                 +facts
               .col-lg-5.col-md-12
                 +map
@@ -88,6 +90,10 @@ template(name="description")
   .icon-wrap
     .description-wrap(data-toggle="popover" data-content="{{getDescription event field}}")
       span.description
+
+template(name="descriptionInline")
+    span(data-toggle="popover" data-content="{{getDescription event field}}")
+      span.description-inline
 
 template(name="comments")
   .row
