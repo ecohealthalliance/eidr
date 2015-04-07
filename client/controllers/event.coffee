@@ -53,10 +53,11 @@ Template.facts.helpers
       className: "type-"+icon.split(" ")[0]
       fullName: fullName
 
-Template.registerHelper 'getDescription', (event) ->
-  vals = Template.statsTable.getVal(@spreadsheetName, event).trim().split(", ")
-  explanations = ("#{val}: #{@dropdownExplanations[val]}" for val in vals when @dropdownExplanations[val]).join("; ")
+Template.registerHelper 'getDescription', (event, field) ->
+  info = grid.Fields.findOne({"spreadsheetName" : field})
+  vals = Template.statsTable.getVal(info.spreadsheetName, event).trim().split(", ")
+  explanations = ("#{val}: #{info.dropdownExplanations[val]}" for val in vals when info.dropdownExplanations[val]).join("; ")
   if explanations
-    "#{@description} (#{explanations})"
+    "#{info.description} (#{explanations})"
   else
-    @description
+    info.description

@@ -47,12 +47,10 @@ template(name="statsTable")
         if showStat spreadsheetName ../event
           tr.stats-field
             td #{displayName}
-              .icon-wrap
-                .description-wrap(data-toggle="popover" data-content="{{getDescription ../event}}")
-                  span.description
+              +description(event=../event field=spreadsheetName)
             td {{getVal spreadsheetName ../event}}
               .icon-wrap
-                  if getQuote ../event
+                  if getQuote ../event 
                     span.quote(data-toggle="popover-quote" data-content="{{getQuote ../event}}")
                   if getReference ../event
                     span.reference(data-toggle="popover" data-content="{{getReference ../event}}")

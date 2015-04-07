@@ -41,9 +41,13 @@ template(name="facts")
     thead
       tr
         th Emergence Type
+          +description(field="eidCategoryVal" event=../event)
         th Driver
+          +description(field="driverVal" event=../event)
         th Infected
+          +description(field="numberInfectedVal" event=../event)
         th Deaths
+          +description(field="numberDeathsVal" event=../event)
     tbody
       tr
         td(data-header="Emergence Type") 
@@ -59,9 +63,12 @@ template(name="facts")
     thead
       tr
         th Event Transmission
+          +description(field="eventTransmissionVal" event=../event)
         if zoonoticTypeVal
           th Zoonotic Type
+            +description(field="zoonoticTypeVal" event=../event)
           th Host
+            +description(field="hostVal" event=../event)
     tbody
       tr
         td(data-header="Event Transmission")
@@ -76,6 +83,11 @@ template(name="facts")
             span #{zoonoticTypeVal}          
           td(data-header="Host") 
             span #{hostVal}
+
+template(name="description")
+  .icon-wrap
+    .description-wrap(data-toggle="popover" data-content="{{getDescription event field}}")
+      span.description
 
 template(name="comments")
   .row
