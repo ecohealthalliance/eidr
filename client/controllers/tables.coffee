@@ -4,8 +4,6 @@ fields = () =>
 references = () =>
   @grid.References
 
-Template.tables.notFounds = []
-
 Template.statsTable.showStat = (key, object) ->
   if grid.Fields.findOne({"spreadsheetName" : key}).Quotations isnt 0
     quote = @Quotations
@@ -44,9 +42,18 @@ Template.tables.checkStats = (table, event) ->
     value = Template.statsTable.getVal(t.spreadsheetName, event)
     if (value and value isnt 'NF' and value isnt 'NAP')
       values.push(value)
-    else if value is 'NF'
-      Template.tables.notFounds.push({'name': t.displayName, 'description':t.description})
   values.length > 0
+
+Template.tables.getUnknowns = (event) ->
+  unknowns = []
+  for key, value of event
+    if value is "NF" 
+      info = grid.Fields.findOne({"spreadsheetName" : key})
+      if info
+        unknowns.push
+          name: info.displayName
+          description: info.description
+  unknowns
 
 Template.tables.stats = () ->
   fields().find({"tab": "Stats"}, {"sort": {"order": 1}})
