@@ -79,6 +79,8 @@ table tr:last-child
   color d-gray
   font-weight normal
   font-size 14px
+.close-popover
+  display none
 
 @media (max-width: 768px)
   .popover,
@@ -101,4 +103,10 @@ table tr:last-child
   .content-block
     &:first-child
       padding 15px 0 30px 0
-    
+  .close-popover
+    display block
+    position absolute
+    top -5px
+    right -5px
+    color d-gray
+    font-size 22px
