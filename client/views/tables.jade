@@ -31,14 +31,14 @@ template(name="tables")
   .row
     .col-lg-7
       +references
-    if getUnknowns event
+    if getNotFound event
       .col-lg-5
         .panel.panel-default     
           .panel-heading
             h3 Data Not Found 
           table.table.table-striped.unknowns
             tbody
-              each getUnknowns event
+              each getNotFound event
                 tr
                   td #{name}
                     .icon-wrap

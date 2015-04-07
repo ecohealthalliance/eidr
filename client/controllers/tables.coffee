@@ -44,16 +44,16 @@ Template.tables.checkStats = (table, event) ->
       values.push(value)
   values.length > 0
 
-Template.tables.getUnknowns = (event) ->
-  unknowns = []
+Template.tables.getNotFound = (event) ->
+  notFound = []
   for key, value of event
     if value is "NF" 
-      info = grid.Fields.findOne({"spreadsheetName" : key})
+      info = fields().findOne({"spreadsheetName" : key})
       if info
-        unknowns.push
+        notFound.push
           name: info.displayName
           description: info.description
-  unknowns
+  notFound
 
 Template.tables.stats = () ->
   fields().find({"tab": "Stats"}, {"sort": {"order": 1}})
