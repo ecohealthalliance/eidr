@@ -46,13 +46,12 @@ Template.tables.checkStats = (table, event) ->
 
 Template.tables.getNotFound = (event) ->
   notFound = []
-  for key, value of event
-    if value is "NF" 
-      info = fields().findOne({"spreadsheetName" : key})
-      if info
-        notFound.push
-          name: info.displayName
-          description: info.description
+  for key, value of event when value is "NF"
+    info = fields().findOne({"spreadsheetName" : key})
+    if info
+      notFound.push
+        name: info.displayName
+        description: info.description
   notFound
 
 Template.tables.stats = () ->
