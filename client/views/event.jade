@@ -22,7 +22,7 @@ template(name="event")
                 if diseaseVal
                   .disease
                     h3 Disease
-                      +descriptionInline(field="diseaseVal" event=../event position="inline")
+                      +descriptionInline field="diseaseVal" event=../event position="inline"
                     span #{diseaseVal}
                 +facts
               .col-lg-5.col-md-12
@@ -43,13 +43,13 @@ template(name="facts")
     thead
       tr
         th Emergence Type
-          +description(field="eidCategoryVal" event=../event)
+          +description field="eidCategoryVal" event=../event)
         th Driver
-          +description(field="driverVal" event=../event)
+          +description field="driverVal" event=../event
         th Infected
-          +description(field="numberInfectedVal" event=../event)
+          +description field="numberInfectedVal" event=../event
         th Deaths
-          +description(field="numberDeathsVal" event=../event)
+          +description field="numberDeathsVal" event=../event
     tbody
       tr
         td(data-header="Emergence Type") 
@@ -65,12 +65,12 @@ template(name="facts")
     thead
       tr
         th Event Transmission
-          +description(field="eventTransmissionVal" event=../event)
+          +description field="eventTransmissionVal" event=../event
         if zoonoticTypeVal
           th Zoonotic Type
-            +description(field="zoonoticTypeVal" event=../event)
+            +description field="zoonoticTypeVal" event=../event
           th Host
-            +description(field="hostVal" event=../event)
+            +description field="hostVal" event=../event
     tbody
       tr
         td(data-header="Event Transmission")

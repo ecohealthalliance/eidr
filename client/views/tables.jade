@@ -47,7 +47,7 @@ template(name="statsTable")
         if showStat spreadsheetName ../event
           tr.stats-field
             td #{displayName}
-              +description(event=../event field=spreadsheetName)
+              +description event=../event field=spreadsheetName
             td {{getVal spreadsheetName ../event}}
               .icon-wrap
                   if getQuote ../event 
