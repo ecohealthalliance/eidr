@@ -47,13 +47,13 @@ template(name="facts")
     tbody
       tr
         td(data-header="Emergence Type") 
-          span {{eidCategoryVal}}
+          span #{eidCategoryVal}
         td(data-header="Driver") 
-          span {{driverVal}}
+          span #{driverVal}
         td(data-header="Infected") 
-          span {{numberInfectedVal}}
+          span #{numberInfectedVal}
         td(data-header="Deaths") 
-          span {{numberDeathsVal}}
+          span #{numberDeathsVal}
 
   table.main-facts.table(style="width:100%")
     thead
@@ -73,9 +73,9 @@ template(name="facts")
               li.unknown
         if zoonoticTypeVal      
           td(data-header="Zoonotic Type") 
-            span {{zoonoticTypeVal}}       
+            span #{zoonoticTypeVal}
           td(data-header="Host") 
-            span {{hostVal}}
+            span #{hostVal}
 
 template(name="comments")
   .row
