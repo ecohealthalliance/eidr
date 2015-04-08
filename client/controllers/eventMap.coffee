@@ -19,7 +19,7 @@ Template.eventMap.rendered = () ->
       for location in event.locations
         latLng = [location.locationLatitude, location.locationLongitude]
 
-        if latLng[0] isnt 'NF' and latLng[1] isnt 'NF'
+        if latLng[0] isnt 'Not Found' and latLng[1] isnt 'Not Found'
 
           circle = L.circleMarker(latLng, {
             stroke: false

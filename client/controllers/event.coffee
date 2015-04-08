@@ -24,13 +24,13 @@ Template.event.helpers
   displayDates : ->
       startYear = @startDateISOVal.substring(0,4)
       endYear = @endDateISOVal.substring(0,4)
-      if startYear == endYear and startYear isnt "NF"
+      if startYear == endYear and startYear isnt "Not Found"
         startYear
-      else if startYear isnt "NF" and endYear isnt "NF"
+      else if startYear isnt "Not Found" and endYear isnt "Not Found"
         startYear + " - " + endYear
-      else if startYear and startYear isnt "NF" and (!endYear or endYear == "NF")
+      else if startYear and startYear isnt "Not Found" and (!endYear or endYear == "Not Found")
         startYear
-      else if endYear and endYear isnt "NF" and (!startYear or startYear is "NF")
+      else if endYear and endYear isnt "Not Found" and (!startYear or startYear is "Not Found")
         endYear
       else
         "Date not found"
@@ -44,7 +44,7 @@ Template.facts.helpers
   icons : ->
     @eventTransmissionVal.split(',').map (icon) ->
       icon = icon.trim()
-      if icon is 'NF'
+      if icon is 'Not Found'
         description = 'Transmission method not found'
         fullName = 'Not Found: ' + description
         icon = 'unknown'
@@ -53,11 +53,3 @@ Template.facts.helpers
         fullName = icon.charAt(0).toUpperCase()+icon.substr(1)+': ' + description
       className: "type-"+icon.split(" ")[0]
       fullName: fullName
-
-Template.registerHelper 'checkValue', (value) ->
-  if value is 'NF'
-    'Not Found'
-  else if value is 'NAP'
-    'Not Applicable'
-  else
-    value
