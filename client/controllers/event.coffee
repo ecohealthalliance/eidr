@@ -22,18 +22,20 @@ Template.event.helpers
   simpleTitle : ->
     @eventNameVal.replace(/\(([^)]+)\)/, '')
   displayDates : ->
+    if @startDateISOVal isnt "Not Found"
       startYear = @startDateISOVal.substring(0,4)
-      endYear = @endDateISOVal.substring(0,4)
-      if startYear == endYear and startYear isnt "Not Found"
-        startYear
-      else if startYear isnt "Not Found" and endYear isnt "Not Found"
-        startYear + " - " + endYear
-      else if startYear and startYear isnt "Not Found" and (!endYear or endYear == "Not Found")
-        startYear
-      else if endYear and endYear isnt "Not Found" and (!startYear or startYear is "Not Found")
-        endYear
-      else
-        "Date not found"
+    if @endDateISOVal isnt "Not Found"
+      endDate = @endDateISOVal.substring(0,4)
+
+    if stateDate and endDate and startDate == endDate
+      startDate
+    else if startDate and !endDate
+      startDate
+    else if !startDate and endDate
+      endDate
+    else 
+      "Date not found"
+
   locationList : (locations) ->
     if locations
       prefix = if locations?.length > 1 then 'Locations: ' else 'Location: '
