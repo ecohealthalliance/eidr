@@ -19,11 +19,6 @@ template(name="event")
                   .notes
                     h3 Notes
                     p #{notes}
-                if diseaseVal
-                  .disease
-                    h3 Disease
-                      +descriptionInline field="diseaseVal" event=../event position="inline"
-                    span #{diseaseVal}
                 +facts
               .col-lg-5.col-md-12
                 +map
@@ -43,34 +38,29 @@ template(name="facts")
     thead
       tr
         th Emergence Type
-          +description field="eidCategoryVal" event=../event
+          +descriptionInline(field="eidCategoryVal" event=../event)
         th Driver
-          +description field="driverVal" event=../event
-        th Infected
-          +description field="numberInfectedVal" event=../event
-        th Deaths
-          +description field="numberDeathsVal" event=../event
+          +descriptionInline(field="driverVal" event=../event)
+        th Disease
+          +descriptionInline(field="diseaseVal" event=../event)
     tbody
       tr
         td(data-header="Emergence Type") 
           span #{eidCategoryVal}
         td(data-header="Driver") 
           span #{driverVal}
-        td.lrg(data-header="Infected") 
-          span #{numberInfectedVal}
-        td.lrg(data-header="Deaths") 
-          span #{numberDeathsVal}
+        td(data-header="Disease")
+          span #{diseaseVal}
 
-  table.main-facts.table(style="width:100%")
+  table.main-facts.table
     thead
       tr
         th Event Transmission
-          +description field="eventTransmissionVal" event=../event
-        if zoonoticTypeVal
-          th Zoonotic Type
-            +description field="zoonoticTypeVal" event=../event
-          th Host
-            +description field="hostVal" event=../event
+          +descriptionInline(field="eventTransmissionVal" event=../event)
+        th Host
+          +descriptionInline(field="hostVal" event=../event)
+        th Zoonotic Type
+          +descriptionInline(field="zoonoticTypeVal" event=../event)
     tbody
       tr
         td(data-header="Event Transmission")
@@ -80,11 +70,10 @@ template(name="facts")
                 li(class="#{className}" data-content="#{fullName}" data-toggle="popover" data-container="body")
             else 
               li.unknown
-        if zoonoticTypeVal      
-          td(data-header="Zoonotic Type") 
-            span #{zoonoticTypeVal}          
-          td(data-header="Host") 
-            span #{hostVal}
+        td(data-header="Host")
+          span #{hostVal}
+        td(data-header="Zoonotic Type")
+          span #{zoonoticTypeVal}
 
 template(name="description")
   .icon-wrap

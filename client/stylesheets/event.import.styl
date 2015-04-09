@@ -53,15 +53,21 @@
   margin-bottom 5px
 
 .main-facts
-  margin: 20px 0
+  margin 20px 0
   margin-bottom 40px
+  border-top table-border
   th, td
-    border-right table-border
+    width 33%
+    text-align center
+    border-right 0
+  th:first-child, td:first-child
+    text-align: left
+  th:last-child, td:last-child
+    text-align: right
   > thead > tr > th
     font-size 16px
     border-bottom table-border
     position relative
-    padding-right 25px
   th:last-child,
   td:last-child
     border-right 0
@@ -134,10 +140,12 @@
     border-top 0
   
   .main-facts
-    th
-      display none
+    border-top 0
     tr, td
       border 0 !important
+    th, td, th:first-child, td:first-child, th:last-child, td:last-child
+      width 100%
+      text-align left
     td
       padding 0 0 3px 0 !important
       margin-bottom 20px
