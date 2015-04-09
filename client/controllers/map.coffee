@@ -15,7 +15,7 @@ Template.map.rendered = () ->
     if data.locations
       latLngs = ([location.locationLatitude, location.locationLongitude] for location in data.locations)
       latLngs = _.filter(latLngs, (latLng) ->
-        latLng[0] isnt 'NF' and latLng[1] isnt 'NF'
+        latLng[0] isnt 'Not Found' and latLng[1] isnt 'Not Found'
       )
       if latLngs.length is 1
         eventMap.setView(latLngs[0], 4)
@@ -23,7 +23,7 @@ Template.map.rendered = () ->
         eventMap.fitBounds(latLngs, {padding: [15,15]})
       for location in data.locations
         latLng = [location.locationLatitude, location.locationLongitude]
-        if latLng[0] isnt 'NF' and latLng[1] isnt 'NF'
+        if latLng[0] isnt 'Not Found' and latLng[1] isnt 'Not Found'
           displayName = location[location.fieldUsed]
 
 

@@ -13,8 +13,8 @@ Template.events.settings = () ->
           else
             output = val or ''
 
-          # hide NF/NAP
-          if output in ['NF', 'NAP']
+          # hide Not Found/Not Applicable
+          if output in ['Not Found', 'Not Applicable']
             output = ''
 
           # capitalize first letter

@@ -25,18 +25,20 @@ Template.event.helpers
   simpleTitle : ->
     @eventNameVal.replace(/\(([^)]+)\)/, '')
   displayDates : ->
-      startYear = @startDateISOVal.substring(0,4)
-      endYear = @endDateISOVal.substring(0,4)
-      if startYear == endYear and startYear isnt "NF"
-        startYear
-      else if startYear isnt "NF" and endYear isnt "NF"
-        startYear + " - " + endYear
-      else if startYear and startYear isnt "NF" and (!endYear or endYear == "NF")
-        startYear
-      else if endYear and endYear isnt "NF" and (!startYear or startYear is "NF")
-        endYear
-      else
-        "Date not found"
+    if @startDateISOVal isnt "Not Found"
+      startDate = @startDateISOVal.substring(0,4)
+    if @endDateISOVal isnt "Not Found"
+      endDate = @endDateISOVal.substring(0,4)
+
+    if startDate and endDate and startDate == endDate
+      startDate
+    else if startDate and !endDate
+      startDate
+    else if !startDate and endDate
+      endDate
+    else 
+      "Date not found"
+
   locationList : (locations) ->
     if locations
       prefix = if locations?.length > 1 then 'Locations: ' else 'Location: '
@@ -47,9 +49,10 @@ Template.facts.helpers
   icons : ->
     @eventTransmissionVal.split(',').map (icon) ->
       icon = icon.trim()
-      if icon is 'NF'
+      if icon is 'Not Found'
         description = 'Transmission method not found'
-        fullName = icon+': ' + description
+        fullName = 'Not Found: ' + description
+        icon = 'unknown'
       else
         description = @grid.Fields.findOne({"displayName" : "Event Transmission"})['dropdownExplanations'][icon]
         fullName = icon.charAt(0).toUpperCase()+icon.substr(1)+': ' + description
