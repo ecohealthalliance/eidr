@@ -10,7 +10,7 @@ template(name="event")
                   h1 {{simpleTitle}}
                   if diseaseVal
                     h2.minor Disease:
-                      span #{diseaseVal}
+                      span {{diseaseVal}}
                   h3 {{displayDates}}
 
           .row.fact-sheet
@@ -50,9 +50,9 @@ template(name="facts")
           span #{eidCategoryVal}
         td(data-header="Driver") 
           span #{driverVal}
-        td.lrg(data-header="Infected") 
+        td(data-header="Infected") 
           span #{numberInfectedVal}
-        td.lrg(data-header="Deaths") 
+        td(data-header="Deaths") 
           span #{numberDeathsVal}
 
   table.main-facts.table(style="width:100%")
@@ -73,7 +73,7 @@ template(name="facts")
               li.unknown
         if zoonoticTypeVal      
           td(data-header="Zoonotic Type") 
-            span #{zoonoticTypeVal}          
+            span #{zoonoticTypeVal}
           td(data-header="Host") 
             span #{hostVal}
 

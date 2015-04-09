@@ -1,9 +1,3 @@
-.tables
-  td:first-child
-    width 40%
-    border-right 1px solid #DDD
-    padding-right 20px
-
 .event-wrap
   margin-bottom 20px
 
@@ -41,16 +35,21 @@
     width 40%
     border-right table-border
     padding-right 25px
+    border-right 1px solid #DDD
   td
     position relative
   td:last-child
     padding-right 80px
-  
+
+.unknowns
+  td:first-child
+    border-right 0
+
+
 .location-list-wrap
 
 .location-list
   margin-bottom 5px
-    
   
 .main-facts
   margin: 20px 0
@@ -126,8 +125,10 @@
     background ll-gray !important
     
   .tables td:last-child
-    margin-bottom 20px
     border-top 0
+
+  .tables .table:not(.not-founds) td:last-child
+    margin-bottom 20px
   
   .main-facts
     th
