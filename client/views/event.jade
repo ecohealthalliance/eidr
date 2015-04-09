@@ -57,9 +57,9 @@ template(name="facts")
       tr
         th Event Transmission
           +descriptionInline(field="eventTransmissionVal" event=../event)
-        th Host
+        th Pathogen Host(s)
           +descriptionInline(field="hostVal" event=../event)
-        th Zoonotic Type
+        th Type of Zoonosis
           +descriptionInline(field="zoonoticTypeVal" event=../event)
     tbody
       tr
@@ -70,9 +70,9 @@ template(name="facts")
                 li(class="#{className}" data-content="#{fullName}" data-toggle="popover" data-container="body")
             else 
               li.unknown
-        td(data-header="Host")
+        td(data-header="Pathogen Host(s)")
           span #{hostVal}
-        td(data-header="Zoonotic Type")
+        td(data-header="Type of Zoonosis")
           span #{zoonoticTypeVal}
 
 template(name="description")
