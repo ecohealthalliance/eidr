@@ -8,10 +8,7 @@ template(name="event")
               .row
                 .col-lg-10
                   h1 {{simpleTitle}}
-                  if diseaseVal
-                    h2.minor Disease:
-                      span {{diseaseVal}}
-                  h3 {{displayDates}}
+                  h2 {{displayDates}}
 
           .row.fact-sheet
             with event
@@ -41,27 +38,29 @@ template(name="facts")
     thead
       tr
         th Emergence Type
+          +descriptionInline(field="eidCategoryVal" event=../event)
         th Driver
-        th Infected
-        th Deaths
+          +descriptionInline(field="driverVal" event=../event)
+        th Disease
+          +descriptionInline(field="diseaseVal" event=../event)
     tbody
       tr
         td(data-header="Emergence Type") 
           span #{eidCategoryVal}
         td(data-header="Driver") 
           span #{driverVal}
-        td(data-header="Infected") 
-          span #{numberInfectedVal}
-        td(data-header="Deaths") 
-          span #{numberDeathsVal}
+        td(data-header="Disease")
+          span #{diseaseVal}
 
-  table.main-facts.table(style="width:100%")
+  table.main-facts.table
     thead
       tr
         th Event Transmission
-        if zoonoticTypeVal
-          th Zoonotic Type
-          th Host
+          +descriptionInline(field="eventTransmissionVal" event=../event)
+        th Host
+          +descriptionInline(field="hostVal" event=../event)
+        th Zoonotic Type
+          +descriptionInline(field="zoonoticTypeVal" event=../event)
     tbody
       tr
         td(data-header="Event Transmission")
@@ -71,11 +70,19 @@ template(name="facts")
                 li(class="#{className}" data-content="#{fullName}" data-toggle="popover" data-container="body")
             else 
               li.unknown
-        if zoonoticTypeVal      
-          td(data-header="Zoonotic Type") 
-            span #{zoonoticTypeVal}
-          td(data-header="Host") 
-            span #{hostVal}
+        td(data-header="Host")
+          span #{hostVal}
+        td(data-header="Zoonotic Type")
+          span #{zoonoticTypeVal}
+
+template(name="description")
+  .icon-wrap
+    .description-wrap(data-toggle="popover" data-content="{{getDescription event field}}")
+      span.description
+
+template(name="descriptionInline")
+    span(data-toggle="popover" data-content="{{getDescription event field}}")
+      span.description-inline
 
 template(name="comments")
   .row

@@ -7,6 +7,9 @@ Template.event.rendered = () ->
       'bottom'
     else 
       'top'
+  makeTemplate = (className) ->
+    template: 
+      '<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content #{className}"></div><a href="#" class="close-popover"><span class="glyphicon glyphicon-remove-sign"></span></a></div>'
   baseOpts = 
     viewport:
       selector: 'body'
@@ -14,8 +17,8 @@ Template.event.rendered = () ->
     trigger: 'hover'
     placement: checkPosition
     animation: true
-  $('[data-toggle="popover"]').popover(baseOpts)
-  $('[data-toggle="popover-quote"]').popover(_.extend(baseOpts, {template: '<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content quote-text"></div></div>'}))
+  $('[data-toggle="popover"]').popover(_.extend(baseOpts, makeTemplate('')))
+  $('[data-toggle="popover-quote"]').popover(_.extend(baseOpts, makeTemplate('quote')))
   return
 
 Template.event.helpers 
@@ -55,3 +58,12 @@ Template.facts.helpers
         fullName = icon.charAt(0).toUpperCase()+icon.substr(1)+': ' + description
       className: "type-"+icon.split(" ")[0]
       fullName: fullName
+
+Template.registerHelper 'getDescription', (event, field) ->
+  info = grid.Fields.findOne({"spreadsheetName" : field})
+  vals = Template.statsTable.getVal(info.spreadsheetName, event).trim().split(", ")
+  explanations = ("#{val}: #{info.dropdownExplanations[val]}" for val in vals when info.dropdownExplanations[val]).join("; ")
+  if explanations
+    "#{info.description} (#{explanations})"
+  else
+    info.description

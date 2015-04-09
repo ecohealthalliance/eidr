@@ -74,9 +74,20 @@
   position absolute
   right 10px
   top 8px
+
+.description,
+.description-inline
   &::before
     content 'i'
     @extend .table-icon
+
+.description-inline
+  color #CCC
+  font-size 90%
+  padding: 3px
+  &::before 
+    vertical-align top
+
 .reference
   margin-right 8px
   @extend .right-icon
@@ -89,3 +100,4 @@
     content 'Q'
     @extend .table-icon
     margin-right 5px
+    
