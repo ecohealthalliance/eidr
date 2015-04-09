@@ -23,11 +23,11 @@ Template.event.helpers
     @eventNameVal.replace(/\(([^)]+)\)/, '')
   displayDates : ->
     if @startDateISOVal isnt "Not Found"
-      startYear = @startDateISOVal.substring(0,4)
+      startDate = @startDateISOVal.substring(0,4)
     if @endDateISOVal isnt "Not Found"
       endDate = @endDateISOVal.substring(0,4)
 
-    if stateDate and endDate and startDate == endDate
+    if startDate and endDate and startDate == endDate
       startDate
     else if startDate and !endDate
       startDate
