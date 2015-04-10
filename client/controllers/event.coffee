@@ -56,7 +56,7 @@ Template.facts.helpers
       else
         description = @grid.Fields.findOne({"displayName" : "Event Transmission"})['dropdownExplanations'][icon]
         fullName = icon.charAt(0).toUpperCase()+icon.substr(1)+': ' + description
-      className: "type-"+icon.split(" ")[0]
+      className: "type-"+icon.split(" ")[0].toLowerCase()
       fullName: fullName
 
 Template.registerHelper 'getDescription', (event, field) ->
