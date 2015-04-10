@@ -23,7 +23,8 @@ template(name="event")
               .col-lg-5.col-md-12
                 +map
                 .location-list-wrap
-                  p.location-list {{locationList locations}}
+                  each locationList locations
+                    p.location-list {{this}}
                   small This represents the most specific location information found for the event.
   .container.tables
     .row
