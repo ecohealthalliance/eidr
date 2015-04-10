@@ -40,6 +40,9 @@ class Client(object):
 		req = urllib2.Request(url_format % (spreadsheet_id, format, gid), headers=headers)
 		return urllib2.urlopen(req, timeout=120)
 
+def capitalize(field):
+  return ", ".join([val[0].upper() + val[1:] for val in field.split(", ") if val])
+      
 def import_fields(file, db):
   fields = db.fields
   tsv = csv.reader(file, delimiter='\t')
@@ -74,6 +77,10 @@ def import_events(file, db):
       if len(row) != len(columns):
         print "%s %s row probably broken" % (row[0], row[2])
       d['_id'] = str(ObjectId())
+      if 'diseaseVal' in d:
+        d['diseaseVal'] = capitalize(d['diseaseVal'])
+      if 'reportedSymptomsVal' in d:
+        d['reportedSymptomsVal'] = capitalize(d['reportedSymptomsVal'])
       events.insert(d)
 
 def import_one_to_one_sheet(file, db):
@@ -85,6 +92,12 @@ def import_one_to_one_sheet(file, db):
       columns = row
     else:
       d = dict(zip(columns, row))
+      if 'hostVal' in d:
+        d['hostVal'] = capitalize(d['hostVal'])
+      if 'initiallyReportedHostVal' in d:
+        d['initiallyReportedHostVal'] = capitalize(d['initiallyReportedHostVal'])
+      if 'occupationVal' in d:
+        d['occupationVal'] = capitalize(d['occupationVal'])
       e = events.find_one({'eventName': d['eventName']})
       if e is None:
         print "No event for %s" % d['eventName']
