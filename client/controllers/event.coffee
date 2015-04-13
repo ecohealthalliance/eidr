@@ -21,22 +21,30 @@ Template.event.rendered = () ->
   $('[data-toggle="popover-quote"]').popover(_.extend(baseOpts, makeTemplate('quote')))
   return
 
+formatDate = (dateString) ->
+  if dateString
+    if dateString.length < 7
+      dateString
+    else
+      year = dateString.substring(0, 4)
+      month = parseInt(dateString.substring(5, 7), 10) - 1
+      months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+      "#{months[month]} #{year}"
+
 Template.event.helpers 
   simpleTitle : ->
     @eventNameVal.replace(/\(([^)]+)\)/, '')
   displayDates : ->
     if @startDateISOVal isnt "Not Found"
-      startDate = @startDateISOVal.substring(0,4)
+      startDate = @startDateISOVal
     if @endDateISOVal isnt "Not Found"
-      endDate = @endDateISOVal.substring(0,4)
+      endDate = @endDateISOVal
 
-    if startDate and endDate and startDate == endDate
-      startDate
-    else if startDate and !endDate
-      startDate
+    if startDate
+      formatDate startDate
     else if !startDate and endDate
-      endDate
-    else 
+      formatDate endDate
+    else
       "Date not found"
 
   locationList : (locations) ->
