@@ -102,6 +102,12 @@ def import_one_to_one_sheet(file, db):
       if e is None:
         print "No event for %s" % d['eventName']
       else:
+        if e['startDateDescriptionVal'] == 'Publication date':
+          # If we don't have a date for the event, remove economic info based on the date
+          if 'perCapitaNationalGDPInYearOfEventVal' in d:
+            d['perCapitaNationalGDPInYearOfEventVal'] = 'Not Applicable'
+          if 'avgLifeExpectancyInCountryAndYearOfEventVal' in d:
+            d['avgLifeExpectancyInCountryAndYearOfEventVal'] = 'Not Applicable'
         events.update({'_id': e['_id']}, {'$set': d})
         
 def import_one_to_many_sheet(file, db, sheetName):
