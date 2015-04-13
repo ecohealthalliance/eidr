@@ -40,10 +40,17 @@ Template.event.helpers
       "Date not found"
 
   locationList : (locations) ->
-    if locations
-      prefix = if locations?.length > 1 then 'Locations: ' else 'Location: '
-      list = (location[location.fieldUsed] for location in locations).join(", ")
-      "#{prefix}#{list}"
+    locations?.map (location) ->
+      if location.fieldUsed is 'emergenceHospitalVal'
+        "#{location.emergenceHospitalVal}, #{location.locationCityVal}, #{location.locationNationVal}"
+      else if location.fieldUsed is 'locationCityVal'
+        "#{location.locationCityVal}, #{location.locationNationVal}"
+      else if location.fieldUsed is 'locationSubnationalRegionVal'
+        "#{location.locationSubnationalRegionVal}, #{location.locationNationVal}"
+      else if location.fieldUsed is 'locationNationVal'
+        "#{location.locationNationVal}"
+      else
+        "Location Not Found"
 
 Template.facts.helpers
   icons : ->
