@@ -24,7 +24,7 @@ Template.statsTable.getReference = (event) ->
   zoteroIds = event.references[fieldName]
   refs = _.map zoteroIds, (zoteroIdOrString) ->
     references().findOne({zoteroId: zoteroIdOrString})?.title or zoteroIdOrString
-  refs.join(", ")
+  refs.join("; ")
 
 Template.tables.checkStats = (table, event) ->
   values = []
