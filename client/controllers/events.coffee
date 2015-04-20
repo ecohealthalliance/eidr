@@ -6,6 +6,7 @@ Template.events.settings = () ->
         key: field.spreadsheetName
         label: field.displayName
         hidden: field['Event table'] isnt '2'
+        sortable: not field.arrayName
         fn: (val, object) ->
           if field.arrayName
             array = object[field.arrayName] or []
