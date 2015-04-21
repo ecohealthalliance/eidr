@@ -18,6 +18,10 @@ Template.events.settings = () ->
           if output in ['Not Found', 'Not Applicable']
             output = ''
 
+          # value should be hidden
+          if output in field.valuesToHide
+            output = ''
+
           # capitalize first letter
           if output.length > 1
             output = output.charAt(0).toUpperCase() + output.slice(1)
