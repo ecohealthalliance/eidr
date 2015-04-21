@@ -22,8 +22,8 @@ Template.events.settings = () ->
       fields.push
         key: field.spreadsheetName
         label: field.displayName
-        sortable: not field.arrayName
         isVisible: Template.instance().fieldVisibility[field.spreadsheetName]
+        sortable: not field.arrayName
         fn: (val, object) ->
           if field.arrayName
             array = object[field.arrayName] or []
