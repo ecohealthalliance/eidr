@@ -5,9 +5,14 @@ references = () =>
   @grid.References
 
 Template.statsTable.showStat = (key, object) ->
-  if grid.Fields.findOne({"spreadsheetName" : key}).Quotations isnt 0
+  field = grid.Fields.findOne {"spreadsheetName": key}
+  if field.Quotations isnt 0
     quote = @Quotations
-  if object[key] isnt 'undefined' and object[key] isnt '' and object[key] isnt 'Not Applicable' and object[key] isnt 'Not Found'
+  if object[key] isnt 'undefined' and 
+     object[key] isnt '' and 
+     object[key] isnt 'Not Applicable' and 
+     object[key] isnt 'Not Found' and
+     object[key] not in field.valuesToHide
     object[key]
   else if object[key] is 'Not Found' and object[quote] and (object[quote] isnt 'undefined' or object[quote] isnt '')
     object[key]
