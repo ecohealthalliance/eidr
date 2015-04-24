@@ -102,7 +102,7 @@ def import_one_to_one_sheet(file, db):
       if e is None:
         print "No event for %s" % d['eventName']
       else:
-        if e['startDateDescriptionVal'] == 'Publication date':
+        if e['startDateDescriptionVal'] == 'Publication date' or e['startDateDescriptionVal'] == 'Not Found':
           # If we don't have a date for the event, remove economic info based on the date
           if 'perCapitaNationalGDPInYearOfEventVal' in d:
             d['perCapitaNationalGDPInYearOfEventVal'] = 'Not Applicable'
