@@ -60,8 +60,8 @@ template(name="facts")
           +descriptionInline(field="eventTransmissionVal" event=../event)
         th Pathogen Host(s)
           +descriptionInline(field="hostVal" event=../event)
-        th Type of Zoonosis
-          +descriptionInline(field="zoonoticTypeVal" event=../event)
+        th Specific Host Involved in the Event
+          +descriptionInline(field="initiallyReportedHostVal" event=../event)
     tbody
       tr
         td(data-header="Event Transmission")
@@ -73,8 +73,8 @@ template(name="facts")
               li.unknown
         td(data-header="Pathogen Host(s)")
           span #{hostVal}
-        td(data-header="Type of Zoonosis")
-          span #{zoonoticTypeVal}
+        td(data-header="Specific Host Involved in the Event")
+          span #{initiallyReportedHostVal}
 
 template(name="description")
   .icon-wrap

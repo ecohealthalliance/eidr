@@ -56,6 +56,7 @@ def import_fields(file, db):
       d['_id'] = str(ObjectId())
       d['order'] = order
       order = order + 1
+      d['valuesToHide'] = [s.strip() for s in d['valuesToHide'].split(",")]
       parsedDropdownExplanations = dict()
       dropdownExplanations = d['dropdownExplanations'].split(";")
       for exp in dropdownExplanations:
