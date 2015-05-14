@@ -9,7 +9,7 @@ Template.event.rendered = () ->
       'top'
   makeTemplate = (className) ->
     template: 
-      '<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content #{className}"></div><a href="#" class="close-popover"><span class="glyphicon glyphicon-remove-sign"></span></a></div>'
+      '<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content '+className+'"></div><a href="#" class="close-popover"><span class="glyphicon glyphicon-remove-sign"></span></a></div>'
   baseOpts = 
     viewport:
       selector: 'body'
@@ -18,7 +18,7 @@ Template.event.rendered = () ->
     placement: checkPosition
     animation: true
   $('[data-toggle="popover"]').popover(_.extend(baseOpts, makeTemplate('')))
-  $('[data-toggle="popover-quote"]').popover(_.extend(baseOpts, makeTemplate('quote')))
+  $('[data-toggle="popover-quote"]').popover(_.extend(baseOpts, makeTemplate('quote-text')))
   return
 
 formatDate = (dateString) ->
