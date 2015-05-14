@@ -22,7 +22,9 @@ Template.statsTable.getVal = (key, object) ->
 
 Template.statsTable.getQuote = (event) ->
   if @Quotations isnt 0 and @Quotations isnt ''
-    Template.statsTable.getVal(@Quotations, event)
+    quote = Template.statsTable.getVal(@Quotations, event)
+    if quote
+      '"'+quote+'"'
     
 Template.statsTable.getReference = (event) ->
   fieldName = @spreadsheetName.slice(0, -3) # cut off "Val"
