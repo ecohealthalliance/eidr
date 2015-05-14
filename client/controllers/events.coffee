@@ -58,7 +58,7 @@ Template.events.settings = () ->
     fields: fields
     currentPage: Template.instance().currentPage
     rowsPerPage: Template.instance().rowsPerPage
-    rowsPerPage: 20
+    rowsPerPage: 50
   }
 
 Template.events.events
