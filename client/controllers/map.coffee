@@ -1,12 +1,14 @@
 Template.map.rendered = () ->
   eventMap = L.map('map')
-  L.tileLayer('//otile{s}.mqcdn.com/tiles/1.0.0/{type}/{z}/{x}/{y}.png', {
-    attribution: """
-    Map Data &copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors,
-    Tiles &copy; <a href="http://www.mapquest.com/" target="_blank">MapQuest</a>
-    <img src="http://developer.mapquest.com/content/osm/mq_logo.png" />
-    """
-    subdomains: '1234'
+  L.tileLayer('//{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+    attribution: """Map tiles by <a href="http://cartodb.com/attributions#basemaps">CartoDB</a>, under <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>. Data by <a href="http://www.openstreetmap.org/">OpenStreetMap</a>, under ODbL.
+    <br>
+    CRS:
+    <a href="http://wiki.openstreetmap.org/wiki/EPSG:3857" >
+    EPSG:3857
+    </a>,
+    Projection: Spherical Mercator""",
+    subdomains: 'abcd',
     type: 'osm'
     maxZoom: 18
   }).addTo eventMap
