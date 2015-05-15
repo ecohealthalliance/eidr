@@ -29,9 +29,9 @@ Template.eventMap.rendered = () ->
         if latLng[0] isnt 'Not Found' and latLng[1] isnt 'Not Found'
 
           circle = L.circleMarker(latLng, 
-            radius: 5
+            radius: 8
             stroke: false
-            fillColor: '#1BAA4A'
+            fillColor: '#D06B39'
             fillOpacity: 0.8
           ).addTo map
 
