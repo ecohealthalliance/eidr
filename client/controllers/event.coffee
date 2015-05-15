@@ -63,6 +63,7 @@ Template.event.helpers
 Template.facts.helpers
   icons : ->
     @eventTransmissionVal.split(',').map (icon) ->
+      console.log icon
       icon = icon.trim()
       if icon is 'Not Found'
         description = 'Transmission method not found'
