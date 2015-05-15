@@ -1,5 +1,12 @@
 Template.map.rendered = () ->
-  eventMap = L.map('map')
+
+  eventMap = L.map('map', scrollWheelZoom: false)
+  eventMap.once 'focus', () ->
+    eventMap.scrollWheelZoom.enable()
+  eventMap.once 'blur', () ->
+    eventMap.scrollWheelZoom.disable()
+
+
   L.tileLayer('//{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
     attribution: """Map tiles by <a href="http://cartodb.com/attributions#basemaps">CartoDB</a>, under <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>. Data by <a href="http://www.openstreetmap.org/">OpenStreetMap</a>, under ODbL.
     <br>
@@ -35,7 +42,7 @@ Template.map.rendered = () ->
         if latLng[0] isnt 'Not Found' and latLng[1] isnt 'Not Found'
           displayName = location[location.fieldUsed]
 
-          L.marker(latLng, {
+          circle = L.marker(latLng, {
             icon: L.divIcon({
               className: 'map-marker-container'
               iconSize:null
@@ -43,6 +50,7 @@ Template.map.rendered = () ->
               <div class="map-marker"></div>
               """
             })
-          }).addTo(eventMap)
+          })
           .bindPopup displayName
+          .addTo(eventMap)
           markers.push circle
