@@ -1,8 +1,12 @@
 L.Icon.Default.imagePath = "/packages/fuatsengul_leaflet/images"
 
 Template.eventMap.rendered = () ->
+
+  southWest = L.latLng(-85, -180)
+  northEast = L.latLng(85, 180)
+  bounds = L.latLngBounds(southWest, northEast)
   
-  map = L.map('event-map').setView([10, -0], 3)
+  map = L.map('event-map', maxBounds: bounds).setView([10, -0], 3)
   L.tileLayer('//{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
     attribution: """Map tiles by <a href="http://cartodb.com/attributions#basemaps">CartoDB</a>, under <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>. Data by <a href="http://www.openstreetmap.org/">OpenStreetMap</a>, under ODbL.
     <br>
@@ -17,6 +21,8 @@ Template.eventMap.rendered = () ->
     minZoom: 3
     maxZoom: 18
   }).addTo map
+
+  map.fitBounds(bounds)
 
   events = @data.events
   for event in events.fetch()
