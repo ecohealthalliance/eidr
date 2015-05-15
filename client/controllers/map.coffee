@@ -6,7 +6,6 @@ Template.map.rendered = () ->
   eventMap.once 'blur', () ->
     eventMap.scrollWheelZoom.disable()
 
-
   L.tileLayer('//{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
     attribution: """Map tiles by <a href="http://cartodb.com/attributions#basemaps">CartoDB</a>, under <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>. Data by <a href="http://www.openstreetmap.org/">OpenStreetMap</a>, under ODbL.
     <br>
@@ -17,6 +16,8 @@ Template.map.rendered = () ->
     Projection: Spherical Mercator""",
     subdomains: 'abcd',
     type: 'osm'
+    noWrap: true
+    minZoom: 3
     maxZoom: 18
   }).addTo eventMap
   markers = []
