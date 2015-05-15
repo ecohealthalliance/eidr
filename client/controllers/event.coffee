@@ -70,7 +70,7 @@ Template.facts.helpers
         fullName = 'Not Found: ' + description
         icon = 'unknown'
       else
-        description = @grid.Fields.findOne({"displayName" : "Event Transmission"})['dropdownExplanations'][icon]
+        description = @grid.Fields.findOne({"displayName" : "General Transmission"})['dropdownExplanations'][icon]
         fullName = icon.charAt(0).toUpperCase()+icon.substr(1)+': ' + description
       className: "type-"+icon.split(" ")[0].toLowerCase()
       fullName: fullName
