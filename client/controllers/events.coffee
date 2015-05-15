@@ -1,3 +1,20 @@
+Template.events.onCreated () ->
+  @currentPage = new ReactiveVar(Session.get('events-current-page') or 0)
+  @rowsPerPage = new ReactiveVar(Session.get('events-rows-per-page') or 10)
+
+  fields = @data.fields.fetch()
+  @fieldVisibility = {}
+  for field in @data.fields.fetch()
+    defaultVisibility = field['Event table'] is '2'
+    @fieldVisibility[field.spreadsheetName] = new ReactiveVar(Session.get('events-field-visible-' + field.spreadsheetName) or defaultVisibility)
+
+  @autorun () =>
+    Session.set 'events-current-page', @currentPage.get()
+    Session.set 'events-rows-per-page', @rowsPerPage.get()
+    for field in @data.fields.fetch()
+      Session.set 'events-field-visible-' + field.spreadsheetName, @fieldVisibility[field.spreadsheetName].get()
+
+
 Template.events.settings = () ->
   fields = []
   for field in @fields.fetch()
@@ -5,7 +22,8 @@ Template.events.settings = () ->
       fields.push
         key: field.spreadsheetName
         label: field.displayName
-        hidden: field['Event table'] isnt '2'
+        isVisible: Template.instance().fieldVisibility[field.spreadsheetName]
+        sortable: not field.arrayName
         fn: (val, object) ->
           if field.arrayName
             array = object[field.arrayName] or []
@@ -13,8 +31,12 @@ Template.events.settings = () ->
           else
             output = val or ''
 
-          # hide NF/NAP
-          if output in ['NF', 'NAP']
+          # hide Not Found/Not Applicable
+          if output in ['Not Found', 'Not Applicable']
+            output = ''
+
+          # value should be hidden
+          if output in field.valuesToHide
             output = ''
 
           # capitalize first letter
@@ -31,8 +53,11 @@ Template.events.settings = () ->
           new Spacebars.SafeString("<span sort=#{sort}>#{output}</span>")
   
   {
+    id: 'events-table'
     showColumnToggles: true
     fields: fields
+    currentPage: Template.instance().currentPage
+    rowsPerPage: Template.instance().rowsPerPage
   }
 
 Template.events.events

@@ -4,10 +4,15 @@ Template.eventMap.rendered = () ->
   
   map = L.map('event-map').setView([10, -0], 3)
   
-  L.tileLayer('//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  L.tileLayer('//otile{s}.mqcdn.com/tiles/1.0.0/{type}/{z}/{x}/{y}.png', {
+    attribution: """
+    Map Data &copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors,
+    Tiles &copy; <a href="http://www.mapquest.com/" target="_blank">MapQuest</a>
+    <img src="http://developer.mapquest.com/content/osm/mq_logo.png" />
+    """
+    subdomains: '1234'
+    type: 'osm'
     maxZoom: 18
-    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-    noWrap: true
   }).addTo(map);
   
   events = @data.events
@@ -19,7 +24,7 @@ Template.eventMap.rendered = () ->
       for location in event.locations
         latLng = [location.locationLatitude, location.locationLongitude]
 
-        if latLng[0] isnt 'NF' and latLng[1] isnt 'NF'
+        if latLng[0] isnt 'Not Found' and latLng[1] isnt 'Not Found'
 
           circle = L.circleMarker(latLng, {
             stroke: false
