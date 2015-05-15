@@ -34,12 +34,15 @@ Template.map.rendered = () ->
         latLng = [location.locationLatitude, location.locationLongitude]
         if latLng[0] isnt 'Not Found' and latLng[1] isnt 'Not Found'
           displayName = location[location.fieldUsed]
-          circle = L.circleMarker(latLng, {
-            stroke: false
-            fillColor: '#D06B39'
-            fillOpacity: 0.8
-            radius: 10
-          }).addTo(eventMap)
 
-          circle.bindPopup displayName
+          L.marker(latLng, {
+            icon: L.divIcon({
+              className: 'map-marker-container'
+              iconSize:null
+              html:"""
+              <div class="map-marker"></div>
+              """
+            })
+          }).addTo(eventMap)
+          .bindPopup displayName
           markers.push circle

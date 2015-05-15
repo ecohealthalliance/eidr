@@ -28,14 +28,15 @@ Template.eventMap.rendered = () ->
 
         if latLng[0] isnt 'Not Found' and latLng[1] isnt 'Not Found'
 
-          circle = L.circleMarker(latLng, 
-            radius: 8
-            stroke: false
-            fillColor: '#D06B39'
-            fillOpacity: 0.8
-          ).addTo map
-
-          circle.bindPopup("""
+          L.marker(latLng, {
+            icon: L.divIcon({
+              className: 'map-marker-container'
+              iconSize:null
+              html:"""
+              <div class="map-marker"></div>
+              """
+            })
+          }).bindPopup("""
             <a href="/event/#{eidID}">#{name}</a>
           """).addTo(map)
       
