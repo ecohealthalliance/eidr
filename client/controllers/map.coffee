@@ -1,10 +1,8 @@
 Template.map.rendered = () ->
 
-  southWest = L.latLng(-85, -180)
-  northEast = L.latLng(85, 180)
-  bounds = L.latLngBounds(southWest, northEast)
-
-  eventMap = L.map('map', scrollWheelZoom: false, maxBounds: bounds)
+  eventMap = L.map 'map', 
+    scrollWheelZoom: false, 
+    maxBounds: L.latLngBounds(L.latLng(-85, -180), L.latLng(85, 180))
   eventMap.once 'focus', () ->
     eventMap.scrollWheelZoom.enable()
   eventMap.once 'blur', () ->
@@ -25,8 +23,6 @@ Template.map.rendered = () ->
     maxZoom: 18
   }).addTo eventMap
   markers = []
-
-
 
   @autorun () ->
     data = Template.currentData()
@@ -61,5 +57,3 @@ Template.map.rendered = () ->
           .bindPopup displayName
           .addTo(eventMap)
           markers.push circle
-
-  console.log eventMap.mouseEventToLatLng()
