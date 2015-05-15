@@ -17,11 +17,11 @@ Template.map.rendered = () ->
     subdomains: 'abcd',
     type: 'osm'
     noWrap: true
-    minZoom: 3
+    minZoom: 2
     maxZoom: 18
   }).addTo eventMap
   markers = []
-  
+
   @autorun () ->
     data = Template.currentData()
     
