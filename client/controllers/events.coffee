@@ -58,7 +58,7 @@ Template.events.settings = () ->
     fields: fields
     currentPage: Template.instance().currentPage
     rowsPerPage: Template.instance().rowsPerPage
-    rowsPerPage: 30
+    rowsPerPage: 20
   }
 
 Template.events.events
@@ -69,5 +69,5 @@ Template.events.events
     else
       Router.go "event", { eidID: @eidID }
   "click .next-page, click .previous-page" : () ->
-    if (window.scrollY > 0)
+    if (window.scrollY > 0 and window.innerHeight < 700)
       $('body').animate({scrollTop:0,400})
