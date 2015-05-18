@@ -21,8 +21,11 @@ fluid-ratio(widthLarge, heightLarge, widthSmall, heightSmall)
   -moz-background-size cover
   background-position center
   
-bg(path, w, h)
-  background url(path) no-repeat
+bg(path, w, h, type='png')
+  background url(path + '.' + type) no-repeat
   background-size w h
   width w
   height h
+  text-indent -9999px
+  @media (-webkit-min-device-pixel-ratio: 2), (-moz-min-device-pixel-ratio: 2)
+    background-image: url(path + '-2x.' + type);

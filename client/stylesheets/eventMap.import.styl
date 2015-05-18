@@ -1,15 +1,13 @@
-.map-wrap
-  full-width()
-  top header-height
-
 #event-map
-  width 100%
-  height 100%
-  margin auto
+  position absolute
+  left 0
+  right 0
+  top header-height
+  bottom footer-height
   background-color #B5D0D0
 
 @media (max-width: 768px)
-  .map-wrap
+  #event-map
     top mobile-header-height
 @media (max-width: 320px)
   .leaflet-popup-content,
