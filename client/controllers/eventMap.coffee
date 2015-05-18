@@ -22,8 +22,6 @@ Template.eventMap.rendered = () ->
     maxZoom: 18
   }).addTo(map)
 
-  map.fitBounds(bounds)
-
   events = @data.events
   for event in events.fetch()
     if event.locations
