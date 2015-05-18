@@ -64,7 +64,7 @@ Template.facts.helpers
   icons : ->
     @eventTransmissionVal.split(',').map (icon) ->
       icon = icon.trim()
-      if icon is 'Not Found'
+      if icon is 'Not Found' or icon is ''
         description = 'Transmission method not found'
         fullName = 'Not Found: ' + description
         icon = 'unknown'
