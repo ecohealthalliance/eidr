@@ -3,9 +3,9 @@ Template.map.rendered = () ->
   eventMap = L.map 'map', 
     scrollWheelZoom: false, 
     maxBounds: L.latLngBounds(L.latLng(-85, -180), L.latLng(85, 180))
-  eventMap.once 'focus', () ->
+  eventMap.on 'click', () ->
     eventMap.scrollWheelZoom.enable()
-  eventMap.once 'blur', () ->
+  eventMap.on 'mouseout', () ->
     eventMap.scrollWheelZoom.disable()
 
   L.tileLayer('//{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
@@ -19,7 +19,6 @@ Template.map.rendered = () ->
     subdomains: 'abcd',
     type: 'osm'
     noWrap: true
-    minZoom: 2
     maxZoom: 18
   }).addTo eventMap
   markers = []
