@@ -19,7 +19,6 @@ Template.map.rendered = () ->
     subdomains: 'abcd',
     type: 'osm'
     noWrap: true
-    minZoom: 2
     maxZoom: 18
   }).addTo eventMap
   markers = []
