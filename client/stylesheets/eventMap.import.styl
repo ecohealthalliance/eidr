@@ -5,6 +5,21 @@
   top header-height
   bottom footer-height
   background-color #B5D0D0
+  background-color map-background
+
+.leaflet-popup-content-wrapper
+  border-radius 5px
+
+.map-marker
+  &::before
+    @extend .icon
+    color rgba(210, 106, 40, .8)
+    content '*'
+    display block
+    font-size 22px
+    margin-top -3px
+    margin-left -9px
+    line-height 0
 
 @media (max-width: 768px)
   #event-map

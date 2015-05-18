@@ -1,17 +1,29 @@
 Template.map.rendered = () ->
-  eventMap = L.map('map')
-  L.tileLayer('//otile{s}.mqcdn.com/tiles/1.0.0/{type}/{z}/{x}/{y}.png', {
-    attribution: """
-    Map Data &copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors,
-    Tiles &copy; <a href="http://www.mapquest.com/" target="_blank">MapQuest</a>
-    <img src="http://developer.mapquest.com/content/osm/mq_logo.png" />
-    """
-    subdomains: '1234'
+
+  eventMap = L.map 'map', 
+    scrollWheelZoom: false, 
+    maxBounds: L.latLngBounds(L.latLng(-85, -180), L.latLng(85, 180))
+  eventMap.once 'focus', () ->
+    eventMap.scrollWheelZoom.enable()
+  eventMap.once 'blur', () ->
+    eventMap.scrollWheelZoom.disable()
+
+  L.tileLayer('//{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+    attribution: """Map tiles by <a href="http://cartodb.com/attributions#basemaps">CartoDB</a>, under <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>. Data by <a href="http://www.openstreetmap.org/">OpenStreetMap</a>, under ODbL.
+    <br>
+    CRS:
+    <a href="http://wiki.openstreetmap.org/wiki/EPSG:3857" >
+    EPSG:3857
+    </a>,
+    Projection: Spherical Mercator""",
+    subdomains: 'abcd',
     type: 'osm'
+    noWrap: true
+    minZoom: 2
     maxZoom: 18
   }).addTo eventMap
   markers = []
-  
+
   @autorun () ->
     data = Template.currentData()
     
@@ -33,12 +45,15 @@ Template.map.rendered = () ->
         if latLng[0] isnt 'Not Found' and latLng[1] isnt 'Not Found'
           displayName = location[location.fieldUsed]
 
-
-          circle = L.circleMarker(latLng, {
-            stroke: false
-            fillColor: '#1BAA4A',
-            fillOpacity: 0.8,
-          }).addTo(eventMap)
-
-          circle.bindPopup displayName
+          circle = L.marker(latLng, {
+            icon: L.divIcon({
+              className: 'map-marker-container'
+              iconSize:null
+              html:"""
+              <div class="map-marker"></div>
+              """
+            })
+          })
+          .bindPopup displayName
+          .addTo(eventMap)
           markers.push circle
