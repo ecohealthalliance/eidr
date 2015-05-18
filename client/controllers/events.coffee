@@ -52,16 +52,15 @@ Template.events.helpers
             if output is '' then sort = 2 else sort = 1
 
             new Spacebars.SafeString("<span sort=#{sort}>#{output}</span>")
-    
+  
     {
       id: 'events-table'
       showColumnToggles: true
       fields: fields
       currentPage: Template.instance().currentPage
       rowsPerPage: Template.instance().rowsPerPage
-      rowsPerPage: 50
+      rowsPerPage: 30
     }
-
 
 Template.events.events
   "click .reactive-table tbody tr": (event) ->
