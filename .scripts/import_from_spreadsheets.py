@@ -68,7 +68,7 @@ def import_fields(file, db):
 
 def import_events(file, db):
   events = db.events
-  tsv = csv.reader(file, delimiter='\t')
+  tsv = csv.reader(file, delimiter='\t', quotechar='|')
   columns = None
   for row in tsv:
     if not columns:
@@ -86,7 +86,7 @@ def import_events(file, db):
 
 def import_one_to_one_sheet(file, db):
   events = db.events
-  tsv = csv.reader(file, delimiter='\t')
+  tsv = csv.reader(file, delimiter='\t', quotechar='|')
   columns = None
   for row in tsv:
     if not columns:
@@ -113,7 +113,7 @@ def import_one_to_one_sheet(file, db):
         
 def import_one_to_many_sheet(file, db, sheetName):
   events = db.events
-  tsv = csv.reader(file, delimiter='\t')
+  tsv = csv.reader(file, delimiter='\t', quotechar='|')
   columns = None
   for row in tsv:
     if not columns:
