@@ -1,6 +1,3 @@
-Template.event.isEID = () ->
-  @event?.eidVal is "1"
-
 Template.event.rendered = () ->
   checkPosition = () -> 
     if($(this.$element).offset().top - $(window).scrollTop() < 150)
@@ -32,6 +29,9 @@ formatDate = (dateString) ->
       "#{months[month]} #{year}"
 
 Template.event.helpers 
+  isEID : () ->
+    @event?.eidVal is "1"
+
   simpleTitle : ->
     @eventNameVal.replace(/\(([^)]+)\)/, '')
   displayDates : ->
@@ -64,7 +64,7 @@ Template.facts.helpers
   icons : ->
     @eventTransmissionVal.split(',').map (icon) ->
       icon = icon.trim()
-      if icon is 'Not Found'
+      if icon is 'Not Found' or icon is ''
         description = 'Transmission method not found'
         fullName = 'Not Found: ' + description
         icon = 'unknown'
@@ -74,9 +74,12 @@ Template.facts.helpers
       className: "type-"+icon.split(" ")[0].toLowerCase()
       fullName: fullName
 
+getVal = (key, object) ->
+  object[key]
+
 Template.registerHelper 'getDescription', (event, field) ->
   info = grid.Fields.findOne({"spreadsheetName" : field})
-  vals = Template.statsTable.getVal(info.spreadsheetName, event).trim().split(", ")
+  vals = getVal(info.spreadsheetName, event).trim().split(", ")
   explanations = ("#{val}: #{info.dropdownExplanations[val]}" for val in vals when info.dropdownExplanations[val]).join("; ")
   if explanations
     "#{info.description} (#{explanations})"
