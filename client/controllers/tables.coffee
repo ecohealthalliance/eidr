@@ -24,13 +24,7 @@ Template.statsTable.getQuote = (event) ->
   if @Quotations isnt 0 and @Quotations isnt ''
     quotes = Template.statsTable.getVal(@Quotations, event)
     if quotes
-      _.map quotes.trim().split(', "'), (quote, i) ->
-        if i is 0 and quote.indexOf('"') == -1
-          '"'+quote+'"'
-        else if i > 0
-          '"'+quote.replace('""', '"')
-        else 
-          quote
+      quotes.trim()
     
 Template.statsTable.getReference = (event) ->
   fieldName = @spreadsheetName.slice(0, -3) # cut off "Val"
