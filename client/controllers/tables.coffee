@@ -25,9 +25,9 @@ Template.statsTable.helpers
 
   getQuote : (event) ->
     if @Quotations isnt 0 and @Quotations isnt ''
-      quote = getVal(@Quotations, event)
-      if quote
-        '"'+quote+'"'
+      quotes = getVal(@Quotations, event)
+      if quotes
+        quotes.trim()
     
   getReference : (event) ->
     fieldName = @spreadsheetName.slice(0, -3) # cut off "Val"
