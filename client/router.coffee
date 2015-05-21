@@ -54,7 +54,7 @@ Router.route "/eventMap",
   waitOn: () ->
     Meteor.subscribe "locations"
   data: () ->
-    events: Events().find()
+    events: Events().find({'eidVal': "1"})
 
 Router.route "/download",
   name: 'download',
