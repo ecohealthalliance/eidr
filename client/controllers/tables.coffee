@@ -7,6 +7,7 @@ references = () =>
 getVal = (key, object) ->
   object[key]
 
+
 Template.statsTable.helpers
   showStat : (key, object) ->
     field = grid.Fields.findOne {"spreadsheetName": key}
@@ -25,7 +26,9 @@ Template.statsTable.helpers
 
   getQuote : (event) ->
     if @Quotations isnt 0 and @Quotations isnt ''
-      getVal(@Quotations, event)
+      quotes = getVal(@Quotations, event)
+      if quotes
+        quotes.trim()
     
   getReference : (event) ->
     fieldName = @spreadsheetName.slice(0, -3) # cut off "Val"
