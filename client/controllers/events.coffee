@@ -56,8 +56,6 @@ Template.events.helpers
     {
       id: 'events-table'
       showColumnToggles: true
-      showFilter: true
-      filters: ['potential-events-filter', 'events-table-filter']
       fields: fields
       currentPage: Template.instance().currentPage
       rowsPerPage: Template.instance().rowsPerPage
@@ -72,22 +70,5 @@ Template.events.events
     else
       Router.go "event", { eidID: @eidID }
   "click .next-page, click .previous-page" : () ->
-    if (window.scrollY > 0 and window.innerHeight < 700)
+    if (window.scrollY > 0)
       $('body').animate({scrollTop:0,400})
-
-Template.potentialEventsFilter.onCreated () ->
-  this.filter = new ReactiveTable.Filter('potential-events-filter', ['eidVal'])
-  unless this.filter.get()
-    this.filter.set("1")
-
-Template.potentialEventsFilter.helpers
-  checked: () ->
-    return Template.instance().filter.get() is "2"
-
-Template.potentialEventsFilter.events
-  'click .potential-events-filter': (event, template) ->
-    filter = template.filter
-    if filter.get() is "2"
-      filter.set("1")
-    else
-      filter.set("2")
