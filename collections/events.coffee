@@ -4,10 +4,10 @@ Events = new Meteor.Collection "events"
 @grid.Events = Events
 
 if Meteor.isServer
-  ReactiveTable.publish "events", Events, {'eidVal': {"$in": ["1", "2"]}}
+  ReactiveTable.publish "events", Events, {'eidVal': "1"}
 
   Meteor.publish "event", (eidID) ->
-    Events.find({'eidID': eidID, 'eidVal': {"$in": ["1", "2"]}})
+    Events.find({'eidID': eidID, 'eidVal': "1"})
     
   Meteor.publish "locations", () ->
     Events.find({'eidVal': "1"}, {fields: {'locations.locationLatitude': 1, 'locations.locationLongitude': 1, eidID: 1, eventNameVal: 1, eidVal: 1}})
