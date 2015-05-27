@@ -9,7 +9,6 @@
     color #333
     letter-spacing 0.02em
     
-    
 .navbar-default .navbar-nav > li > a
   font-size 16px
   color d-gray
@@ -51,23 +50,41 @@
 .link-text-nav
   display inline-block
   padding-right 3px
-  
-.glyphicon-envelope
-  top 2px
-  display none
 
+.navbar-nav
+  .icon
+    font-size 20px
+    line-height 0
+    display none
+    &::before
+      display block
+    &.mail
+      &::before
+        content 'm'  
+    &.login
+      &::before
+        content '\E800'
+    &.logout
+      &::before
+        content '\E801' 
+     
 @media (min-width: 768px) and (max-width: 992px)
-  .navbar
-    .glyphicon
-      font-size 20px
+  .navbar-nav
+    .icon
+      display block
   .link-text-nav
       display none
-  .glyphicon-envelope
-    display block
   .navbar-default .navbar-nav > li > a
     font-size 14px
+  li > a
+    &.withIcon
+      padding 35px 15px
 
 @media (max-width: 768px)
+  .navbar-nav
+    border-bottom 2px solid white
+    .icon
+      display none
   .disclaimer
     display none
   .navbar-nav
