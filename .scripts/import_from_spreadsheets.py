@@ -1,4 +1,4 @@
-import re, urllib, urllib2, csv
+import re, urllib, urllib2, csv, json
 import pymongo
 from bson.objectid import ObjectId
 from pyzotero import zotero
@@ -7,38 +7,38 @@ import config
 
 class Client(object):
   # Based on https://gist.github.com/cspickert/1650271
-	def __init__(self, email, password):
-		super(Client, self).__init__()
-		self.email = email
-		self.password = password
-		self.token = None
+  def __init__(self, client_id, client_secret, refresh_token):
+    super(Client, self).__init__()
+    self.client_id = client_id
+    self.client_secret = client_secret
+    self.refresh_token = refresh_token
+    self.access_token = None
 
-	def _get_auth_token(self, email, password, source, service):
-		url = "https://www.google.com/accounts/ClientLogin"
-		params = {
-			"Email": email, "Passwd": password,
-			"service": service,
-			"accountType": "HOSTED_OR_GOOGLE",
-			"source": source
-		}
-		req = urllib2.Request(url, urllib.urlencode(params))
-		return re.findall(r"Auth=(.*)", urllib2.urlopen(req).read())[0]
+  def _get_access_token(self):
+    url = "https://www.googleapis.com/oauth2/v3/token"
+    params = {
+      "refresh_token": self.refresh_token,
+      "client_id": self.client_id,
+      "client_secret": self.client_secret,
+      "grant_type": "refresh_token"
+    }
+    req = urllib2.Request(url, urllib.urlencode(params))
+    resp = json.loads(urllib2.urlopen(req).read())
+    return resp['access_token']
 
-	def get_auth_token(self):
-		if self.token:
-			return self.token
-		source = type(self).__name__
-		self.token = self._get_auth_token(self.email, self.password, source, service="wise")
-		return self.token
+  def get_access_token(self):
+    if self.access_token:
+      return self.access_token
+    self.access_token = self._get_access_token()
+    return self.access_token
 
-	def download(self, spreadsheet_id, gid=0, format="csv"):
-		url_format = "https://spreadsheets.google.com/feeds/download/spreadsheets/Export?key=%s&exportFormat=%s&gid=%i"
-		headers = {
-			"Authorization": "GoogleLogin auth=" + self.get_auth_token(),
-			"GData-Version": "3.0"
-		}
-		req = urllib2.Request(url_format % (spreadsheet_id, format, gid), headers=headers)
-		return urllib2.urlopen(req, timeout=120)
+  def download(self, spreadsheet_id, gid=0, format="csv"):
+    url_format = "https://docs.google.com/spreadsheets/export?id=%s&exportFormat=%s&gid=%i"
+    headers = {
+      "Authorization": "Bearer " + self.get_access_token()
+    }
+    req = urllib2.Request(url_format % (spreadsheet_id, format, gid), headers=headers)
+    return urllib2.urlopen(req, timeout=120)
 
 def capitalize(field):
   return ", ".join([val[0].upper() + val[1:] for val in field.split(", ") if val])
@@ -206,7 +206,7 @@ def import_refs(db, zot):
 
 if __name__ == "__main__":
 
-  gs = Client(config.google_user, config.google_password)
+  gs = Client(config.google_client_id, config.google_client_secret, config.google_refresh_token)
   db = pymongo.Connection("localhost", config.meteor_mongo_port)[config.meteor_db_name]
   db.fields.drop()
   db.events.drop()
