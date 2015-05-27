@@ -47,10 +47,14 @@
 .about-intro
   background secondary
   color white
-  padding 40px 0 30px 0
+  padding-top 40px
+  padding-bottom 30px
   h1
     font-size 40px
     margin-top 0
+    bg(eidr-logo-white, 450px, 312px, 'png')
+  p
+    padding-top 30px
 
 .short-desc
   font-size 24px
@@ -60,7 +64,25 @@
 .other
   text-align left
   color black
-  
+
+.method
+  margin-bottom 20px
+
+.references
+  li
+    margin-bottom 10px
+    color m-gray
+    font-size 11px
+
+@media (max-width: 992px)
+  .about-intro
+    h1
+      margin-left auto
+      margin-right auto
+    p 
+      padding-top 40px
+
+
 @media (min-width: 768px)
   .exploring
     li
@@ -71,7 +93,5 @@
   .about-intro
     h1
       font-size 35px
-  .short-desc
-    font-size 20px
-    width 100%
+      changeBGSize(350px,243px)
     
