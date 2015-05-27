@@ -1,39 +1,65 @@
-Template.events.settings = () ->
-  fields = []
-  for field in @fields.fetch()
-    do (field) ->
-      fields.push
-        key: field.spreadsheetName
-        label: field.displayName
-        hidden: field['Event table'] isnt '2'
-        fn: (val, object) ->
-          if field.arrayName
-            array = object[field.arrayName] or []
-            output = _.unique(element[field.spreadsheetName] for element in array).join(", ")
-          else
-            output = val or ''
+Template.events.onCreated () ->
+  @currentPage = new ReactiveVar(Session.get('events-current-page') or 0)
+  @rowsPerPage = new ReactiveVar(Session.get('events-rows-per-page') or 10)
 
-          # hide NF/NAP
-          if output in ['NF', 'NAP']
-            output = ''
+  fields = @data.fields.fetch()
+  @fieldVisibility = {}
+  for field in @data.fields.fetch()
+    defaultVisibility = field['Event table'] is '2'
+    @fieldVisibility[field.spreadsheetName] = new ReactiveVar(Session.get('events-field-visible-' + field.spreadsheetName) or defaultVisibility)
 
-          # capitalize first letter
-          if output.length > 1
-            output = output.charAt(0).toUpperCase() + output.slice(1)
+  @autorun () =>
+    Session.set 'events-current-page', @currentPage.get()
+    Session.set 'events-rows-per-page', @rowsPerPage.get()
+    for field in @data.fields.fetch()
+      Session.set 'events-field-visible-' + field.spreadsheetName, @fieldVisibility[field.spreadsheetName].get()
 
-          # truncate long fields
-          if output.length > 100
-            output = output.slice(0, 100) + '...'
 
-          # put empty values at the end
-          if output is '' then sort = 2 else sort = 1
+Template.events.helpers
+  settings : () ->
+    fields = []
+    for field in @fields.fetch()
+      do (field) ->
+        fields.push
+          key: field.spreadsheetName
+          label: field.displayName
+          isVisible: Template.instance().fieldVisibility[field.spreadsheetName]
+          sortable: not field.arrayName
+          fn: (val, object) ->
+            if field.arrayName
+              array = object[field.arrayName] or []
+              output = _.unique(element[field.spreadsheetName] for element in array).join(", ")
+            else
+              output = val or ''
 
-          new Spacebars.SafeString("<span sort=#{sort}>#{output}</span>")
-  
-  {
-    showColumnToggles: true
-    fields: fields
-  }
+            # hide Not Found/Not Applicable
+            if output in ['Not Found', 'Not Applicable']
+              output = ''
+
+            # value should be hidden
+            if output in field.valuesToHide
+              output = ''
+
+            # capitalize first letter
+            if output.length > 1
+              output = output.charAt(0).toUpperCase() + output.slice(1)
+
+            # truncate long fields
+            if output.length > 100
+              output = output.slice(0, 100) + '...'
+
+            # put empty values at the end
+            if output is '' then sort = 2 else sort = 1
+
+            new Spacebars.SafeString("<span sort=#{sort}>#{output}</span>")
+    
+    {
+      id: 'events-table'
+      showColumnToggles: true
+      fields: fields
+      currentPage: Template.instance().currentPage
+      rowsPerPage: Template.instance().rowsPerPage
+    }
 
 Template.events.events
   "click .reactive-table tbody tr": (event) ->

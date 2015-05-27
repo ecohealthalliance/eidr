@@ -40,6 +40,9 @@ class Client(object):
 		req = urllib2.Request(url_format % (spreadsheet_id, format, gid), headers=headers)
 		return urllib2.urlopen(req, timeout=120)
 
+def capitalize(field):
+  return ", ".join([val[0].upper() + val[1:] for val in field.split(", ") if val])
+      
 def import_fields(file, db):
   fields = db.fields
   tsv = csv.reader(file, delimiter='\t')
@@ -53,6 +56,7 @@ def import_fields(file, db):
       d['_id'] = str(ObjectId())
       d['order'] = order
       order = order + 1
+      d['valuesToHide'] = [s.strip() for s in d['valuesToHide'].split(",")]
       parsedDropdownExplanations = dict()
       dropdownExplanations = d['dropdownExplanations'].split(";")
       for exp in dropdownExplanations:
@@ -64,7 +68,7 @@ def import_fields(file, db):
 
 def import_events(file, db):
   events = db.events
-  tsv = csv.reader(file, delimiter='\t')
+  tsv = csv.reader(file, delimiter='\t', quoting=csv.QUOTE_NONE)
   columns = None
   for row in tsv:
     if not columns:
@@ -74,26 +78,42 @@ def import_events(file, db):
       if len(row) != len(columns):
         print "%s %s row probably broken" % (row[0], row[2])
       d['_id'] = str(ObjectId())
+      if 'diseaseVal' in d:
+        d['diseaseVal'] = capitalize(d['diseaseVal'])
+      if 'reportedSymptomsVal' in d:
+        d['reportedSymptomsVal'] = capitalize(d['reportedSymptomsVal'])
       events.insert(d)
 
 def import_one_to_one_sheet(file, db):
   events = db.events
-  tsv = csv.reader(file, delimiter='\t')
+  tsv = csv.reader(file, delimiter='\t', quoting=csv.QUOTE_NONE)
   columns = None
   for row in tsv:
     if not columns:
       columns = row
     else:
       d = dict(zip(columns, row))
+      if 'hostVal' in d:
+        d['hostVal'] = capitalize(d['hostVal'])
+      if 'initiallyReportedHostVal' in d:
+        d['initiallyReportedHostVal'] = capitalize(d['initiallyReportedHostVal'])
+      if 'occupationVal' in d:
+        d['occupationVal'] = capitalize(d['occupationVal'])
       e = events.find_one({'eventName': d['eventName']})
       if e is None:
         print "No event for %s" % d['eventName']
       else:
+        if e['startDateDescriptionVal'] == 'Publication date' or e['startDateDescriptionVal'] == 'Not Found':
+          # If we don't have a date for the event, remove economic info based on the date
+          if 'perCapitaNationalGDPInYearOfEventVal' in d:
+            d['perCapitaNationalGDPInYearOfEventVal'] = 'Not Applicable'
+          if 'avgLifeExpectancyInCountryAndYearOfEventVal' in d:
+            d['avgLifeExpectancyInCountryAndYearOfEventVal'] = 'Not Applicable'
         events.update({'_id': e['_id']}, {'$set': d})
         
 def import_one_to_many_sheet(file, db, sheetName):
   events = db.events
-  tsv = csv.reader(file, delimiter='\t')
+  tsv = csv.reader(file, delimiter='\t', quoting=csv.QUOTE_NONE)
   columns = None
   for row in tsv:
     if not columns:

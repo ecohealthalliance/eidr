@@ -4,8 +4,8 @@ head
   meta(name="viewport" content="width=device-width, initial-scale=1")
   link(href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,800,700' rel='stylesheet' type='text/css')
 template(name="layout")
-  .container
+  .page-wrapper
     +header
-  #main.row-fluid
-    +yield
-  +footer
+    .main-content
+      +yield
+    +footer

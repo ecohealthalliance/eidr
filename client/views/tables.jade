@@ -19,18 +19,22 @@ template(name="tables")
           .panel-heading
             h3 Economics
           +statsTable stats=economicsStats event=event className='table-striped'
-  
-  if event.eidDiscussionVal
-    .row
-      .col-lg-7
-        .panel.panel-default.references
-          .panel-heading
-            h3 Discussion
-          .panel-body
-            p #{event.eidDiscussionVal}
   .row
-      .col-lg-7
-        +references
+    .col-lg-7
+      +references
+    if getNotFound event
+      .col-lg-5
+        .panel.panel-default     
+          .panel-heading
+            h3 Data Not Found 
+          table.table.table-striped.not-founds
+            tbody
+              each getNotFound event
+                tr
+                  td #{name}
+                    .icon-wrap
+                      .description-wrap(data-toggle="popover" data-content="#{description}")
+                        span.description
 
 template(name="references")
   .panel.panel-default.references
@@ -47,12 +51,10 @@ template(name="statsTable")
         if showStat spreadsheetName ../event
           tr.stats-field
             td #{displayName}
-              .icon-wrap
-                .description-wrap(data-toggle="popover" data-content="{{getDescription ../event}}")
-                  span.description
+              +description event=../event field=spreadsheetName
             td {{getVal spreadsheetName ../event}}
               .icon-wrap
-                  if getQuote ../event
+                  if getQuote ../event 
                     span.quote(data-toggle="popover-quote" data-content="{{getQuote ../event}}")
                   if getReference ../event
                     span.reference(data-toggle="popover" data-content="{{getReference ../event}}")

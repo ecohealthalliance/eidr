@@ -1,5 +1,5 @@
 template(name="event")
-  .container-fluid.fact-sheet-wrap.main-content.event
+  .container-fluid.fact-sheet-wrap.event
     .container.content-block
       .row
         .col-lg-12.event-head
@@ -8,31 +8,25 @@ template(name="event")
               .row
                 .col-lg-10
                   h1 {{simpleTitle}}
-                  if diseaseVal
-                    h2.minor Disease:
-                      span #{diseaseVal}
-                  h3 {{displayDates}}
+                  h2 {{displayDates}}
 
           .row.fact-sheet
             with event
               .col-lg-7.col-md-12
                 if Abstract
                   p.abstract #{Abstract}
-                if notes
-                  .notes
-                    h3 Notes
-                    p #{notes}
                 +facts
               .col-lg-5.col-md-12
                 +map
                 .location-list-wrap
-                  p.location-list {{locationList locations}}
-                  small *This represents the most specific location information found for the event.
+                  each locationList locations
+                    p.location-list {{this}}
+                  small This represents the most specific location information found for the event.
   .container.tables
     .row
       with event
         .col-lg-12
-          +tables economicStats=economicStats event=this
+          +tables event=this
   .container.comments-wrap
     +comments
 
@@ -41,27 +35,29 @@ template(name="facts")
     thead
       tr
         th Emergence Type
+          +descriptionInline(field="eidCategoryVal" event=../event)
         th Driver
-        th Infected
-        th Deaths
+          +descriptionInline(field="driverVal" event=../event)
+        th Disease
+          +descriptionInline(field="diseaseVal" event=../event)
     tbody
       tr
         td(data-header="Emergence Type") 
           span #{eidCategoryVal}
         td(data-header="Driver") 
           span #{driverVal}
-        td.lrg(data-header="Infected") 
-          span #{numberInfectedVal}
-        td.lrg(data-header="Deaths") 
-          span #{numberDeathsVal}
+        td(data-header="Disease")
+          span #{diseaseVal}
 
-  table.main-facts.table(style="width:100%")
+  table.main-facts.table
     thead
       tr
         th Event Transmission
-        if zoonoticTypeVal
-          th Zoonotic Type
-          th Host
+          +descriptionInline(field="eventTransmissionVal" event=../event)
+        th Pathogen Host(s)
+          +descriptionInline(field="hostVal" event=../event)
+        th Specific Host Involved in the Event
+          +descriptionInline(field="initiallyReportedHostVal" event=../event)
     tbody
       tr
         td(data-header="Event Transmission")
@@ -71,11 +67,19 @@ template(name="facts")
                 li(class="#{className}" data-content="#{fullName}" data-toggle="popover" data-container="body")
             else 
               li.unknown
-        if zoonoticTypeVal      
-          td(data-header="Zoonotic Type") 
-            span #{zoonoticTypeVal}          
-          td(data-header="Host") 
-            span #{hostVal}
+        td(data-header="Pathogen Host(s)")
+          span #{hostVal}
+        td(data-header="Specific Host Involved in the Event")
+          span #{initiallyReportedHostVal}
+
+template(name="description")
+  .icon-wrap
+    .description-wrap(data-toggle="popover" data-content="{{getDescription event field}}")
+      span.description
+
+template(name="descriptionInline")
+    span(data-toggle="popover" data-content="{{getDescription event field}}")
+      span.description-inline
 
 template(name="comments")
   .row
