@@ -2,10 +2,7 @@ template(name="about")
   .container-fluid.about-intro
     .container.content-block
       h1 EIDR 
-      p.lead EIDR is a centralized web-platform dedicated to unraveling the origins of Emerging Infectious Disease (EID) events. Through EIDR, multiple EID events can be compared simultaneously, historical disease emergence can be visualized spatially, and individual emergence events can be explored in depth. This project builds upon previous work at EcoHealth Alliance, like the ‘hotspots’ map published by Jones et al., in 2008 in the journal Nature (Jones et al 2008). 
-        //- .col-md-4
-        //-   a(href="http://ecohealthalliance.org")
-        //-     img.eha-square(src="eha_square.png")
+      p.lead EIDR is a centralized web-platform dedicated to unraveling the origins of Emerging Infectious Disease (EID) events. Through EIDR, multiple EID events can be compared simultaneously, historical disease emergence can be visualized spatially, and individual emergence events can be explored in depth. This project builds upon previous work at EcoHealth Alliance, like the 'hotspots' map published by Jones et al., in 2008 in the journal Nature (Jones et al 2008). 
 
   .container-fluid.exploring-wrap
     .container.content-block
@@ -24,7 +21,7 @@ template(name="about")
         li.col-xs-12.col-md-4 
           span.icon.map
           h3 Event Map
-          p This map provides a broad spatial depiction of all EID events within the EIDR repository.
+          p The event map provides a broad spatial depiction of all EID events within the EIDR repository.
           a.btn.btn-default.btn-block(href="{{pathFor route='eventMap'}}") View Event Map
 
   .container-fluid.green
@@ -67,7 +64,7 @@ template(name="about")
 
   .container-fluid.references.gray
     .container.content-block
-      p The data is shared under the #[a(href='http://creativecommons.org/licenses/by-sa/4.0/') Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)].
+      p.space-btm-2 The data is shared under the #[a(href='http://creativecommons.org/licenses/by-sa/4.0/') Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)].
       ul.list-unstyled
         li Funk, S., T. L. Bogich, K. E. Jones, A. M. Kilpatrick, and P. Daszak. 2013. 'Quantifying trends in disease impact to produce a consistent and reproducible definition of an emerging infectious disease', #[em PLoS One], 8: e69951.
         li Grace D, Mutua F, Ochungo P, Kruska R, Jones K, Brierley L, Lapar ML, Said M, Herrero M, Phuc PM, Thao NB, Akuku I, Ogutu F. 2012. "Mapping of poverty and likely zoonoses hotspots." In. Nairobi Kenya: ILRI.
