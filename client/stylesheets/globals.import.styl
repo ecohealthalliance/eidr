@@ -29,11 +29,11 @@ h4
   font-weight 700
 
 h1
-  font-size 40px
+  font-size 48px
   font-weight 800
 
 h2
-  font-size 32px
+  font-size 38px
   color primary
   margin-bottom 20px
   margin-top 0
@@ -50,7 +50,7 @@ h3
   font-size 20px
   margin-top 0
   margin-bottom 15px
-  color secondary
+  color m-gray
 
 h4
   color body-text
@@ -69,9 +69,15 @@ tr
   &:hover
     transition .2s
 
+.centered
+  text-align center
+
 .btn
   @extend .dark-shadow
   letter-spacing .03em
+
+.btn-default
+  text-shadow none
 
 #main
   margin-top 70px
@@ -140,8 +146,18 @@ table tr:last-child
   &.gray
     background ll-gray
   &.green
-    background ll-gray
-    
+    background secondary-light
+  &.orange
+    background secondary-secondary
+
+for num in 2 3 4 5 6
+  
+  .space-btm-{num}
+    margin-bottom num*10px
+
+  .space-top-{num}
+    margin-top num*10px
+     
 @media (max-width: 768px)
   .content-wrapper
     padding-top mobile-header-height

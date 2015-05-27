@@ -22,15 +22,27 @@
   margin-top 50px
 
 .exploring
-  h3, .glyphicon
-    display inline-block
-    vertical-align middle
-   font-weight 600 
-  .glyphicon
-    font-size 30px
-    margin-top 5px
-    font-weight normal
-    padding-right 5px
+  @extend .centered
+  margin 50px 0
+  h3
+  .icon
+    &:before
+      @extend .icon   
+      display block
+      margin-top 5px
+      padding-right 5px
+      font-size 100px
+      font-weight normal
+      color secondary
+    &.list
+      &::before
+        content "T"
+    &.info
+      &::before
+        content "I"
+    &.map
+      &::before
+        content "G"
   p
     margin-bottom 20px
   img
@@ -41,20 +53,21 @@
     padding-left 15px
     padding-right 15px
     margin-bottom 20px
-  a
-    text-shadow 0 1px 0 rgba(0,0,0,.2)
 
 .about-intro
   background secondary
   color white
-  padding-top 40px
+  padding-top 20px
   padding-bottom 30px
   h1
     font-size 40px
-    margin-top 0
+    margin 0 auto
     bg(eidr-logo-white, 450px, 312px, 'png')
   p
     padding-top 30px
+    width 70%
+    margin 20px auto
+    text-align center
 
 .short-desc
   font-size 24px
