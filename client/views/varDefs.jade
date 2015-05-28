@@ -1,2 +1,15 @@
 template(name="varDefs")
-  
+  .container
+    h1 Variable Definitions
+    dl
+      each fields
+        //- {{log this}}
+        dt #{displayName}
+        dd #{webVariableDescription}
+          if dropdownExplanations
+            h4 EIDR Values:
+            ul
+              each displayValues dropdownExplanations
+                li 
+                  span.type #{type}: 
+                  span.explanation #{explanation}

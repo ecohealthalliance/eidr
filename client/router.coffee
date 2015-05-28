@@ -75,3 +75,12 @@ Router.route "/download",
             csvData: encodeURI(csvData)
         )
     )
+
+Router.route "/variable-definitions",
+  name: 'varDefs',
+  waitOn: () ->
+    [
+      Meteor.subscribe "fields"
+    ]
+  data: () ->
+    fields: Fields().find()
