@@ -22,9 +22,13 @@ template(name="navLinks")
     li
       a(href="{{pathFor 'eventMap'}}") Event Map
     li
-      a.withIcon(href="mailto:admin@ecohealth.io") 
+      a(href="{{pathFor 'varDefs'}}" title="Variable Definitions")
+        span.link-text-nav Variable Definitions
+        span.glyphicon.showSmall.glyphicon-question-sign
+    li
+      a(href="mailto:admin@ecohealth.io" title="Contact us") 
         span.link-text-nav Contact Us
-        span.icon.mail
+        span.glyphicon.showSmall.glyphicon-envelope
     li
       +account
 
