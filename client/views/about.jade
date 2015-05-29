@@ -2,7 +2,7 @@ template(name="about")
   .container-fluid.about-intro
     .container.content-block
       h1 EIDR 
-      p.lead EIDR is a centralized web-platform dedicated to unraveling the origins of Emerging Infectious Disease (EID) events. Through EIDR, multiple EID events can be compared simultaneously, historical disease emergence can be visualized spatially, and individual emergence events can be explored in depth. This project builds upon previous work at EcoHealth Alliance, like the 'hotspots' map published by Jones et al., in 2008 in the journal Nature (Jones et al 2008). 
+      p.lead EIDR is a centralized web platform dedicated to unraveling the origins of Emerging Infectious Diseases (EIDs). Through EIDR, multiple EID events can be compared simultaneously, historical disease emergence can be visualized spatially, and individual emergence events can be explored in depth. This project builds upon previous work at EcoHealth Alliance, like the ‘hotspots’ map published by Jones et al., in 2008 in the journal Nature (Jones et al 2008).
 
   .container-fluid.exploring-wrap
     .container.content-block
@@ -12,16 +12,16 @@ template(name="about")
         li.col-xs-12.col-md-4
           span.icon.list
           h3 Emergence Events
-          p You can explore emergence events using an interactive table of EID events found in the ‘Emergence Events’ view. The information displayed in this table is customizable, allowing you to choose which EIDR variables you want to view. You can perform specific searches within the table using a filter feature. You may want to search for events with a common variable like a specific host, or pathogen. 
+          p You can explore emergence events using an interactive table of EID events found in the 'Emergence Events' view. The information displayed in this table is customizable, allowing you to choose which EIDR variables you want to view. You can perform specific searches within the table using a filter feature. You may want to search for events with a common variable, like a specific host, or pathogen. 
           a.btn.btn-default.btn-block(href="{{pathFor route='events'}}") View Emergence Events
         li.col-xs-12.col-md-4
           span.icon.info
           h3 Event Pages 
-          p You can explore individual EID events in greater detail through individual event pages. These event pages can be accessed from the ‘Emergence Events’ list by clicking an event in the table. Each EID event page contains a detailed report on the event, including a map showing the location of the event, a narrative abstract, and additional information on the event. References used for each event are also available in each event page.
+          p You can explore individual EID events in greater detail through individual event pages. These event pages can be accessed from the 'Emergence Events' list by clicking an event in the table. Each EID event page contains a detailed report on the event, including a map showing the location of the event, a narrative abstract, and additional information on the event. References used for each event are also available in each event page.
         li.col-xs-12.col-md-4 
           span.icon.map
           h3 Event Map
-          p The event map provides a broad spatial depiction of all EID events within the EIDR repository.
+          p The event map provides a broad spatial depiction of all EID events within the EIDR repository. Zoom into a specific region or event of interest and click on the map pin to be directed to the Event Page for that event.
           a.btn.btn-default.btn-block(href="{{pathFor route='eventMap'}}") View Event Map
 
   .container-fluid.green
@@ -30,7 +30,7 @@ template(name="about")
       .row
         .method.col-sm-6
           h3 EID Event Collection
-          p For the purpose of EIDR, an EID event is defined as the original case or cluster of cases representing the emergence of an infectious disease in human populations.  Emergence is defined as the development of any of the following with respect to a given microorganism: 
+          p For the purpose of EIDR, an EID event is defined as the original case or cluster of cases representing the emergence of an infectious disease in human populations. Emergence is defined as the development of any of the following with respect to a given microorganism:
           ol
             li earliest instance of natural human infection
             li reappearance after control or elimination
@@ -39,9 +39,9 @@ template(name="about")
             li increased incidence
             li increased virulence
 
-          p Events are not counted amongst EID events unless some clinical significance and relevance is attributable to the pathogen in question. Potential EID events were evaluated based on these definitions by experts at EcoHealth Alliance and classified as EID events if they met any of the above criteria. Events that could not be verified, because of a lack of reliable information, are retained as #[em potential] EID events. An adjoining request for more information is included with these events. #[a(href="{{pathFor route='varDefs'}}") See EIDR metadata for more information on these variables ] 
+          p Events are not counted amongst EID events unless some clinical significance and relevance is attributable to the pathogen in question. Potential EID events were evaluated based on these definitions by experts at EcoHealth Alliance and classified as EID events if they met any of the above criteria. Events that could not be verified, because of a lack of reliable information, are retained as #[em potential] EID events. An adjoining request for more information is included with these events. #[a(href="{{pathFor route='varDefs'}}") See EIDR variable definitions for more information on these variables].
 
-          p The events in EIDR date back 1940, a cut-off chosen by Jones et al. (Jones et al. 2008), and informed by the Institute of Medicine’s resources on EIDs (Smolinski, Hamburg, and Lederberg 2003). Potential EID events were collected from a review of meta-analyses on disease emergence, or through an internal literature review. All events between 1940 and 2004 derive from Jones et al. (Jones et al. 2008), which relied heavily on the review by Taylor and colleagues (Taylor, Latham, and Woolhouse 2001). Events between 2004 and 2013 derive from a recent effort to map emerging zoonoses (Grace et al. 2012), a review of trends in viral discovery (Rosenberg et al. 2013), or were compiled through a review of the literature.
+          p The events in EIDR date back to 1940, a cut-off chosen by Jones et al. (Jones et al. 2008), and informed by the Institute of Medicine’s resources on EIDs (Smolinski, Hamburg, and Lederberg 2003). Potential EID events were collected from a review of meta-analyses on disease emergence, or through an internal literature review. All events between 1940 and 2004 derive from Jones et al. (Jones et al. 2008), which relied heavily on the review by Taylor and colleagues (Taylor, Latham, and Woolhouse 2001). Events between 2004 and 2013 derive from a recent effort to map emerging zoonoses (Grace et al. 2012), a review of trends in viral discovery (Rosenberg et al. 2013), or were compiled through a review of the literature.
 
         .method.col-sm-6
           h3 Data Collection and Review
