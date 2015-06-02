@@ -72,7 +72,7 @@ template(name="reference")
         span.glyphicon.glyphicon-link
       +referenceDescription
     else if url
-      a(href="{{url}}" target="_blank")
+      a.ref-link(href="{{url}}" target="_blank")
         +author
         span.glyphicon.glyphicon-link
       +referenceDescription
@@ -83,11 +83,11 @@ template(name="reference")
 template(name="author")
   if creators
     if date
-      h2 {{formatAuthor}}, {{date}}
+      {{formatAuthor}}, {{date}}
     else
-      h2 {{formatAuthor}}
+      {{formatAuthor}}
   else if date
-    h2 {{date}}
+    {{date}}
 
 template(name="referenceDescription")
   p #{title}
