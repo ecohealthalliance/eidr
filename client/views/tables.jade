@@ -83,11 +83,11 @@ template(name="reference")
 template(name="author")
   if creators
     if date
-      {{formatAuthor}}, {{date}}
+      span #{formatAuthor}, #{date}
     else
-      {{formatAuthor}}
+      span #{formatAuthor}
   else if date
-    {{date}}
+    span #{date}
 
 template(name="referenceDescription")
   p #{title}
