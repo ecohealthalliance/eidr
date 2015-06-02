@@ -1,19 +1,16 @@
 Template.varDefs.helpers
-  groupValues: (fields) ->
-    catagories = 
-      _.chain(fields.fetch())
-      .filter((field) -> field.webVariable is '1')
-      .groupBy('tab')
-      .omit('')
-      .value()
-    for key, value of catagories
-      value
-  addTitle: (v) ->
-    if v[0].tab is 'Stats'
-      'Descriptive Epidemiology Variables'     
-    else
-      v[0].tab
-  displayValues: (values) ->
+  getTabs: (fields) ->
+    tabs = _.chain(fields.fetch())
+    .filter((field) -> field.webVariable is '1')
+    .groupBy('tab')
+    .omit('')
+    .keys()
+    .value()
+
+  getTabValues: (fields, tab) ->
+    values = _.filter fields.fetch(), (value) -> value.tab is tab 
+
+  getDropdownValues: (values) ->
     for key, value of values
       type: key
       explanation: value

@@ -3,20 +3,20 @@ template(name="varDefs")
     .container
       h1 Variable Definitions
     dl.varDefs
-      each groupValues fields
+      each getTabs fields
         .field-wrap
           .container
             .row
               .col-md-9
-                h2 {{addTitle this}}
-                each this
+                h2 #{this}
+                each getTabValues ../fields this
                   dt #{displayName}
                   dd 
                     p.varDescription #{webVariableDescription}
-                    if displayValues dropdownExplanations
+                    if getDropdownValues dropdownExplanations
                       .explanations-wrap
                         ul.explanations
-                          each displayValues dropdownExplanations
+                          each getDropdownValues dropdownExplanations
                             li 
                               span.type #{type}: 
                               span.explanation #{explanation}
