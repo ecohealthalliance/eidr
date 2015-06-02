@@ -1,12 +1,12 @@
 Template.varDefs.helpers
   groupValues: (fields) ->
-    catagories = 
+    categories = 
       _.chain(fields.fetch())
       .filter((field) -> field.webVariable is '1')
       .groupBy('tab')
       .omit('')
       .value()
-    for key, value of catagories
+    for key, value of categories
       value
   addTitle: (v) ->
     if v[0].tab is 'Stats'
