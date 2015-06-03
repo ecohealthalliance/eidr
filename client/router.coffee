@@ -83,4 +83,4 @@ Router.route "/variable-definitions",
       Meteor.subscribe "fields"
     ]
   data: () ->
-    fields: Fields().find()
+    fields: Fields().find({'tab': {'$ne': ''}, 'webVariable': {'$ne': '0'}})

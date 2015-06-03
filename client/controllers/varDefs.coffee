@@ -1,9 +1,7 @@
 Template.varDefs.helpers
   getTabs: (fields) ->
     tabs = _.chain(fields.fetch())
-    .filter((field) -> field.webVariable is '1')
     .groupBy('tab')
-    .omit('')
     .keys()
     .value()
 
