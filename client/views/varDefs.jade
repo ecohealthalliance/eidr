@@ -9,7 +9,7 @@ template(name="varDefs")
             .row
               .col-md-9
                 h2 #{this}
-                each getTabValues ../fields this
+                each getTabVariables ../fields this
                   dt #{displayName}
                   dd 
                     p.varDescription #{webVariableDescription}

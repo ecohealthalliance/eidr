@@ -1,14 +1,12 @@
 Template.varDefs.helpers
   getTabs: (fields) ->
-    tabs = _.chain(fields.fetch())
-    .filter((field) -> field.webVariable is '1')
-    .groupBy('tab')
-    .omit('')
-    .keys()
+    _.chain(fields.fetch())
+    .pluck('tab')
+    .unique()
     .value()
 
-  getTabValues: (fields, tab) ->
-    values = _.filter fields.fetch(), (value) -> value.tab is tab 
+  getTabVariables: (fields, tab) ->
+    _.filter fields.fetch(), (value) -> value.tab is tab 
 
   getDropdownValues: (values) ->
     for key, value of values
