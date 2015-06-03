@@ -53,6 +53,7 @@
 
 .navbar-nav
   .icon
+    vAlign()
     font-size 20px
     line-height 0
     display none
@@ -62,6 +63,7 @@
       &::before
         content 'm'  
     &.login
+      display inline-block
       &::before
         content '\E800'
     &.logout
@@ -70,7 +72,8 @@
      
 @media (min-width: 768px) and (max-width: 992px)
   .navbar-nav
-    .icon
+    .icon,
+    .icon.login
       display block
   .link-text-nav
       display none
