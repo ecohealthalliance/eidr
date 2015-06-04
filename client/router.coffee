@@ -44,10 +44,6 @@ Router.route "/event/:eidID",
   data: () ->
     event: Events().findOne({'eidID': @params.eidID})
     comments: Comments().find({'event': @params.eidID}, {sort: {timeStamp: -1}})
-  onBeforeAction: () ->
-    $('.nav li').removeClass('active')
-    @next()
-
 
 Router.route "/eventMap",
   name: 'eventMap'

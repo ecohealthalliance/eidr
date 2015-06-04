@@ -1,7 +1,9 @@
 Template.navLinks.events
   'click' : (e) ->
-    if($('.navbar-toggle').is(':visible'))
+    if $('.navbar-toggle').is(':visible')
       $('.navbar-collapse').collapse('toggle')
-    else
-      $(".nav").find(".active").removeClass("active");
-      $( e.target).parent().addClass("active");
+
+Template.navLinks.helpers
+  checkActive: (routeName) ->
+    if routeName is Router.current().location.get().path.slice(1)
+      'active'

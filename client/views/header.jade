@@ -12,20 +12,20 @@ template(name="header")
 
 template(name="navLinks")
   ul.nav.navbar-nav
-    li
+    li(class="{{checkActive 'about'}}")
       a(href="{{pathFor 'about'}}") About
-    li
+    li(class="{{checkActive 'events'}}")
       a(href="{{pathFor 'events'}}") Emergence Events
     if currentUser
-      li
+      li(class="{{checkActive 'download'}}")
         a(href="{{pathFor 'download'}}") Download
-    li
+    li(class="{{checkActive 'eventMap'}}")
       a(href="{{pathFor 'eventMap'}}") Event Map
     li
       a.withIcon(href="mailto:admin@ecohealth.io") 
         span.link-text-nav Contact Us
         span.icon.mail
-    li
+    li(class="{{checkActive 'sign-in'}}")
       +account
 
 template(name="account")
