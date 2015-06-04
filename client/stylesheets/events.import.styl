@@ -21,7 +21,21 @@
     input
       position absolute
       left 15px  
-    
+
+.dropdown-toggle
+  font-size 0
+  &::before,
+  &::after
+    vAlign()
+  &::before
+    @extend .icon
+    content 'C'
+    padding-right 5px
+    font-size 16px
+  &::after
+    content 'Variables'
+    font-size 14px  
+
 .reactive-table-options
   float none
   width 100%
