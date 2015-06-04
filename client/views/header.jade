@@ -4,11 +4,7 @@ template(name="header")
       .container-fluid
         .container
           .navbar-header
-            button.navbar-toggle.collapsed(type='button', data-toggle='collapse' data-target=".navbar-collapse")
-              span.sr-only Toggle navigation
-              span.icon-bar
-              span.icon-bar
-              span.icon-bar
+            button.navbar-toggle.collapsed(type='button', data-toggle='collapse' data-target=".navbar-collapse") Menu
             a.navbar-brand(href="{{pathFor 'splash'}}")
           
           .collapse.navbar-collapse
@@ -16,32 +12,32 @@ template(name="header")
 
 template(name="navLinks")
   ul.nav.navbar-nav
-    li
+    li(class="{{checkActive 'about'}}")
       a(href="{{pathFor 'about'}}") About
-    li
+    li(class="{{checkActive 'events'}}")
       a(href="{{pathFor 'events'}}") Emergence Events
     if currentUser
-      li
+      li(class="{{checkActive 'download'}}")
         a(href="{{pathFor 'download'}}") Download
-    li
+    li(class="{{checkActive 'eventMap'}}")
       a(href="{{pathFor 'eventMap'}}") Event Map
     li
-      a(href="{{pathFor 'varDefs'}}" title="Variable Definitions")
+      a.withIcon(href="{{pathFor 'varDefs'}}" title="Variable Definitions")
         span.link-text-nav Variable Definitions
         span.glyphicon.showSmall.glyphicon-question-sign
     li
-      a(href="mailto:admin@ecohealth.io" title="Contact us") 
+      a.withIcon(href="mailto:admin@ecohealth.io" title="Contact Us") 
         span.link-text-nav Contact Us
-        span.glyphicon.showSmall.glyphicon-envelope
-    li
+        span.icon.showSmall.mail
+    li(class="{{checkActive 'sign-in'}}")
       +account
 
 template(name="account")
   if currentUser
-    a(href="")#logOut
+    a.withIcon(href="" title="Sign Out")#logOut
       span.link-text-nav Sign Out
-      span.glyphicon.glyphicon-log-out
+      span.icon.logout
   else
-    a(href="/sign-in")
+    a.withIcon(href="/sign-in" title="Sign In")
       span.link-text-nav Sign In
-      span.glyphicon.glyphicon-log-in
+      span.icon.login
