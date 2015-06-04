@@ -52,13 +52,14 @@ Template.events.helpers
             if output is '' then sort = 2 else sort = 1
 
             new Spacebars.SafeString("<span sort=#{sort}>#{output}</span>")
-    
+  
     {
       id: 'events-table'
       showColumnToggles: true
       fields: fields
       currentPage: Template.instance().currentPage
       rowsPerPage: Template.instance().rowsPerPage
+      rowsPerPage: 20
     }
 
 Template.events.events
@@ -69,5 +70,5 @@ Template.events.events
     else
       Router.go "event", { eidID: @eidID }
   "click .next-page, click .previous-page" : () ->
-    if (window.scrollY > 0)
+    if (window.scrollY > 0 and window.innerHeight < 700)
       $('body').animate({scrollTop:0,400})
