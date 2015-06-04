@@ -22,22 +22,22 @@ template(name="navLinks")
     li(class="{{checkActive 'eventMap'}}")
       a(href="{{pathFor 'eventMap'}}") Event Map
     li
-      a(href="{{pathFor 'varDefs'}}" title="Variable Definitions")
+      a.withIcon(href="{{pathFor 'varDefs'}}" title="Variable Definitions")
         span.link-text-nav Variable Definitions
         span.glyphicon.showSmall.glyphicon-question-sign
     li
-      a(href="mailto:admin@ecohealth.io" title="Contact us") 
+      a.withIcon(href="mailto:admin@ecohealth.io" title="Contact Us") 
         span.link-text-nav Contact Us
-        span.icon.mail
+        span.icon.showSmall.mail
     li(class="{{checkActive 'sign-in'}}")
       +account
 
 template(name="account")
   if currentUser
-    a.withIcon(href="")#logOut
+    a.withIcon(href="" title="Sign Out")#logOut
       span.link-text-nav Sign Out
       span.icon.logout
   else
-    a.withIcon(href="/sign-in")
+    a.withIcon(href="/sign-in" title="Sign In")
       span.link-text-nav Sign In
       span.icon.login

@@ -51,9 +51,6 @@
   display inline-block
   padding-right 3px
   
-.glyphicon-envelope
-  top 2px
-
 .showSmall
   display none
 
@@ -90,14 +87,17 @@
   li > a
     &.withIcon
       padding 35px 15px
+      .glyphicon
+        line-height 0
+        font-size 18px
 
 @media (max-width: 768px)
+  .showSmall
+    display none
   .navbar-nav
     border-bottom 2px solid white
     .icon
       display none
-  .showSmall
-    display block
   .disclaimer
     display none
   .navbar-nav
