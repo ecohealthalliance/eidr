@@ -13,7 +13,7 @@
     font-size 24px
   h2
     margin 5px 0 0 0 
-    color blue
+    color #666
     font-size 18px
   h3
     font-size 14px
@@ -25,8 +25,14 @@
 
 .basic-info
   margin-bottom 20px
+  h2
+    font-size 200%
 
-.tables 
+.panel-heading
+  h3
+    color #333
+
+.tables
   td:first-child
     width 40%
     border-right table-border
@@ -36,6 +42,8 @@
     position relative
   td:last-child
     padding-right 80px
+  .panel-default
+    border-top 3px solid secondary
 
 .location-list-wrap
 
@@ -67,21 +75,19 @@
     font-size 18px
   .description
     font-size 13px
-  
+ 
 .references
   h2
     font-size 16px
     margin 0
-    display inline-block
-  p
-    font-style italics    
+    display inline-block   
   .date
     margin 0
     
 .ref-link
   &:hover
     text-decoration none
-
+    
 @import 'comments.import'
 
 @media (max-width: 768px)

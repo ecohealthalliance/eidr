@@ -1,0 +1,28 @@
+template(name="varDefs")
+  .fluid-container
+    .container
+      h1 Variable Definitions
+    dl.varDefs
+      each getTabs fields
+        .field-wrap
+          .container
+            .row
+              .col-md-9
+                h2 #{this} Variables
+                each getTabVariables ../fields this
+                  dt #{displayName}
+                  dd 
+                    p.varDescription #{webVariableDescription}
+                    if getDropdownValues dropdownExplanations
+                      .explanations-wrap
+                        ul.explanations
+                          each getDropdownValues dropdownExplanations
+                            li 
+                              span.type #{type}: 
+                              span.explanation #{explanation}
+    .content-block
+      .container.reference-list
+        ul.list-unstyled
+          li Loh E, Olival KJ, Zambrana-Torrelio C, Bogich TL, Johnson CK, Mazet JAK, Karesh WB, Daszak P Targeting transmission pathways for emerging zoonotic disease surveillance and control. Vector Borne and Zoonotic Diseases In press
+          li NCBI. 2015. 'Home - Taxonomy - NCBI'. #[a(href="http://www.ncbi.nlm.nih.gov/pubmed/")].
+          li 'World Bank Group'. 2015. #[a(href="http://www.worldbank.org/")].

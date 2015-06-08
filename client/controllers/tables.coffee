@@ -57,10 +57,10 @@ Template.tables.helpers
     notFound
 
   stats : () ->
-    fields().find({"tab": "Stats"}, {"sort": {"order": 1}})
+    fields().find({"tab": "Descriptive Epidemiology"}, {"sort": {"order": 1}})
 
   pathogenStats : () ->
-    fields().find({"tab": "Pathogen"}, {"sort": {"order": 1}})
+    fields().find({"tab": "Pathogen Taxonomy"}, {"sort": {"order": 1}})
 
   locationStats : () ->
     fields().find({"tab": "Location"}, {"sort": {"order": 1}})
