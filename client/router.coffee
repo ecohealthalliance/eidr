@@ -19,6 +19,9 @@ Router.onRun () ->
     analytics.page @path
   @next()
 
+Router.onAfterAction () ->
+  window.scroll 0, 0
+
 Router.route "/",
   name: 'splash'
 
