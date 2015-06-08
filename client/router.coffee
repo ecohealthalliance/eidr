@@ -19,6 +19,9 @@ Router.onRun () ->
     analytics.page @path
   @next()
 
+Router.onAfterAction () ->
+  window.scroll 0, 0
+
 Router.route "/",
   name: 'splash'
 
@@ -44,10 +47,6 @@ Router.route "/event/:eidID",
   data: () ->
     event: Events().findOne({'eidID': @params.eidID})
     comments: Comments().find({'event': @params.eidID}, {sort: {timeStamp: -1}})
-  onBeforeAction: () ->
-    $('.nav li').removeClass('active')
-    @next()
-
 
 Router.route "/eventMap",
   name: 'eventMap'
@@ -75,3 +74,12 @@ Router.route "/download",
             csvData: encodeURI(csvData)
         )
     )
+
+Router.route "/variable-definitions",
+  name: 'varDefs',
+  waitOn: () ->
+    [
+      Meteor.subscribe "fields"
+    ]
+  data: () ->
+    fields: Fields().find({'tab': {'$ne': ''}, 'webVariable': {'$ne': '0'}})

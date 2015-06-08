@@ -14,6 +14,9 @@ Template.event.rendered = () ->
     trigger: 'hover'
     placement: checkPosition
     animation: true
+    delay: 
+      show: 250
+      hide: 400
   $('[data-toggle="popover"]').popover(_.extend(baseOpts, makeTemplate('')))
   $('[data-toggle="popover-quote"]').popover(_.extend(baseOpts, makeTemplate('quote-text')))
   return

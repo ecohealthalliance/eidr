@@ -1,3 +1,11 @@
+font(font-face)
+  font-family: font-face, sans-serif;
+
+centerElement(width, topMargin)
+  width: width
+  margin topMargin auto
+
+
 full-width()
   position absolute
   left 0
@@ -22,14 +30,20 @@ fluid-ratio(widthLarge, heightLarge, widthSmall, heightSmall)
   background-position center
   
 bg(path, w, h, type='png')
-  background url(path + '.' + type) no-repeat
+  background-image url(path + '.' + type)
+  background-repeat no-repeat
   background-size w h
   width w
   height h
   text-indent -9999px
   @media (-webkit-min-device-pixel-ratio: 2), (-moz-min-device-pixel-ratio: 2)
-    background-image: url(path + '-2x.' + type);
+    background-image url(path + '-2x.' + type)
     
+changeBGSize(w,h)
+  background-size w h
+  width w
+  height h
+
 vAlign()
-  display inline-block
   vertical-align middle
+  display inline-block
