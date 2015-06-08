@@ -15,10 +15,37 @@
   float left !important
   width auto
   padding 0
+  a
+    position relative
+  label
+    white-space initial
+    padding-left 25px
+    margin 0
+    input
+      position absolute
+      left 15px  
+
+.dropdown-toggle
+  font-size 0
+  &::before,
+  &::after
+    vAlign()
+  &::before
+    @extend .icon
+    content 'C'
+    padding-right 5px
+    font-size 16px
+  &::after
+    content 'Variables'
+    font-size 14px  
+
 .reactive-table-options
   float none
   width 100%
   padding 0
+  .dropdown-menu > li > a 
+    padding 4px 10px
+
 .dropdown-menu
   min-width 350px
 .dropdown-menu-right
