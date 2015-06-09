@@ -1,11 +1,8 @@
-.icons
-  font-family icons
-  
 .transmission-icons
   li
-    @extend .icons
+    @extend .icon
     font-size 65px
-    color #333
+    color #555
     padding 0 5px
     display inline-block
     line-height 65px
@@ -70,8 +67,10 @@
     color #1BAA4A
 
 .table-icon
-  @extend .icons
+  @extend .font-awesome
   display inline-block
+  font-size 20px
+  color #CCC
 
 .description
   position absolute
@@ -81,26 +80,26 @@
 .description,
 .description-inline
   &::before
-    content 'i'
+    content '\f129'
     @extend .table-icon
 
 .description-inline
-  color #999
-  font-size 90%
-  padding: 3px
+  padding 3px
   &::before 
     vertical-align top
+    color #999
+    font-size 80%
 
 .reference
   margin-right 8px
   @extend .right-icon
   &::before
-    content 'r'
+    content '\f02d'
     @extend .table-icon
 .quote
   @extend .right-icon
   &::before
-    content 'Q'
+    content '\f10e'
     @extend .table-icon
     margin-right 5px
     

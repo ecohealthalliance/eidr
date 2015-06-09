@@ -78,8 +78,7 @@ template(name="description")
       span.description
 
 template(name="descriptionInline")
-    span(data-toggle="popover" data-content="{{getDescription event field}}")
-      span.description-inline
+  span(data-toggle="popover" data-content="{{getDescription event field}}").description-inline
 
 template(name="comments")
   .row

@@ -11,16 +11,16 @@ template(name="about")
         p.lead.centered Emergence events can be sorted, compared, and investigated in a variety of ways.
         ul.row.exploring.list-unstyled
           li.col-xs-12.col-md-4
-            span.icon.list
+            span.fa.fa-list-alt
             h3 Emergence Events
             p You can explore emergence events using an interactive table of EID events found in the ‘Emergence Events’ view. The information displayed in this table is customizable, allowing you to choose which EIDR variables you want to view. You can perform specific searches within the table using a filter feature. You may want to search for events with a common variable, like a specific host, or pathogen.
             a.btn.btn-default.btn-block(href="{{pathFor route='events'}}") View Emergence Events
           li.col-xs-12.col-md-4
-            span.icon.info
+            span.fa.fa-info-circle
             h3 Event Pages 
             p You can explore individual EID events in greater detail through event pages. These event pages can be accessed from the 'Emergence Events' list by clicking an event in the table. Each EID event page contains a detailed report on the event, including an abstract, a map showing the location of the event, and additional information on the event. References used for each event are available in each event page.
           li.col-xs-12.col-md-4 
-            span.icon.map
+            span.fa.fa-globe
             h3 Event Map
             p The event map map provides a broad spatial depiction of all EID events within the EIDR database. Zoom into a specific region or event of interest and click on the map pin to be directed to the Event Page for that event.
             a.btn.btn-default.btn-block(href="{{pathFor route='eventMap'}}") View Event Map

@@ -11,16 +11,25 @@
   border-radius 5px
 
 .map-marker
-  &::before
-    @extend .icon
-    color rgba(210, 106, 40, .8)
-    content '*'
+  position relative
+  &::before,
+  &::after
+    content ''
     display block
-    font-size 22px
-    margin-top -3px
-    margin-left -9px
-    line-height 0
-
+    position absolute
+    top 50%
+    left 50%
+    transform translate(-50%,-50%)
+    border-radius 100%
+  &::before
+    border 1px solid rgba(210, 106, 40, .3)
+    background-color rgba(210, 106, 40, .7)
+    height 20px
+    width 20px
+  &::after
+    background-color rgba(245, 245, 243, .8)
+    width 5px
+    height 5px
 @media (max-width: 768px)
   #event-map
     top mobile-header-height

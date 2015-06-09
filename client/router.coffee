@@ -27,6 +27,9 @@ Router.route "/",
 
 Router.route "/about"
 
+
+Router.route "/loading"
+
 Router.route "/events",
   waitOn: () ->
     [
