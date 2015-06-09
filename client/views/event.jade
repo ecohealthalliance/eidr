@@ -34,11 +34,11 @@ template(name="facts")
   table.main-facts.table
     thead
       tr
-        th(data-toggle="popover" data-content="{{getDescription ../event field}}") Emergence Type
+        th Emergence Type
           +descriptionInline(field="eidCategoryVal" event=../event)
-        th(data-toggle="popover" data-content="{{getDescription ../event field}}") Driver
+        th Driver
           +descriptionInline(field="driverVal" event=../event)
-        th(data-toggle="popover" data-content="{{getDescription ../event field}}") Disease
+        th Disease
           +descriptionInline(field="diseaseVal" event=../event)
     tbody
       tr
@@ -78,7 +78,7 @@ template(name="description")
       span.description
 
 template(name="descriptionInline")
-  span.description-inline
+  span(data-toggle="popover" data-content="{{getDescription event field}}").description-inline
 
 template(name="comments")
   .row
