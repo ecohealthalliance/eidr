@@ -34,12 +34,12 @@ template(name="facts")
   table.main-facts.table
     thead
       tr
-        th Emergence Type
-          +descriptionInline(field="eidCategoryVal" event=../event)
-        th Driver
-          +descriptionInline(field="driverVal" event=../event)
-        th Disease
-          +descriptionInline(field="diseaseVal" event=../event)
+        th
+          +variableNameInline(field="eidCategoryVal" event=../event name="Emergence Type")
+        th
+          +variableNameInline(field="driverVal" event=../event name="Driver")
+        th
+          +variableNameInline(field="diseaseVal" event=../event name="Disease")
     tbody
       tr
         td(data-header="Emergence Type") 
@@ -52,12 +52,12 @@ template(name="facts")
   table.main-facts.table
     thead
       tr
-        th Event Transmission
-          +descriptionInline(field="eventTransmissionVal" event=../event)
-        th Pathogen Host(s)
-          +descriptionInline(field="hostVal" event=../event)
-        th Specific Host Involved in the Event
-          +descriptionInline(field="initiallyReportedHostVal" event=../event)
+        th 
+          +variableNameInline(field="eventTransmissionVal" event=../event name="Event Transmission")
+        th 
+          +variableNameInline(field="hostVal" event=../event name="Pathogen Host(s)")
+        th
+          +variableNameInline(field="initiallyReportedHostVal" event=../event name="Specific Host Involved in the Event")
     tbody
       tr
         td(data-header="Event Transmission")
@@ -72,14 +72,15 @@ template(name="facts")
         td(data-header="Specific Host Involved in the Event")
           span #{initiallyReportedHostVal}
 
-template(name="description")
-  .icon-wrap
-    .description-wrap(data-toggle="popover" data-content="{{getDescription event field}}")
-      span.description
+template(name="variableName")
+  td(data-toggle="popover" data-content="{{getDescription event field}}") #{name}
+    .icon-wrap
+      span.description 
 
-template(name="descriptionInline")
-    span(data-toggle="popover" data-content="{{getDescription event field}}")
-      span.description-inline
+template(name="variableNameInline")
+  span(data-toggle="popover" data-content="{{getDescription event field}}") 
+    span #{name}
+    span.description-inline 
 
 template(name="comments")
   .row

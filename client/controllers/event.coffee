@@ -7,7 +7,8 @@ Template.event.rendered = () ->
   makeTemplate = (className) ->
     template: 
       """<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content #{className}"></div><a href="#" class="close-popover"><span class="glyphicon glyphicon-remove-sign"></span></a></div>"""
-  baseOpts = 
+  baseOpts =
+    container: 'body'
     viewport:
       selector: 'body'
       padding: 10
