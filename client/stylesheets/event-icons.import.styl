@@ -1,3 +1,17 @@
+transmissionIcons = {
+  direct: "\0063"
+  vector: "\0076"
+  vertical: "\0075"
+  NF: "\006E"
+  nosocomial: "\0068"
+  unknown: "\003F"
+  airborne: "\0061"
+  transmission: "\0074"
+  oral: "\006F"
+  sexual: "\0073"
+  contamination: "\0043"
+}
+
 .transmission-icons
   li
     @extend .icon
@@ -6,40 +20,12 @@
     padding 0 5px
     display inline-block
     line-height 65px
-  .type-direct
-    &::before
-      content "\0063"
-  .type-vector
-    &::before
-      content "\0076"
-  .type-vertical
-    &::before
-      content "\0075"
-  .type-NF
-    &::before
-      content "\006E"
-  .type-nosocomial
-    &::before
-      content "\0068"
-  .type-unknown
-    &::before
-      content "\003F"
-  .type-airborne
-    &::before
-      content "\0061"
-  .type-transmission
-    &::before
-      content "\0074"
-  .type-oral
-    &::before
-      content "\E800"      
-  .type-sexual
-    &::before
-      content "\0073"    
-  .type-contamination
-    &::before
-      content "\0043" 
 
+  for key, value in transmissionIcons
+    .type-{key}
+      &::before
+        content value
+        
 .icon-wrap
   position absolute
   right 0
@@ -88,7 +74,7 @@
   &::before 
     vertical-align top
     color #999
-    font-size 80%
+    font-size 90%
 
 .reference
   margin-right 8px
