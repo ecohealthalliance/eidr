@@ -31,9 +31,9 @@ template(name="tables")
             tbody
               each getNotFound event
                 tr
-                  td #{name}
+                  td(data-toggle="popover" data-content="#{description}") #{name}
                     .icon-wrap
-                      .description-wrap(data-toggle="popover" data-content="#{description}")
+                      .description-wrap
                         span.description
 
 template(name="references")
@@ -50,8 +50,7 @@ template(name="statsTable")
       each stats
         if showStat spreadsheetName ../event
           tr.stats-field
-            td #{displayName}
-              +description event=../event field=spreadsheetName
+            +variableName event=../event field=spreadsheetName name=displayName
             td {{getVal spreadsheetName ../event}}
               .icon-wrap
                   if getQuote ../event 

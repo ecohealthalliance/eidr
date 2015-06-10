@@ -44,6 +44,11 @@
     padding-right 80px
   .panel-default
     border-top 3px solid secondary
+  td[data-toggle="popover"]
+    cursor pointer
+    &:hover
+      .icon-wrap
+        color secondary
 
 .location-list-wrap
 
@@ -54,6 +59,9 @@
   margin 20px 0
   margin-bottom 40px
   border-top table-border
+  th
+    span
+      cursor pointer
   th, td
     width 33%
     text-align center
