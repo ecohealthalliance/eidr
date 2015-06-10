@@ -88,3 +88,7 @@ Template.registerHelper 'getDescription', (event, field) ->
     "#{info.description} (#{explanations})"
   else
     info.description
+
+Template.event.events
+  'mouseleave [data-toggle]': (e) ->
+    $(e.target).popover('hide')
