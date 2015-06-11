@@ -23,6 +23,8 @@ Template.eventMap.rendered = () ->
   }).addTo(map)
 
   events = @data.events
+  markers = new L.FeatureGroup()
+
   for event in events.fetch()
     if event.locations
       name = event.eventNameVal
@@ -33,7 +35,7 @@ Template.eventMap.rendered = () ->
 
         if latLng[0] isnt 'Not Found' and latLng[1] isnt 'Not Found'
 
-          L.marker(latLng, {
+          marker = L.marker(latLng, {
             icon: L.divIcon({
               className: 'map-marker-container'
               iconSize:null
@@ -43,5 +45,13 @@ Template.eventMap.rendered = () ->
             })
           }).bindPopup("""
             <a href="/event/#{eidID}">#{name}</a>
-          """).addTo(map)
+          """)
+          markers.addLayer(marker)
+
+  map.addLayer(markers)
+
+
+Template.eventMap.events
+  'keyup .map-search': (e) ->
+    console.log e.target
 
