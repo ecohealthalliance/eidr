@@ -4,15 +4,31 @@ Template.events.onCreated () ->
 
   fields = @data.fields.fetch()
   @fieldVisibility = {}
-  for field in @data.fields.fetch()
+  @sortOrder = {}
+  @sortDirection = {}
+  for field in fields
     defaultVisibility = field['Event table'] is '2'
-    @fieldVisibility[field.spreadsheetName] = new ReactiveVar(Session.get('events-field-visible-' + field.spreadsheetName) or defaultVisibility)
+    oldVisibility = Session.get('events-field-visible-' + field.spreadsheetName)
+    visibility = if _.isUndefined(oldVisibility) then defaultVisibility else oldVisibility
+    @fieldVisibility[field.spreadsheetName] = new ReactiveVar(visibility)
+    
+    defaultSortOrder = Infinity
+    oldSortOrder = Session.get('events-field-sort-order-' + field.spreadsheetName)
+    sortOrder = if _.isUndefined(oldSortOrder) then defaultSortOrder else oldSortOrder
+    @sortOrder[field.spreadsheetName] = new ReactiveVar(sortOrder)
+    
+    defaultSortDirection = 1
+    oldSortDirection = Session.get('events-field-sort-direction-' + field.spreadsheetName)
+    sortDirection = if _.isUndefined(oldSortDirection) then defaultSortDirection else oldSortDirection
+    @sortDirection[field.spreadsheetName] = new ReactiveVar(sortDirection)
 
   @autorun () =>
     Session.set 'events-current-page', @currentPage.get()
     Session.set 'events-rows-per-page', @rowsPerPage.get()
     for field in @data.fields.fetch()
       Session.set 'events-field-visible-' + field.spreadsheetName, @fieldVisibility[field.spreadsheetName].get()
+      Session.set 'events-field-sort-order-' + field.spreadsheetName, @sortOrder[field.spreadsheetName].get()
+      Session.set 'events-field-sort-direction-' + field.spreadsheetName, @sortDirection[field.spreadsheetName].get()
 
 
 Template.events.helpers
@@ -24,6 +40,8 @@ Template.events.helpers
           key: field.spreadsheetName
           label: field.displayName
           isVisible: Template.instance().fieldVisibility[field.spreadsheetName]
+          sortOrder: Template.instance().sortOrder[field.spreadsheetName]
+          sortDirection: Template.instance().sortDirection[field.spreadsheetName]
           sortable: not field.arrayName
           fn: (val, object) ->
             if field.arrayName
