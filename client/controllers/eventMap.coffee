@@ -52,10 +52,6 @@ Template.eventMap.rendered = () ->
               })
             }).bindPopup("""
               <a href="/event/#{eidID}">#{name}
-              <br>
-              Zoonotic?: #{event.zoonoticVal}
-              <br>
-              Transmission?: #{event.eventTransmissionVal}
               </a>
             """)
             markers.addLayer(marker)
@@ -70,7 +66,7 @@ filterMap = (query, zoonosis, eventTransmission) ->
   else 
     filteredEvents = _.filter Template.instance().allEvents.get(), (event) -> 
       zoonosis.indexOf(event.zoonoticVal.toLowerCase()) >= 0 and _.intersection(event.eventTransmissionVal.toLowerCase().split(', '), eventTransmission).length > 0
-      
+
   Template.instance().filteredEvents.set(filteredEvents)
 
 clearSearch = () ->
