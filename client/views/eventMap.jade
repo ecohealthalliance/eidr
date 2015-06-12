@@ -1,6 +1,23 @@
 template(name="eventMap")
-  form.map-search
-    input(type="text")
-    input(type="submit")
+  .container.map-search-wrap
+    .map-search-content
+      .row
+        .col-sm-5
+          .zoonosis
+            span Zoonosis
+            .form-group
+              .checkbox-inline
+                input(type="checkbox") 
+                | Yes
+              .checkbox-inline
+                input(type="checkbox") 
+                | No
+        .col-sm-7
+          .input-group
+            span.input-group-addon
+              i.fa.fa-filter
+            input.map-search.form-control(type="text" placeholder="Filter")
+            span.clear-search
+              i.fa.fa-times-circle
   .fluid-container
     #event-map

@@ -26,7 +26,7 @@ Template.eventMap.rendered = () ->
   events = @data.events.fetch()
   @allEvents = new ReactiveVar(events)
   instance.filteredEvents = new ReactiveVar(events)
-
+  
   markers = new L.FeatureGroup()
 
   @autorun () ->
@@ -64,11 +64,15 @@ filterMap = (query) ->
   filteredEvents = _.filter Template.instance().allEvents.get(), (event) -> 
     event.eventNameVal.search(query) >= 0
   Template.instance().filteredEvents.set(filteredEvents)
+clearFilters = () ->
+  Template.instance().filteredEvents.set(Template.instance().allEvents.get())
 
 Template.eventMap.events
-  'submit .map-search': (e) ->
+  'keyup .map-search': (e) ->
     e.preventDefault()
-    queryText = $(e.target).find("[type=text]").val()
-    console.log queryText
-    filterMap(queryText)
-
+    if e.keyCode == 13
+      queryText = $(e.target).val()
+      filterMap(queryText)
+  'click .clear-search': (e) ->
+    $('.map-search').val('')
+    clearFilters()
