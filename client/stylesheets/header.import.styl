@@ -54,48 +54,27 @@
   display inline-block
   padding-right 3px
   
-.showSmall
+.show-small
   display none
 
-.navbar-nav
-  .icon
-    vAlign()
-    font-size 20px
-    line-height 0
-    display none
-    &::before
-      display block
-    &.mail
-      &::before
-        content 'm'  
-    &.login
-      display inline-block
-      &::before
-        content '\E800'
-    &.logout
-      &::before
-        content '\E801' 
      
 @media (min-width: 768px) and (max-width: 992px)
-  .navbar-nav
-    .icon,
-    .icon.login
-      display block
   .link-text-nav
       display none
-  .showSmall
-    display block
+  .show-small,
+  .show-large
+    display inline-block
+    font-size 20px
   .navbar-default .navbar-nav > li > a
     font-size 14px
   li > a
     &.withIcon
-      padding 35px 15px
-      .glyphicon
-        line-height 0
-        font-size 18px
+      padding 25px 15px
+      line-height 0
+      font-size 18px
 
 @media (max-width: 768px)
-  .showSmall
+  .show-small
     display none
   .navbar-nav
     border-bottom 2px solid white
