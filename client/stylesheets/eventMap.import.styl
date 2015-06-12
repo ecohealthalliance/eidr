@@ -87,6 +87,30 @@
     color blue
     margin 0 0 10px 0
     border-bottom 1px solid secondary
+    span.check
+      position absolute
+      right 20px
+      font-size 12px
+      color #999
+      font-weight normal
+      cursor pointer
+      transition color .2s
+      &:hover
+        color secondary
+        transition color .2s
+      &::before
+        font-family FontAwesome
+        padding-right 4px
+      &.uncheck-all
+        &::before
+          content '\f096'
+        &::after
+          content 'Uncheck All'
+      &.check-all
+        &::before
+          content '\f046'
+        &::after
+          content 'Check All'
   .filter
     color #555
     position relative

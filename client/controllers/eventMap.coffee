@@ -78,9 +78,10 @@ clearAllFilters = () ->
 getChecked = (type) ->
   _.map $('.'+type+':checked').get(), (input) -> input.value.toLowerCase()
 
-checkAll = (type) ->
-  $('.'+type).each(() -> this.checked = true)
-  filterMap($('.map-search').val(), getChecked('zoonosis'), getChecked('category'))
+checkAll = (state, target) ->
+  $('.category').each () -> $(this).prop("checked", state)
+  filterMap($('.map-search').val() || false, getChecked('zoonosis'), getChecked('category'))
+  $(target).toggleClass 'uncheck-all check-all'
 
 Template.eventMap.helpers
   getCategories: () ->
@@ -101,10 +102,16 @@ Template.eventMap.events
   'keyup .map-search': (e) ->
     e.preventDefault()
     if $(e.target).val() == ''
-      clearSearch()  
+      clearSearch()
     if e.keyCode == 13
       queryText = $(e.target).val()
       filterMap(queryText, getChecked('zoonosis'), getChecked('category'))
   'click .clear-search': (e) ->
     $('.map-search').val('')
     clearSearch()
+  'click .check': (e) ->
+    if $(e.target).hasClass('check-all')
+      checkAll(true, e.target)
+    else 
+      checkAll(false, e.target)
+
