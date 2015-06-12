@@ -1,17 +1,26 @@
 template(name="eventMap")
   .container.map-search-wrap
+    .map-filter-content
+      .form-group
+        each getCategories
+          .checkbox
+            label
+              input.category(type="checkbox" value="#{this}" checked) 
+              | #{this}
     .map-search-content
       .row
         .col-sm-5
           .zoonosis
-            span Zoonosis
+            span Zoonotic?
             .form-group
               .checkbox-inline
-                input(type="checkbox") 
-                | Yes
+                label
+                  input.zoonosis(type="checkbox" value="Yes" checked) 
+                  | Yes
               .checkbox-inline
-                input(type="checkbox") 
-                | No
+                label
+                  input.zoonosis(type="checkbox" value="No" checked) 
+                  | No
         .col-sm-7
           .input-group
             span.input-group-addon

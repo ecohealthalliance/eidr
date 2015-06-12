@@ -26,15 +26,12 @@ Template.eventMap.rendered = () ->
   events = @data.events.fetch()
   @allEvents = new ReactiveVar(events)
   instance.filteredEvents = new ReactiveVar(events)
-  
   markers = new L.FeatureGroup()
 
   @autorun () ->
     map.removeLayer(markers)
     markers = new L.FeatureGroup()
 
-    console.log instance.filteredEvents.get()
-    
     for event in instance.filteredEvents.get()
       if event.locations
         name = event.eventNameVal
@@ -53,26 +50,56 @@ Template.eventMap.rendered = () ->
                 """
               })
             }).bindPopup("""
-              <a href="/event/#{eidID}">#{name}</a>
+              <a href="/event/#{eidID}">#{name}
+              <br>
+              Zoonotic?: #{event.zoonoticVal}
+              <br>
+              Transmission?: #{event.eventTransmissionVal}
+              </a>
             """)
             markers.addLayer(marker)
 
     map.addLayer(markers)
 
 
-filterMap = (query) ->
+filterMap = (query, zoonosis, category) ->
   filteredEvents = _.filter Template.instance().allEvents.get(), (event) -> 
-    event.eventNameVal.search(query) >= 0
+    event.eventNameVal.toLowerCase().search(query.toLowerCase()) >= 0 and zoonosis.indexOf(event.zoonoticVal) >= 0 and category.indexOf(event.eventTransmissionVal) >= 0
+  console.log filteredEvents.length
   Template.instance().filteredEvents.set(filteredEvents)
-clearFilters = () ->
+
+clearSearch = () ->
+  filterMap('', getChecked('zoonosis'), getChecked('category'))
+
+clearAllFilters = () ->
   Template.instance().filteredEvents.set(Template.instance().allEvents.get())
 
+getChecked = (type) ->
+  _.map $('.'+type+':checked').get(), (input) -> input.value
+
+checkAll = (type) ->
+  $('.'+type).each(() -> this.checked = true)
+  filterMap($('.map-search').val(), getChecked('zoonosis'), getChecked('category'))
+
+Template.eventMap.helpers
+  getCategories: () ->
+    categories = []
+    for key of @fields.dropdownExplanations
+      categories.push(key)
+    categories.push("Not Found")
+    categories
+
 Template.eventMap.events
+  'change input[type=checkbox]': (e) ->
+    filterMap($('.map-search').val(), getChecked('zoonosis'), getChecked('category'))
+
   'keyup .map-search': (e) ->
     e.preventDefault()
+    if $(e.target).val() == ''
+      clearSearch()  
     if e.keyCode == 13
       queryText = $(e.target).val()
-      filterMap(queryText)
+      filterMap(queryText, getChecked('zoonosis'), getChecked('category'))
   'click .clear-search': (e) ->
     $('.map-search').val('')
-    clearFilters()
+    clearSearch()

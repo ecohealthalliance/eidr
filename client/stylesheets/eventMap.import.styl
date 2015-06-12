@@ -33,15 +33,16 @@
   top 0
 
 .map-search-content
+.map-filter-content
   position absolute
-  top -2px
+  top 0
   right 0
   z-index 10000
-  max-width 600px
-  padding 13px 13px 15px 13px
-  border-radius 0 0 4px 4px
+  max-width 650px
+  padding 13px 20px 15px 20px
+  border-radius 0 0 5px 5px
   border 1px solid secondary
-  border-top 2px solid darken(secondary, 8%)
+  border-top 0
   z-index 10000
   background  rgba(255,255,255, .9)
   box-shadow 0 2px 5px rgba(0,0,0,0.3)
@@ -58,6 +59,23 @@
     margin 0
   .input-group .form-control:not(:first-child):not(:last-child)
     border-radius 0 4px 4px 0
+  .zoonosis
+    padding-top 8px
+    > span
+      font-weight bold
+      padding-right 5px
+    .form-group
+      display inline-block
+      label,
+      input
+        cursor pointer
+        cursor pointer
+      label
+        font-weight normal
+
+.map-filter-content
+  right auto
+  left 0
 
 @media (max-width: 768px)
   #event-map
