@@ -23,9 +23,10 @@ Template.eventMap.rendered = () ->
   }).addTo(map)
 
   instance = @
-  events = @data.events.fetch()
+  events = events.fetch()
   @allEvents = new ReactiveVar(events)
   instance.filteredEvents = new ReactiveVar(events)
+
   markers = new L.FeatureGroup()
 
   @autorun () ->
@@ -65,7 +66,6 @@ Template.eventMap.rendered = () ->
 filterMap = (query, zoonosis, category) ->
   filteredEvents = _.filter Template.instance().allEvents.get(), (event) -> 
     event.eventNameVal.toLowerCase().search(query.toLowerCase()) >= 0 and zoonosis.indexOf(event.zoonoticVal) >= 0 and category.indexOf(event.eventTransmissionVal) >= 0
-  console.log filteredEvents.length
   Template.instance().filteredEvents.set(filteredEvents)
 
 clearSearch = () ->

@@ -32,14 +32,12 @@
   position relative
   top 0
 
-.map-search-content
 .map-filter-content
   position absolute
   top 0
   right 0
   z-index 10000
   width 300px
-  padding 13px 20px 15px 20px
   border-radius 0 0 5px 5px
   border 1px solid secondary
   border-top 0
@@ -60,7 +58,6 @@
   .input-group .form-control:not(:first-child):not(:last-child)
     border-radius 0 4px 4px 0
   .zoonosis
-    padding-top 8px
     > span
       font-weight bold
       padding-right 5px
@@ -73,10 +70,13 @@
       label
         font-weight normal
 
-.map-filter-content
+.search-wrap
+  padding 15px 20px 15px 20px
+  
+
+.toggles
   padding 0
-  right auto
-  left 0
+  border-top 2px solid darken(secondary, 15%)
   h2
     font-size 16px
     margin 0
@@ -90,7 +90,7 @@
   .filter
     color #555
     position relative
-    padding 20px
+    padding 15px 20px
     cursor pointer
     transition background .2s
     h2
@@ -98,15 +98,17 @@
     &:hover
       background darken(secondary, 10%)
       color white
-      h2
+      h2,
+      &::after
         color white
     &::after
-      right 10px
+      right 30px
       top 50%
       centerPosition(0,-50%)
-      content "\f146"
+      content "\f13a"
       font-family FontAwesome
       font-size 18px
+      color #999
       -webkit-font-smoothing antialiased
       -moz-osx-font-smoothing grayscale
       transition .2s
@@ -117,8 +119,8 @@
       h2
         color white
       &::after
-        content '\f0fe'
-      
+        content '\f139'
+        color white
   .filter-block
     margin-bottom 10px
     &:last-of-type

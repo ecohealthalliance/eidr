@@ -1,34 +1,35 @@
 template(name="eventMap")
   .container.map-search-wrap
     .map-filter-content
-      .filter
-        h2 Filter Events
-      .filters-wrap.hidden
-        .filter-block.zoonosis
-          h3 Zoonotic
-          .form-group
-            .checkbox-inline
-              label
-                input.zoonosis(type="checkbox" value="Yes" checked) 
-                | Yes
-            .checkbox-inline
-              label
-                input.zoonosis(type="checkbox" value="No" checked) 
-                | No
-        .filter-block
-          h3 Event Transmission
-          .form-group
-            each getCategories
+      .search-wrap
+        .input-group
+          span.input-group-addon
+            i.fa.fa-filter
+          input.map-search.form-control(type="text" placeholder="Search")
+          span.clear-search
+            i.fa.fa-times-circle
+      .toggles
+        .filter
+          h2 Filters
+        .filters-wrap.hidden
+          .filter-block
+            h3 Event Transmission
+            .form-group
+              each getCategories
+                .checkbox
+                  label
+                    input.category(type="checkbox" value="#{this}" checked) 
+                    | #{this}
+          .filter-block.zoonosis
+            h3 Zoonotic
+            .form-group
               .checkbox
                 label
-                  input.category(type="checkbox" value="#{this}" checked) 
-                  | #{this}
-    .map-search-content
-      .input-group
-        span.input-group-addon
-          i.fa.fa-filter
-        input.map-search.form-control(type="text" placeholder="Filter")
-        span.clear-search
-          i.fa.fa-times-circle
+                  input.zoonosis(type="checkbox" value="Yes" checked) 
+                  | Yes
+              .checkbox
+                label
+                  input.zoonosis(type="checkbox" value="No" checked) 
+                  | No
   .fluid-container
     #event-map
