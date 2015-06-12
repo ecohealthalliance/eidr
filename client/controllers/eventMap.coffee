@@ -22,36 +22,53 @@ Template.eventMap.rendered = () ->
     maxZoom: 18
   }).addTo(map)
 
-  events = @data.events
+  instance = @
+  events = @data.events.fetch()
+  @allEvents = new ReactiveVar(events)
+  instance.filteredEvents = new ReactiveVar(events)
+
   markers = new L.FeatureGroup()
 
-  for event in events.fetch()
-    if event.locations
-      name = event.eventNameVal
-      eidID = event.eidID
+  @autorun () ->
+    map.removeLayer(markers)
+    markers = new L.FeatureGroup()
 
-      for location in event.locations
-        latLng = [location.locationLatitude, location.locationLongitude]
+    console.log instance.filteredEvents.get()
+    
+    for event in instance.filteredEvents.get()
+      if event.locations
+        name = event.eventNameVal
+        eidID = event.eidID
 
-        if latLng[0] isnt 'Not Found' and latLng[1] isnt 'Not Found'
+        for location in event.locations
+          latLng = [location.locationLatitude, location.locationLongitude]
 
-          marker = L.marker(latLng, {
-            icon: L.divIcon({
-              className: 'map-marker-container'
-              iconSize:null
-              html:"""
-              <div class="map-marker"></div>
-              """
-            })
-          }).bindPopup("""
-            <a href="/event/#{eidID}">#{name}</a>
-          """)
-          markers.addLayer(marker)
+          if latLng[0] isnt 'Not Found' and latLng[1] isnt 'Not Found'
+            marker = L.marker(latLng, {
+              icon: L.divIcon({
+                className: 'map-marker-container'
+                iconSize:null
+                html:"""
+                <div class="map-marker"></div>
+                """
+              })
+            }).bindPopup("""
+              <a href="/event/#{eidID}">#{name}</a>
+            """)
+            markers.addLayer(marker)
 
-  map.addLayer(markers)
+    map.addLayer(markers)
 
+
+filterMap = (query) ->
+  filteredEvents = _.filter Template.instance().allEvents.get(), (event) -> 
+    event.eventNameVal.search(query) >= 0
+  Template.instance().filteredEvents.set(filteredEvents)
 
 Template.eventMap.events
-  'keyup .map-search': (e) ->
-    console.log e.target
+  'submit .map-search': (e) ->
+    e.preventDefault()
+    queryText = $(e.target).find("[type=text]").val()
+    console.log queryText
+    filterMap(queryText)
 
