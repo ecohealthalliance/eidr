@@ -63,19 +63,24 @@ Template.eventMap.rendered = () ->
     map.addLayer(markers)
 
 
-filterMap = (query, zoonosis, category) ->
-  filteredEvents = _.filter Template.instance().allEvents.get(), (event) -> 
-    event.eventNameVal.toLowerCase().search(query.toLowerCase()) >= 0 and zoonosis.indexOf(event.zoonoticVal) >= 0 and category.indexOf(event.eventTransmissionVal) >= 0
+filterMap = (query, zoonosis, eventTransmission) ->
+  if query
+    filteredEvents = _.filter Template.instance().allEvents.get(), (event) -> 
+      event.eventNameVal.toLowerCase().search(query.toLowerCase()) >= 0 and zoonosis.indexOf(event.zoonoticVal.toLowerCase()) >= 0 and _.intersection(event.eventTransmissionVal.toLowerCase().split(', '), eventTransmission).length > 0
+  else 
+    filteredEvents = _.filter Template.instance().allEvents.get(), (event) -> 
+      zoonosis.indexOf(event.zoonoticVal.toLowerCase()) >= 0 and _.intersection(event.eventTransmissionVal.toLowerCase().split(', '), eventTransmission).length > 0
+      
   Template.instance().filteredEvents.set(filteredEvents)
 
 clearSearch = () ->
-  filterMap('', getChecked('zoonosis'), getChecked('category'))
+  filterMap(false, getChecked('zoonosis'), getChecked('category'))
 
 clearAllFilters = () ->
   Template.instance().filteredEvents.set(Template.instance().allEvents.get())
 
 getChecked = (type) ->
-  _.map $('.'+type+':checked').get(), (input) -> input.value
+  _.map $('.'+type+':checked').get(), (input) -> input.value.toLowerCase()
 
 checkAll = (type) ->
   $('.'+type).each(() -> this.checked = true)
@@ -95,7 +100,7 @@ Template.eventMap.events
     $('.filters-wrap').toggleClass('hidden')
 
   'change input[type=checkbox]': (e) ->
-    filterMap($('.map-search').val(), getChecked('zoonosis'), getChecked('category'))
+    filterMap($('.map-search').val() || false, getChecked('zoonosis'), getChecked('category'))
 
   'keyup .map-search': (e) ->
     e.preventDefault()
