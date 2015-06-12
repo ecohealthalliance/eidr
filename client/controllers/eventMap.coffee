@@ -24,7 +24,6 @@ Template.eventMap.rendered = () ->
 
   instance = @
   events = @data.events.fetch()
-  console.log events
   @allEvents = new ReactiveVar(events)
   instance.filteredEvents = new ReactiveVar(events)
 
