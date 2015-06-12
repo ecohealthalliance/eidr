@@ -38,7 +38,7 @@
   top 0
   right 0
   z-index 10000
-  max-width 650px
+  width 300px
   padding 13px 20px 15px 20px
   border-radius 0 0 5px 5px
   border 1px solid secondary
@@ -74,8 +74,60 @@
         font-weight normal
 
 .map-filter-content
+  padding 0
   right auto
   left 0
+  h2
+    font-size 16px
+    margin 0
+    font-weight normal
+  h3
+    padding 0 20px 5px 20px
+    font-size 14px
+    color blue
+    margin 0 0 10px 0
+    border-bottom 1px solid secondary
+  .filter
+    color #555
+    position relative
+    padding 20px
+    cursor pointer
+    transition background .2s
+    h2
+      color #555
+    &:hover
+      background darken(secondary, 10%)
+      color white
+      h2
+        color white
+    &::after
+      right 10px
+      top 50%
+      centerPosition(0,-50%)
+      content "\f146"
+      font-family FontAwesome
+      font-size 18px
+      -webkit-font-smoothing antialiased
+      -moz-osx-font-smoothing grayscale
+      transition .2s
+    &.open
+      background secondary
+      color white
+      margin-bottom 10px
+      h2
+        color white
+      &::after
+        content '\f0fe'
+      
+  .filter-block
+    margin-bottom 10px
+    &:last-of-type
+      margin 0
+  .form-group
+    padding 0 20px
+    .checkbox
+      &:first-child
+        margin-top 0
 
 @media (max-width: 768px)
   #event-map

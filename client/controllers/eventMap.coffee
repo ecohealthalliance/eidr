@@ -90,6 +90,10 @@ Template.eventMap.helpers
     categories
 
 Template.eventMap.events
+  'click .filter' : (e) ->
+    $('.filter').toggleClass('open')
+    $('.filters-wrap').toggleClass('hidden')
+
   'change input[type=checkbox]': (e) ->
     filterMap($('.map-search').val(), getChecked('zoonosis'), getChecked('category'))
 
