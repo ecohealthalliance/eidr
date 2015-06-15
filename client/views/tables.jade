@@ -63,22 +63,23 @@ template(name="reference")
   li.list-group-item
     if isPMCID
       a.ref-link(href="http://www.ncbi.nlm.nih.gov/pmc/articles/{{archiveLocation}}" target="_blank")
-        +author
-        span.glyphicon.glyphicon-link
+        +authorLink
       +referenceDescription
     else if isPMID
       a.ref-link(href="http://www.ncbi.nlm.nih.gov/pubmed/{{archiveLocation}}" target="_blank")
-        +author
-        span.glyphicon.glyphicon-link
+        +authorLink
       +referenceDescription
     else if url
       a.ref-link(href="{{url}}" target="_blank")
-        +author
-        span.glyphicon.glyphicon-link
+        +authorLink
       +referenceDescription
     else
       p #{title}
     a.ref-link(href="https://www.zotero.org/groups/252452/items/itemKey/{{key}}" target="_blank") Zotero
+
+template(name="authorLink")
+  +author
+  span.fa.fa-external-link
 
 template(name="author")
   if creators

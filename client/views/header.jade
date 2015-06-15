@@ -24,11 +24,11 @@ template(name="navLinks")
     li
       a.withIcon(href="{{pathFor 'varDefs'}}" title="Variable Definitions")
         span.link-text-nav Variable Definitions
-        span.glyphicon.showSmall.glyphicon-question-sign
+        span.fa.fa-question-circle.show-small
     li
       a.withIcon(href="mailto:admin@ecohealth.io" title="Contact Us") 
         span.link-text-nav Contact Us
-        span.icon.showSmall.mail
+        span.fa.fa-envelope.show-small
     li(class="{{checkActive 'sign-in'}}")
       +account
 
@@ -36,8 +36,8 @@ template(name="account")
   if currentUser
     a.withIcon(href="" title="Sign Out")#logOut
       span.link-text-nav Sign Out
-      span.icon.logout
+      span.fa.fa-sign-out.show-large
   else
     a.withIcon(href="/sign-in" title="Sign In")
       span.link-text-nav Sign In
-      span.icon.login
+      span.fa.fa-sign-in.show-large
