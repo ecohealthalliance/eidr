@@ -1,6 +1,6 @@
 Template.map.rendered = () ->
 
-  window.eventMap = L.map 'map', 
+  eventMap = L.map 'map', 
     scrollWheelZoom: false, 
     maxBounds: L.latLngBounds(L.latLng(-85, -180), L.latLng(85, 180))
   eventMap.on 'click', () ->
