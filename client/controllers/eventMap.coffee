@@ -23,7 +23,7 @@ Template.eventMap.rendered = () ->
   }).addTo(map)
 
   instance = @
-  instance.eventQuery = new ReactiveVar()
+  instance.eventsQuery = new ReactiveVar({})
 
   markers = new L.FeatureGroup()
 
@@ -31,13 +31,13 @@ Template.eventMap.rendered = () ->
     map.removeLayer(markers)
     markers = new L.FeatureGroup()
     events = instance.data.events
+    query = instance.eventsQuery.get()
 
-    unless instance.eventQuery.get()
-      filteredEvents = events.find({}).fetch()
+    if _.isObject query
+      filteredEvents = events.find(query).fetch()
     else 
-      filteredEvents = events.find(instance.eventQuery.get()).fetch()
-
-    console.log filteredEvents
+      map.removeLayer(markers)
+      return
 
     for event in filteredEvents
       if event.locations
@@ -64,15 +64,20 @@ Template.eventMap.rendered = () ->
 
     map.addLayer(markers)
 
-filterMap = (query, zoonosis, eventTransmission) ->
-  if query
-    # filteredEvents = _.filter Template.instance().allEvents.get(), (event) -> 
-    #   event.eventNameVal.toLowerCase().search(query.toLowerCase()) >= 0 and zoonosis.indexOf(event.zoonoticVal.toLowerCase()) >= 0 and _.intersection(event.eventTransmissionVal.toLowerCase().split(', '), eventTransmission).length > 0
+filterMap = (userSearchText, zoonosis, eventTransmission) ->
+  zoonoticQuery = []
+  eventTransmissionQuery = []
+  if userSearchText and zoonosis.length and eventTransmission.length
+    searchQuery = {eventNameVal: {$regex: userSearchText}}
+    _.each zoonosis, (value) -> zoonoticQuery.push({zoonoticVal: value})
+    _.each eventTransmission, (value) -> eventTransmissionQuery.push({eventTransmissionVal: value})
+    Template.instance().eventsQuery.set({ $and: [ searchQuery, {$or: zoonoticQuery}, {$or: eventTransmissionQuery} ] })
+  else if zoonosis.length and eventTransmission.length
+    _.each zoonosis, (value) -> zoonoticQuery.push({zoonoticVal: value})
+    _.each eventTransmission, (value) -> eventTransmissionQuery.push({eventTransmissionVal: value})
+    Template.instance().eventsQuery.set({$and: [{$or: zoonoticQuery}, {$or: eventTransmissionQuery}]})
   else 
-    # filteredEvents = _.filter Template.instance().allEvents.get(), (event) -> 
-    #   zoonosis.indexOf(event.zoonoticVal.toLowerCase()) >= 0 and _.intersection(event.eventTransmissionVal.toLowerCase().split(', '), eventTransmission).length > 0
-
-  Template.instance().filteredEvents.set(filteredEvents)
+    Template.instance().eventsQuery.set(false)
 
 clearSearch = () ->
   filterMap(false, getChecked('zoonosis'), getChecked('category'))
@@ -81,7 +86,7 @@ clearAllFilters = () ->
   Template.instance().filteredEvents.set(Template.instance().allEvents.get())
 
 getChecked = (type) ->
-  _.map $('.'+type+':checked').get(), (input) -> input.value.toLowerCase()
+  _.map $('.'+type+':checked').get(), (input) -> input.value
 
 checkAll = (state, target) ->
   $('.category').each () -> $(this).prop("checked", state)
@@ -109,8 +114,8 @@ Template.eventMap.events
     if $(e.target).val() == ''
       clearSearch()
     if e.keyCode == 13
-      queryText = $(e.target).val()
-      filterMap(queryText, getChecked('zoonosis'), getChecked('category'))
+      userSearchText = $(e.target).val()
+      filterMap(userSearchText, getChecked('zoonosis'), getChecked('category'))
   'click .clear-search': (e) ->
     $('.map-search').val('')
     clearSearch()
