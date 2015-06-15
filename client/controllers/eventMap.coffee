@@ -23,17 +23,23 @@ Template.eventMap.rendered = () ->
   }).addTo(map)
 
   instance = @
-  events = @data.events.fetch()
-  @allEvents = new ReactiveVar(events)
-  instance.filteredEvents = new ReactiveVar(events)
+  instance.eventQuery = new ReactiveVar()
 
   markers = new L.FeatureGroup()
 
   @autorun () ->
     map.removeLayer(markers)
     markers = new L.FeatureGroup()
+    events = instance.data.events
 
-    for event in instance.filteredEvents.get()
+    unless instance.eventQuery.get()
+      filteredEvents = events.find({}).fetch()
+    else 
+      filteredEvents = events.find(instance.eventQuery.get()).fetch()
+
+    console.log filteredEvents
+
+    for event in filteredEvents
       if event.locations
         name = event.eventNameVal
         eidID = event.eidID
@@ -58,14 +64,13 @@ Template.eventMap.rendered = () ->
 
     map.addLayer(markers)
 
-
 filterMap = (query, zoonosis, eventTransmission) ->
   if query
-    filteredEvents = _.filter Template.instance().allEvents.get(), (event) -> 
-      event.eventNameVal.toLowerCase().search(query.toLowerCase()) >= 0 and zoonosis.indexOf(event.zoonoticVal.toLowerCase()) >= 0 and _.intersection(event.eventTransmissionVal.toLowerCase().split(', '), eventTransmission).length > 0
+    # filteredEvents = _.filter Template.instance().allEvents.get(), (event) -> 
+    #   event.eventNameVal.toLowerCase().search(query.toLowerCase()) >= 0 and zoonosis.indexOf(event.zoonoticVal.toLowerCase()) >= 0 and _.intersection(event.eventTransmissionVal.toLowerCase().split(', '), eventTransmission).length > 0
   else 
-    filteredEvents = _.filter Template.instance().allEvents.get(), (event) -> 
-      zoonosis.indexOf(event.zoonoticVal.toLowerCase()) >= 0 and _.intersection(event.eventTransmissionVal.toLowerCase().split(', '), eventTransmission).length > 0
+    # filteredEvents = _.filter Template.instance().allEvents.get(), (event) -> 
+    #   zoonosis.indexOf(event.zoonoticVal.toLowerCase()) >= 0 and _.intersection(event.eventTransmissionVal.toLowerCase().split(', '), eventTransmission).length > 0
 
   Template.instance().filteredEvents.set(filteredEvents)
 
@@ -86,7 +91,7 @@ checkAll = (state, target) ->
 Template.eventMap.helpers
   getCategories: () ->
     categories = []
-    for key of @fields.dropdownExplanations
+    for key of @transmissionTypes.dropdownExplanations
       categories.push(key)
     categories.push("Not Found")
     categories
