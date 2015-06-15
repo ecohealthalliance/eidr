@@ -135,30 +135,51 @@
   #event-map
     top mobile-header-height
   .map-search-wrap
-    top mobile-header-height
+    top 2px
     left auto
     right -300px
+    .map-filter-content
+      transition .4s
     &.open
-      transform translate(-300px,0);      
+      .map-filter-content,
+      .mobile-control
+        transition transform .4s
+        transform: translate(-298px, 0px)
+        -webkit-transform: translate(-298px, 0px)
+        -moz-transform: translate(-298px, 0px)
+        -o-transform: translate(-298px, 0px)
+        -ms-transform: translate(-298px, 0px)
+      .mobile-control
+        transition .4s
+        padding 12px 10px 12px 10px
+        &::before
+          content '\f0a9'
+          font-size 150%
+        span
+          display none
+        
   .mobile-control
     position fixed
     top mobile-header-height + 10
     right -2px
-    width 100px
     z-index 100
     min-height 50px
-    padding 12px 10px
-    background rgba(255,255,255, .9)
+    padding 12px 30px 12px 10px
+    cursor pointer
+    background rgba(255,255,255, .8)
     border-radius 4px 0 0 4px
-    border 2px solid m-gray
+    border 2px solid #999
+    transition .4s
+    box-shadow 0 2px 5px rgba(0,0,0,0.3)
+    font-size 125%
+    &:hover
+      background secondary
+      color white
     &::before
       @extend .font-awesome
       display inline-block
-      content '\f0b0'
+      content '\f137'
       margin-right 5px
-    &::after
-      content 'Filters'
-      display inline-block
     
         
         
