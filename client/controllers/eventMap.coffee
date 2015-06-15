@@ -65,6 +65,7 @@ Template.eventMap.rendered = () ->
     map.addLayer(markers)
 
 filterMap = (userSearchText, zoonosis, eventTransmission) ->
+  mapInstance = Template.instance().view.parentView._templateInstance
   zoonoticQuery = []
   eventTransmissionQuery = []
   if userSearchText and zoonosis.length and eventTransmission.length
@@ -73,13 +74,13 @@ filterMap = (userSearchText, zoonosis, eventTransmission) ->
     _.each searchWords, ()-> nameQuery.push {eventNameVal: new RegExp(userSearchText, 'i')}
     _.each zoonosis, (value) -> zoonoticQuery.push({zoonoticVal: new RegExp(value, 'i')})
     _.each eventTransmission, (value) -> eventTransmissionQuery.push({eventTransmissionVal: new RegExp(value, 'i')})
-    Template.instance().eventsQuery.set({ $and: [ {$or: nameQuery}, {$or: zoonoticQuery}, {$or: eventTransmissionQuery} ] })
+    mapInstance.eventsQuery.set({ $and: [ {$or: nameQuery}, {$or: zoonoticQuery}, {$or: eventTransmissionQuery} ] })
   else if zoonosis.length and eventTransmission.length
     _.each zoonosis, (value) -> zoonoticQuery.push({zoonoticVal: new RegExp(value, 'i')})
     _.each eventTransmission, (value) -> eventTransmissionQuery.push({eventTransmissionVal: new RegExp(value, 'i')})
-    Template.instance().eventsQuery.set({$and: [{$or: zoonoticQuery}, {$or: eventTransmissionQuery}]})
+    mapInstance.eventsQuery.set({$and: [{$or: zoonoticQuery}, {$or: eventTransmissionQuery}]})
   else 
-    Template.instance().eventsQuery.set(false)
+    mapInstance.eventsQuery.set(false)
 
 clearSearch = () ->
   filterMap(false, getChecked('zoonosis'), getChecked('category'))
@@ -95,7 +96,7 @@ checkAll = (state, target) ->
   filterMap($('.map-search').val() || false, getChecked('zoonosis'), getChecked('category'))
   $(target).toggleClass 'uncheck-all check-all'
 
-Template.eventMap.helpers
+Template.mapFilters.helpers
   getCategories: () ->
     categories = []
     for key of @transmissionTypes.dropdownExplanations
@@ -103,7 +104,7 @@ Template.eventMap.helpers
     categories.push("Not Found")
     categories
 
-Template.eventMap.events
+Template.mapFilters.events
   'click .filter' : (e) ->
     $('.filter').toggleClass('open')
     $('.filters-wrap').toggleClass('hidden')
