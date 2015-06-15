@@ -1,0 +1,186 @@
+.map-search-wrap
+  position relative
+  top 0
+
+.map-search
+  padding-right 30px
+
+.map-filter-content
+  position absolute
+  top 0
+  right 0
+  z-index 100
+  width 300px
+  border-radius 0 0 5px 5px
+  border 1px solid secondary
+  border-top 0
+  z-index 10000
+  background  rgba(255,255,255, .9)
+  box-shadow 0 2px 5px rgba(0,0,0,0.3)
+  .clear-search
+    cursor pointer
+    position absolute
+    right 10px
+    top 50%
+    transform translate(0, -50%)
+    z-index 10
+    font-size 18px
+    color #999
+  .form-group
+    margin 0
+  .input-group .form-control:not(:first-child):not(:last-child)
+    border-radius 0 4px 4px 0
+  .zoonosis
+    > span
+      font-weight bold
+      padding-right 5px
+    .form-group
+      display inline-block
+      label,
+      input
+        cursor pointer
+        cursor pointer
+      label
+        font-weight normal
+
+.search-wrap
+  padding 15px 20px 15px 20px
+  
+.toggles
+  padding 0
+  border-top 2px solid darken(secondary, 15%)
+  h2
+    font-size 16px
+    margin 0
+    font-weight normal
+  h3
+    padding 7px 20px 5px 20px
+    font-size 14px
+    color blue
+    margin 0 0 10px 0
+    border-bottom 1px solid secondary
+    background lighten(secondary, 90%)
+    span.check
+      position absolute
+      right 20px
+      font-size 12px
+      color #999
+      font-weight normal
+      cursor pointer
+      transition color .2s
+      &:hover
+        color secondary
+        transition color .2s
+      &::before
+        @extend .font-awesome
+        padding-right 4px
+      &.uncheck-all
+        &::before
+          content '\f096'
+        &::after
+          content 'Uncheck All'
+      &.check-all
+        &::before
+          content '\f046'
+        &::after
+          content 'Check All'
+  .filter
+    color #555
+    position relative
+    padding 15px 20px
+    cursor pointer
+    transition background .2s
+    h2
+      color #555
+      font-size 14px
+    &:hover
+      background darken(secondary, 10%)
+      color white
+      h2,
+      &::after
+        color white
+    &::after
+      @extend .font-awesome
+      centerPosition(0,-50%)
+      right 30px
+      top 50%
+      content "\f13a"
+      font-size 18px
+      color #999
+      -webkit-font-smoothing antialiased
+      -moz-osx-font-smoothing grayscale
+      transition .2s
+    &.open
+      background secondary
+      color white
+      margin-bottom 0
+      &:hover
+        background darken(secondary, 10%)
+      h2
+        color white
+      &::after
+        content '\f139'
+        color white
+  .filter-block
+    margin-bottom 15px
+    &:last-of-type
+      margin 0
+  .form-group
+    padding 0 20px
+    .checkbox
+      &:first-child
+        margin-top 0
+
+@media (max-width: 768px)
+  #event-map
+    top mobile-header-height
+  .map-search-wrap
+    top 2px
+    left auto
+    right -300px
+    .map-filter-content
+      transition .4s
+    &.open
+      .map-filter-content,
+      .mobile-control
+        transition transform .4s
+        transform: translate(-298px, 0px)
+        -webkit-transform: translate(-298px, 0px)
+        -moz-transform: translate(-298px, 0px)
+        -o-transform: translate(-298px, 0px)
+        -ms-transform: translate(-298px, 0px)
+      .mobile-control
+        transition .4s
+        padding 12px 10px 12px 10px
+        background secondary
+        color white
+        &::before
+          content '\f0a9'
+          font-size 150%
+        span
+          display none
+        
+  .mobile-control
+    position fixed
+    top mobile-header-height + 10
+    right -2px
+    z-index 100
+    min-height 50px
+    padding 14px 20px 12px 10px
+    cursor pointer
+    background rgba(255,255,255, .8)
+    border-radius 4px 0 0 4px
+    border 1px solid #999
+    transition .4s
+    box-shadow 0 2px 5px rgba(0,0,0,0.3)
+    &:hover
+      background secondary
+      color white
+    &::before
+      @extend .font-awesome
+      display inline-block
+      content '\f137'
+      margin-right 5px
+    
+        
+        
