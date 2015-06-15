@@ -127,4 +127,6 @@ Template.mapFilters.events
       checkAll(true, e.target)
     else 
       checkAll(false, e.target)
+  'click .mobile-control': (e) ->
+    $('.map-search-wrap').toggleClass('open')
 
