@@ -1,0 +1,35 @@
+template(name="mapFilters")
+  .container.map-search-wrap
+    .mobile-control
+    .map-filter-content
+      .search-wrap
+        .input-group
+          span.input-group-addon
+            i.fa.fa-filter
+          input.map-search.form-control(type="text" placeholder="Search")
+          span.clear-search
+            i.fa.fa-times-circle
+      .toggles
+        .filter
+          h2 Filters
+        .filters-wrap.hidden
+          .filter-block
+            h3 Event Transmission
+              span.check.uncheck-all
+            .form-group
+              each getCategories
+                .checkbox
+                  label
+                    input.category(type="checkbox" value="#{this}" checked) 
+                    | #{this}
+          .filter-block.zoonosis
+            h3 Zoonotic
+            .form-group
+              .checkbox
+                label
+                  input.zoonosis(type="checkbox" value="Yes" checked) 
+                  | Yes
+              .checkbox
+                label
+                  input.zoonosis(type="checkbox" value="No" checked) 
+                  | No
