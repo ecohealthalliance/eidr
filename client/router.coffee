@@ -55,6 +55,17 @@ Router.route "/eventMap",
   data: () ->
     events: Events().find({'eidVal': "1"})
 
+Router.route "/admins",
+  name: 'admins'
+  onBeforeAction: () ->
+    unless Roles.userIsInRole(Meteor.userId(), ['admin'])
+      @redirect '/'
+    @next()
+  waitOn: () ->
+    Meteor.subscribe "allUsers"
+  data: () ->
+    users: Meteor.users.find()
+
 Router.route "/download",
   name: 'download',
   onBeforeAction: () ->
