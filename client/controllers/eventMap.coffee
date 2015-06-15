@@ -24,17 +24,17 @@ Template.eventMap.rendered = () ->
 
   instance = @
   instance.eventsQuery = new ReactiveVar({})
+  window.events = @data.events
 
   markers = new L.FeatureGroup()
 
   @autorun () ->
     map.removeLayer(markers)
     markers = new L.FeatureGroup()
-    events = instance.data.events
     query = instance.eventsQuery.get()
 
     if _.isObject query
-      filteredEvents = events.find(query).fetch()
+      filteredEvents = instance.data.events.find(query).fetch()
     else 
       map.removeLayer(markers)
       return
@@ -68,13 +68,15 @@ filterMap = (userSearchText, zoonosis, eventTransmission) ->
   zoonoticQuery = []
   eventTransmissionQuery = []
   if userSearchText and zoonosis.length and eventTransmission.length
-    searchQuery = {eventNameVal: {$regex: userSearchText}}
-    _.each zoonosis, (value) -> zoonoticQuery.push({zoonoticVal: value})
-    _.each eventTransmission, (value) -> eventTransmissionQuery.push({eventTransmissionVal: value})
-    Template.instance().eventsQuery.set({ $and: [ searchQuery, {$or: zoonoticQuery}, {$or: eventTransmissionQuery} ] })
+    nameQuery = []
+    searchWords = userSearchText.split(' ')
+    _.each searchWords, ()-> nameQuery.push {eventNameVal: new RegExp(userSearchText, 'i')}
+    _.each zoonosis, (value) -> zoonoticQuery.push({zoonoticVal: new RegExp(value, 'i')})
+    _.each eventTransmission, (value) -> eventTransmissionQuery.push({eventTransmissionVal: new RegExp(value, 'i')})
+    Template.instance().eventsQuery.set({ $and: [ {$or: nameQuery}, {$or: zoonoticQuery}, {$or: eventTransmissionQuery} ] })
   else if zoonosis.length and eventTransmission.length
-    _.each zoonosis, (value) -> zoonoticQuery.push({zoonoticVal: value})
-    _.each eventTransmission, (value) -> eventTransmissionQuery.push({eventTransmissionVal: value})
+    _.each zoonosis, (value) -> zoonoticQuery.push({zoonoticVal: new RegExp(value, 'i')})
+    _.each eventTransmission, (value) -> eventTransmissionQuery.push({eventTransmissionVal: new RegExp(value, 'i')})
     Template.instance().eventsQuery.set({$and: [{$or: zoonoticQuery}, {$or: eventTransmissionQuery}]})
   else 
     Template.instance().eventsQuery.set(false)
