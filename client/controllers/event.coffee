@@ -50,6 +50,12 @@ Template.event.helpers
     else
       "Date not found"
 
+  pluralizeLocation: (locations) ->
+    if locations.length > 1
+      "Locations"
+    else
+      "Location"
+
   locationList : (locations) ->
     locations?.map (location) ->
       if location.fieldUsed is 'emergenceHospitalVal'
