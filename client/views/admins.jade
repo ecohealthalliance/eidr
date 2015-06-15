@@ -4,7 +4,8 @@ template(name="admins")
       +each users
         p
           | {{this.services.google.email}}
-          if isAdmin this._id
-            button.btn.btn-primary.remove-admin(user-id = this._id) Remove admin
-          else
-            button.btn.btn-primary.make-admin(user-id = this._id) Make admin
+          unless isCurrentUser this._id
+            if isAdmin this._id
+              button.btn.btn-primary.remove-admin(user-id = this._id) Remove admin
+            else
+              button.btn.btn-primary.make-admin(user-id = this._id) Make admin

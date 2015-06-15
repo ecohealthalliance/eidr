@@ -4,6 +4,8 @@ Template.admins.rendered = () ->
 Template.admins.helpers
   isAdmin : (userId) ->
     Roles.userIsInRole(userId, ['admin'])
+  isCurrentUser : (userId) ->
+    userId == Meteor.userId()
 
 Template.admins.events
   'click .make-admin' : (event) ->
