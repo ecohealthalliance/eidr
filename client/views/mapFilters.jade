@@ -18,7 +18,7 @@ template(name="mapFilters")
             h3 Event Transmission
               span.check.uncheck-all
             .form-group
-              each getCategories
+              each getTransmissionTypes transmissionField
                 .checkbox
                   label
                     input.category(type="checkbox" value="#{this}" checked) 

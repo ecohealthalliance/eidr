@@ -8,6 +8,9 @@
   bottom footer-height
   background-color #B5D0D0
   background-color map-background
+  .leaflet-top,
+  .leaflet-left
+    z-index 90
 
 .leaflet-popup-content-wrapper
   border-radius 5px
@@ -42,6 +45,9 @@
 @media (max-width: 768px)
   #event-map
     top mobile-header-height
+    bottom mobile-footer-height
+    .leaflet-control-attribution
+      font-size 5px
 @media (max-width: 320px)
   .leaflet-popup-content,
   .leaflet-popup-content-wrapper
