@@ -51,7 +51,6 @@ Router.route "/event/:eidID",
 Router.route "/eventMap",
   name: 'eventMap'
   waitOn: () ->
-    Meteor.subscribe "events"
     Meteor.subscribe "locations"
     Meteor.subscribe "fields"
   data: () ->
