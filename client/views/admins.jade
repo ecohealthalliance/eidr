@@ -1,11 +1,12 @@
 template(name="admins")
   .container-fluid
     .container.content-block
-      +each users
+      +each adminUsers
         p
-          | {{this.services.google.email}}
+          | {{this.profile.name}} - {{this.services.google.email}}
           unless isCurrentUser this._id
-            if isAdmin this._id
-              button.btn.btn-primary.remove-admin(user-id = this._id) Remove admin
-            else
-              button.btn.btn-primary.make-admin(user-id = this._id) Make admin
+            button.btn.btn-primary.remove-admin(user-id = this._id) Remove admin
+      +each nonAdminUsers
+        p
+          | {{this.profile.name}} - {{this.services.google.email}}
+          button.btn.btn-primary.make-admin(user-id = this._id) Make admin

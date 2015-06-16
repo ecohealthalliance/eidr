@@ -1,6 +1,3 @@
-Template.admins.rendered = () ->
-  Template.admins.users = @data.users
-
 Template.admins.helpers
   isAdmin : (userId) ->
     Roles.userIsInRole(userId, ['admin'])

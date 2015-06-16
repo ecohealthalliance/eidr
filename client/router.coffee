@@ -64,7 +64,8 @@ Router.route "/admins",
   waitOn: () ->
     Meteor.subscribe "allUsers"
   data: () ->
-    users: Meteor.users.find()
+    adminUsers: Meteor.users.find({roles: {$in: ["admin"]}})
+    nonAdminUsers: Meteor.users.find({roles: {$not: {$in: ["admin"]}}})
 
 Router.route "/download",
   name: 'download',
