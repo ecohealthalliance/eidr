@@ -22,7 +22,7 @@
     position absolute
     right 10px
     top 50%
-    transform translate(0, -50%)
+    centerPosition(0,-50%)
     z-index 10
     font-size 18px
     color #999
@@ -135,20 +135,25 @@
   #event-map
     top mobile-header-height
   .map-search-wrap
-    top 2px
+    top mobile-header-height
     left auto
-    right -300px
+    right -270px
+    position fixed
+    z-index 100
     .map-filter-content
       transition .4s
+      width 270px
+      border-right 0
+      border-radius 4px 0 0 4px
     &.open
       .map-filter-content,
       .mobile-control
         transition transform .4s
-        transform: translate(-298px, 0px)
-        -webkit-transform: translate(-298px, 0px)
-        -moz-transform: translate(-298px, 0px)
-        -o-transform: translate(-298px, 0px)
-        -ms-transform: translate(-298px, 0px)
+        transform: translate(-270px, 0px)
+        -webkit-transform: translate(-270px, 0px)
+        -moz-transform: translate(-270px, 0px)
+        -o-transform: translate(-270px, 0px)
+        -ms-transform: translate(-270px, 0px)
       .mobile-control
         transition .4s
         padding 12px 10px 12px 10px
@@ -164,7 +169,6 @@
     position fixed
     top mobile-header-height + 10
     right -2px
-    z-index 100
     min-height 50px
     padding 14px 20px 12px 10px
     cursor pointer
