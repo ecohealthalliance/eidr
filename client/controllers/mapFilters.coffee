@@ -41,11 +41,11 @@ Template.mapFilters.events
 
   'keyup .map-search': (e) ->
     e.preventDefault()
-    if $(e.target).val() == ''
+    text = $(e.target).val()
+    if !text
       clearSearch()
-    else if $(e.target).val().length > 2
-      userSearchText = $(e.target).val()
-      filterMap(userSearchText, getChecked('zoonosis'), getChecked('category'))
+    else if text.length > 2
+      filterMap(text, getChecked('zoonosis'), getChecked('category'))
   'click .clear-search': (e) ->
     $('.map-search').val('')
     clearSearch()
