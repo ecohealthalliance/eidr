@@ -1,5 +1,8 @@
 L.Icon.Default.imagePath = "/packages/fuatsengul_leaflet/images"
 
+Template.eventMap.created = () ->
+  @data.query = new ReactiveVar({})
+
 Template.eventMap.rendered = () ->
 
   bounds = L.latLngBounds(L.latLng(-85, -180), L.latLng(85, 180))
@@ -23,14 +26,12 @@ Template.eventMap.rendered = () ->
   }).addTo(map)
 
   instance = @
-  instance.eventsQuery = new ReactiveVar({})
-
   markers = new L.FeatureGroup()
 
   @autorun () ->
     map.removeLayer(markers)
     markers = new L.FeatureGroup()
-    query = instance.eventsQuery.get()
+    query = instance.data.query.get()
 
     if _.isObject query
       filteredEvents = instance.data.events.find(query).fetch()
@@ -64,7 +65,7 @@ Template.eventMap.rendered = () ->
     map.addLayer(markers)
 
 filterMap = (userSearchText, zoonosis, eventTransmission) ->
-  mapInstance = Template.instance().view.parentView._templateInstance
+  query = Template.instance().data.query
   zoonoticQuery = []
   eventTransmissionQuery = []
   if userSearchText and zoonosis.length and eventTransmission.length
@@ -73,13 +74,13 @@ filterMap = (userSearchText, zoonosis, eventTransmission) ->
     _.each searchWords, ()-> nameQuery.push {eventNameVal: new RegExp(userSearchText, 'i')}
     _.each zoonosis, (value) -> zoonoticQuery.push({zoonoticVal: new RegExp(value, 'i')})
     _.each eventTransmission, (value) -> eventTransmissionQuery.push({eventTransmissionVal: new RegExp(value, 'i')})
-    mapInstance.eventsQuery.set({ $and: [ {$or: nameQuery}, {$or: zoonoticQuery}, {$or: eventTransmissionQuery} ] })
+    query.set({ $and: [ {$or: nameQuery}, {$or: zoonoticQuery}, {$or: eventTransmissionQuery} ] })
   else if zoonosis.length and eventTransmission.length
     _.each zoonosis, (value) -> zoonoticQuery.push({zoonoticVal: new RegExp(value, 'i')})
     _.each eventTransmission, (value) -> eventTransmissionQuery.push({eventTransmissionVal: new RegExp(value, 'i')})
-    mapInstance.eventsQuery.set({$and: [{$or: zoonoticQuery}, {$or: eventTransmissionQuery}]})
+    query.set({$and: [{$or: zoonoticQuery}, {$or: eventTransmissionQuery}]})
   else 
-    mapInstance.eventsQuery.set(false)
+    query.set(false)
 
 clearSearch = () ->
   filterMap(false, getChecked('zoonosis'), getChecked('category'))
@@ -96,12 +97,12 @@ checkAll = (state, target) ->
   $(target).toggleClass 'uncheck-all check-all'
 
 Template.mapFilters.helpers
-  getCategories: () ->
-    categories = []
-    for key of @transmissionTypes.dropdownExplanations
-      categories.push(key)
-    categories.push("Not Found")
-    categories
+  getTransmissionTypes: (field) ->
+    types = []
+    for key of field.dropdownExplanations
+      types.push(key)
+    types.push("Not Found")
+    types
 
 Template.mapFilters.events
   'click .filter' : (e) ->

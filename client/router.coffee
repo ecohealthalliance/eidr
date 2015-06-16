@@ -55,7 +55,7 @@ Router.route "/eventMap",
     Meteor.subscribe "fields"
   data: () ->
     events: Events()
-    transmissionTypes: Fields().findOne({"displayName" : "Event Transmission"})
+    transmissionField: Fields().findOne({"displayName" : "Event Transmission"})
 
 Router.route "/download",
   name: 'download',
