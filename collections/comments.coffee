@@ -8,3 +8,6 @@ if Meteor.isServer
     insert: (userID, doc) ->
       doc.timeStamp = new Date()
       doc.userID = Meteor.user()._id
+
+    remove: (userId, comment) ->
+      Roles.userIsInRole(userId, ["admin"])
