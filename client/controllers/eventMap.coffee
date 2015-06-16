@@ -24,7 +24,6 @@ Template.eventMap.rendered = () ->
 
   instance = @
   instance.eventsQuery = new ReactiveVar({})
-  window.events = @data.events
 
   markers = new L.FeatureGroup()
 
