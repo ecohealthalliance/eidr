@@ -67,6 +67,17 @@ Router.route "/admins",
     adminUsers: Meteor.users.find({roles: {$in: ["admin"]}})
     nonAdminUsers: Meteor.users.find({roles: {$not: {$in: ["admin"]}}})
 
+Router.route "/comments",
+  name: 'adminComments'
+  onBeforeAction: () ->
+    unless Roles.userIsInRole(Meteor.userId(), ['admin'])
+      @redirect '/'
+    @next()
+  waitOn: () ->
+    Meteor.subscribe "adminComments"
+  data: () ->
+    comments: Comments().find({}, {sort: {timeStamp: -1}})
+
 Router.route "/download",
   name: 'download',
   onBeforeAction: () ->

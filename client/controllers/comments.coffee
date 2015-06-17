@@ -13,8 +13,3 @@ Template.comments.events
         userID: Meteor.user()._id
         username: Meteor.user().profile?.name
       e.target.comment.value = ''
-
-  'click .delete-comment' : (event) ->
-    if window.confirm("Delete comment?")
-      commentId = event.target.getAttribute('comment-id')
-      grid.Comments.remove(commentId)
