@@ -21,7 +21,7 @@ template(name="navLinks")
         a(href="{{pathFor 'download'}}") Download
     li(class="{{checkActive 'eventMap'}}")
       a(href="{{pathFor 'eventMap'}}") Event Map
-    li
+    li(class="{{checkActive 'varDefs'}}")
       a.withIcon(href="{{pathFor 'varDefs'}}" title="Variable Definitions")
         span.link-text-nav Variable Definitions
         span.fa.fa-question-circle.show-small
