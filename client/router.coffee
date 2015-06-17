@@ -76,7 +76,7 @@ Router.route "/download",
     )
 
 Router.route "/variable-definitions",
-  name: 'varDefs',
+  name: 'variable-definitions',
   waitOn: () ->
     [
       Meteor.subscribe "fields"
