@@ -48,8 +48,8 @@ Router.route "/event/:eidID",
     event: Events().findOne({'eidID': @params.eidID})
     comments: Comments().find({'event': @params.eidID}, {sort: {timeStamp: -1}})
 
-Router.route "/eventMap",
-  name: 'eventMap'
+Router.route "/event-map",
+  name: 'event-map'
   waitOn: () ->
     Meteor.subscribe "locations"
     Meteor.subscribe "fields"
@@ -78,7 +78,7 @@ Router.route "/download",
     )
 
 Router.route "/variable-definitions",
-  name: 'varDefs',
+  name: 'variable-definitions',
   waitOn: () ->
     [
       Meteor.subscribe "fields"
