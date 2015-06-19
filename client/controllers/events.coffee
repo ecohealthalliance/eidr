@@ -1,3 +1,6 @@
+formatVal = =>
+  @grid.Events.formatVal.apply(@, arguments)
+
 Template.events.onCreated () ->
   @currentPage = new ReactiveVar(Session.get('events-current-page') or 0)
   @rowsPerPage = new ReactiveVar(Session.get('events-rows-per-page') or 10)
@@ -51,6 +54,7 @@ Template.events.helpers
             # put empty values at the end
             if output is '' then sort = 2 else sort = 1
 
+            output = formatVal(field.spreadsheetName, output, object)
             new Spacebars.SafeString("<span sort=#{sort}>#{output}</span>")
   
     {

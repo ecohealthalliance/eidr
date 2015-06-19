@@ -4,8 +4,8 @@ fields = () =>
 references = () =>
   @grid.References
 
-getVal = (key, object) ->
-  object[key]
+getVal = (key, object) =>
+  @grid.Events.formatVal(key, object[key], object)
 
 
 Template.statsTable.helpers
