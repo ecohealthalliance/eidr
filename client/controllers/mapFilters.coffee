@@ -31,16 +31,16 @@ getChecked = (type) ->
     'value': input.value
 
 checkAll = (state, target) ->
-  $('.category').each () -> $(this).prop("checked", state)
+  $('.checkAll input[type=checkbox]').each () -> $(this).prop("checked", state)
   filterMap($('.map-search').val() || '')
   $(target).toggleClass 'uncheck-all check-all'
 
 Template.mapFilters.helpers
-  getTransmissionTypes: (field) ->
+  getFieldValues: (fields, spreadsheetName) ->
     types = []
+    field = fields.findOne({spreadsheetName: spreadsheetName+'Val'})
     for key of field.dropdownExplanations
       types.push(key)
-    types.push("Not Found")
     types
 
 Template.mapFilters.events

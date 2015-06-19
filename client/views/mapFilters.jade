@@ -15,13 +15,13 @@ template(name="mapFilters")
           h2 Filters
         .filters-wrap.open
           .filter-block
-            h3 Event Transmission
+            h3 Emergence Type
               span.check.uncheck-all
-            .form-group
-              each getTransmissionTypes transmissionField
+            .form-group.checkAll
+              each getFieldValues fields 'eidCategory'
                 .checkbox
                   label
-                    input.eventTransmission(type="checkbox" value="#{this}" checked)
+                    input.eidCategory(type="checkbox" value="#{this}" checked)
                     | #{this}
           .filter-block.zoonosis
             h3 Zoonotic
