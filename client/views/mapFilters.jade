@@ -13,7 +13,7 @@ template(name="mapFilters")
       .toggles
         .filter
           h2 Filters
-        .filters-wrap.hidden
+        .filters-wrap.open
           .filter-block
             h3 Event Transmission
               span.check.uncheck-all
@@ -21,16 +21,16 @@ template(name="mapFilters")
               each getTransmissionTypes transmissionField
                 .checkbox
                   label
-                    input.category(type="checkbox" value="#{this}" checked) 
+                    input.eventTransmission(type="checkbox" value="#{this}" checked)
                     | #{this}
           .filter-block.zoonosis
             h3 Zoonotic
             .form-group
               .checkbox
                 label
-                  input.zoonosis(type="checkbox" value="Yes" checked) 
+                  input.zoonotic(type="checkbox" value="Yes" checked)
                   | Yes
               .checkbox
                 label
-                  input.zoonosis(type="checkbox" value="No" checked) 
+                  input.zoonotic(type="checkbox" value="No" checked)
                   | No
