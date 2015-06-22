@@ -103,10 +103,4 @@ template(name="comments")
           if checkComments
             ul.list-group.comment-list
               each comments
-                li.list-group-item.comment
-                  p #{comment}
-                  .row.comment-info
-                    .col-lg-6.user
-                      p #{username}
-                    .col-lg-6.time
-                      p #{timeStamp}
+                +comment

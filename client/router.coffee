@@ -57,6 +57,29 @@ Router.route "/event-map",
     events: Events()
     transmissionField: Fields().findOne({"displayName" : "Event Transmission"})
 
+Router.route "/admins",
+  name: 'admins'
+  onBeforeAction: () ->
+    unless Roles.userIsInRole(Meteor.userId(), ['admin'])
+      @redirect '/'
+    @next()
+  waitOn: () ->
+    Meteor.subscribe "allUsers"
+  data: () ->
+    adminUsers: Meteor.users.find({roles: {$in: ["admin"]}})
+    nonAdminUsers: Meteor.users.find({roles: {$not: {$in: ["admin"]}}})
+
+Router.route "/comments",
+  name: 'adminComments'
+  onBeforeAction: () ->
+    unless Roles.userIsInRole(Meteor.userId(), ['admin'])
+      @redirect '/'
+    @next()
+  waitOn: () ->
+    Meteor.subscribe "adminComments"
+  data: () ->
+    comments: Comments().find({}, {sort: {timeStamp: -1}})
+
 Router.route "/download",
   name: 'download',
   onBeforeAction: () ->

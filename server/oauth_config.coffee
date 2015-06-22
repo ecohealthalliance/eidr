@@ -8,6 +8,3 @@ Meteor.startup () ->
       }}
       { upsert: true }
     )
-
-Accounts.config
- restrictCreationByEmailDomain: "ecohealthalliance.org"
