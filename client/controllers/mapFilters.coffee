@@ -1,7 +1,7 @@
 filterMap = (userSearchText) ->
   query = Template.instance().data.query
   if query.get()
-    inputValues = getInputInfo()
+    inputValues = getInputValues()
     filters =
       _.chain(inputValues)
         .groupBy('variable')
@@ -11,19 +11,22 @@ filterMap = (userSearchText) ->
           if checkedValues.length
             _.map checkedValues, (value) ->
               varQuery = {}
-              varQuery[value.variable+'Val'] = new RegExp(value.value, 'i')
+              if value.variable == 'eidCategory'
+                varQuery[value.variable+'Val'] = new RegExp(value.value, 'i')
+              else
+                varQuery[value.variable+'Val'] = new RegExp('^'+value.value+'$', 'i')
               varQuery
           else
             varQuery = {}
             varQuery[inputValues[0].variable+'Val'] = ''
             [varQuery]
-        ).map((variable)->
+        ).map((variable) ->
           {$or: variable}
         )
         .value()
     nameQuery = []
     searchWords = userSearchText.split(' ')
-    _.each searchWords, ()-> nameQuery.push {eventNameVal: new RegExp(userSearchText, 'i')}
+    _.each searchWords, () -> nameQuery.push {eventNameVal: new RegExp(userSearchText, 'i')}
     filters.push({$or: nameQuery})
     query.set({ $and: filters })
   else
@@ -32,7 +35,7 @@ filterMap = (userSearchText) ->
 clearSearch = () ->
   filterMap('')
 
-getInputInfo = (type) ->
+getInputValues = (type) ->
   _.map $('input[type=checkbox]').get(), (input) ->
     'variable': input.className
     'value': input.value
@@ -49,6 +52,7 @@ Template.mapFilters.helpers
     field = fields.findOne({spreadsheetName: spreadsheetName+'Val'})
     for key of field.dropdownExplanations
       types.push(key)
+    types.push('Not Found')
     types
 
 Template.mapFilters.events
@@ -57,7 +61,7 @@ Template.mapFilters.events
     $('.filters-wrap').toggleClass('hidden')
 
   'change input[type=checkbox]': (e) ->
-    filterMap($('.map-search').val() || '', getInputInfo())
+    filterMap($('.map-search').val() || '', getInputValues())
 
   'keyup .map-search': (e) ->
     e.preventDefault()
