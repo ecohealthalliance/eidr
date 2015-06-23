@@ -19,10 +19,10 @@ template(name="navLinks")
     if currentUser
       li(class="{{checkActive 'download'}}")
         a(href="{{pathFor 'download'}}") Download
-    li(class="{{checkActive 'eventMap'}}")
-      a(href="{{pathFor 'eventMap'}}") Event Map
-    li
-      a.withIcon(href="{{pathFor 'varDefs'}}" title="Variable Definitions")
+    li(class="{{checkActive 'event-map'}}")
+      a(href="{{pathFor 'event-map'}}") Event Map
+    li(class="{{checkActive 'variable-definitions'}}")
+      a.withIcon(href="{{pathFor 'variable-definitions'}}" title="Variable Definitions")
         span.link-text-nav Variable Definitions
         span.fa.fa-question-circle.show-small
     li
