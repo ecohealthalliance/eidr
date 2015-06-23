@@ -87,6 +87,8 @@
           content 'Check All'
   h4
     font-size 13px
+    padding 0 20px
+    margin-bottom 0
     color blue
     font-weight bold
   .filter
@@ -127,14 +129,20 @@
         content '\f139'
         color white
   .filter-block
-    margin-bottom 15px
-    &:last-of-type
-      margin 0
+    margin-bottom 5px
   .form-group
-    padding 0 20px
+    label
+      display block
+    input[type=checkbox]
+      cursor pointer
     .checkbox
+      margin-bottom 0
+      padding 4px 20px
       &:first-child
         margin-top 0
+      &:hover
+        background lighten(blue, 90%)
+        color black
 
 @media (max-width: 768px)
   #event-map
