@@ -1,15 +1,22 @@
 filterMap = (userSearchText) ->
   query = Template.instance().data.query
   if query.get()
-    checkedValues = getChecked()
+    inputValues = getInputInfo()
     filters =
-      _.chain(checkedValues)
+      _.chain(inputValues)
         .groupBy('variable')
-        .map((checkedValues, variable) ->
-          _.map checkedValues, (value) ->
+        .map((inputValues, variable) ->
+          checkedValues = _.filter inputValues, (value) ->
+            value.checked
+          if checkedValues.length
+            _.map checkedValues, (value) ->
+              varQuery = {}
+              varQuery[value.variable+'Val'] = new RegExp(value.value, 'i')
+              varQuery
+          else
             varQuery = {}
-            varQuery[value.variable+'Val'] = new RegExp(value.value, 'i')
-            varQuery
+            varQuery[inputValues[0].variable+'Val'] = ''
+            [varQuery]
         ).map((variable)->
           {$or: variable}
         )
@@ -25,10 +32,11 @@ filterMap = (userSearchText) ->
 clearSearch = () ->
   filterMap('')
 
-getChecked = (type) ->
-  _.map $('input[type=checkbox]:checked').get(), (input) ->
+getInputInfo = (type) ->
+  _.map $('input[type=checkbox]').get(), (input) ->
     'variable': input.className
     'value': input.value
+    'checked': input.checked
 
 checkAll = (state, target) ->
   $('.checkAll input[type=checkbox]').each () -> $(this).prop("checked", state)
@@ -49,7 +57,7 @@ Template.mapFilters.events
     $('.filters-wrap').toggleClass('hidden')
 
   'change input[type=checkbox]': (e) ->
-    filterMap($('.map-search').val() || '', getChecked())
+    filterMap($('.map-search').val() || '', getInputInfo())
 
   'keyup .map-search': (e) ->
     e.preventDefault()
