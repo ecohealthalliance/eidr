@@ -8,9 +8,9 @@ if Meteor.isServer
 
   Meteor.publish "event", (eidID) ->
     Events.find({'eidID': eidID, 'eidVal': "1"})
-    
+
   Meteor.publish "locations", () ->
-    Events.find({'eidVal': "1"}, {fields: {'locations.locationLatitude': 1, 'locations.locationLongitude': 1, eidID: 1, eventNameVal: 1, eidVal: 1, zoonoticVal: 1, eventTransmissionVal: 1}})
+    Events.find({'eidVal': "1"}, {fields: {'locations.locationLatitude': 1, 'locations.locationLongitude': 1, eidID: 1, eventNameVal: 1, eidVal: 1, zoonoticVal: 1, eidCategoryVal: 1, eventTransmissionAnimalVal: 1}})
 
 if Meteor.isClient
   italicize = (val) ->
@@ -41,7 +41,7 @@ if Meteor.isClient
         # Enterovirus D, Parvovirus B19
         # but not GB virus C
         oneWordPlusLetterNumber = new RegExp "^[A-Z][a-z]+\\s[A-Z][0-9]{0,2}$"
-        
+
         # Sudan ebolavirus, Marburg marburgvirus
         # but not Tick-borne flavivirus or Australian bat lyssavirus
         oneWordPlusGenus = new RegExp "^[A-Z][a-z]+\\s#{genus.toLowerCase()}$"

@@ -6,8 +6,8 @@ Template.eventMap.created = () ->
 Template.eventMap.rendered = () ->
 
   bounds = L.latLngBounds(L.latLng(-85, -180), L.latLng(85, 180))
-  
-  map = L.map('event-map', 
+
+  map = L.map('event-map',
     maxBounds: bounds
     ).setView([10, -0], 3)
   L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
@@ -32,13 +32,11 @@ Template.eventMap.rendered = () ->
     map.removeLayer(markers)
     markers = new L.FeatureGroup()
     query = instance.query.get()
-
     if _.isObject query
       filteredEvents = instance.data.events.find(query).fetch()
-    else 
+    else
       map.removeLayer(markers)
       return
-
     for event in filteredEvents
       if event.locations
         name = event.eventNameVal
