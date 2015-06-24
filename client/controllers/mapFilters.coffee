@@ -44,7 +44,26 @@ getInputValues = (type) ->
 checkAll = (state, target) ->
   $('.checkAll input[type=checkbox]').each () -> $(this).prop("checked", state)
   filterMap($('.map-search').val() || '')
-  $(target).toggleClass 'uncheck-all check-all'
+  countChecked()
+
+changeToggle = (state, hide) ->
+  if hide
+    $('.'+state+'-all').addClass 'hidden'
+  else
+    $('.'+state+'-all').removeClass 'hidden'
+
+countChecked = () ->
+  allCheckBoxes = $('.checkAll input[type=checkbox]').get().length
+  checkedCheckBoxes = $('.checkAll input[type=checkbox]:checked').get().length
+  if checkedCheckBoxes is 0
+    changeToggle('check')
+    changeToggle('uncheck', true)
+  else if checkedCheckBoxes == allCheckBoxes
+    changeToggle('check', true)
+    changeToggle('uncheck')
+  else
+    changeToggle('check')
+    changeToggle('uncheck')
 
 Template.mapFilters.helpers
   getFieldValues: (fields, spreadsheetName) ->
@@ -61,6 +80,7 @@ Template.mapFilters.events
     $('.filters-wrap').toggleClass('hidden')
 
   'change input[type=checkbox]': (e) ->
+    countChecked()
     filterMap($('.map-search').val() || '', getInputValues())
 
   'keyup .map-search': (e) ->
