@@ -80,6 +80,9 @@ Template.mapFilters.helpers
       types.push(key)
     types.push('Not Found')
     types
+  getEventTransmissionAnimal: () ->
+    ['Yes', 'No', 'Uncertain', 'Not Found']
+
 
 Template.mapFilters.events
   'click .filter' : (e) ->
