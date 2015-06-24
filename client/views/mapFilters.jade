@@ -19,7 +19,7 @@ template(name="mapFilters")
               span.check.uncheck-all
               span.check.check-all.hidden
             .form-group.checkAll
-              each getFieldValues fields 'eidCategory'
+              each getFieldValues 'eidCategory'
                 .checkbox
                   label
                     input.eidCategory(type="checkbox" value="#{this}" checked)
