@@ -48,14 +48,37 @@ Router.route "/event/:eidID",
     event: Events().findOne({'eidID': @params.eidID})
     comments: Comments().find({'event': @params.eidID}, {sort: {timeStamp: -1}})
 
-Router.route "/eventMap",
-  name: 'eventMap'
+Router.route "/event-map",
+  name: 'event-map'
   waitOn: () ->
     Meteor.subscribe "locations"
     Meteor.subscribe "fields"
   data: () ->
     events: Events()
     fields: Fields()
+
+Router.route "/admins",
+  name: 'admins'
+  onBeforeAction: () ->
+    unless Roles.userIsInRole(Meteor.userId(), ['admin'])
+      @redirect '/'
+    @next()
+  waitOn: () ->
+    Meteor.subscribe "allUsers"
+  data: () ->
+    adminUsers: Meteor.users.find({roles: {$in: ["admin"]}})
+    nonAdminUsers: Meteor.users.find({roles: {$not: {$in: ["admin"]}}})
+
+Router.route "/comments",
+  name: 'adminComments'
+  onBeforeAction: () ->
+    unless Roles.userIsInRole(Meteor.userId(), ['admin'])
+      @redirect '/'
+    @next()
+  waitOn: () ->
+    Meteor.subscribe "adminComments"
+  data: () ->
+    comments: Comments().find({}, {sort: {timeStamp: -1}})
 
 Router.route "/download",
   name: 'download',
@@ -78,7 +101,7 @@ Router.route "/download",
     )
 
 Router.route "/variable-definitions",
-  name: 'varDefs',
+  name: 'variable-definitions',
   waitOn: () ->
     [
       Meteor.subscribe "fields"

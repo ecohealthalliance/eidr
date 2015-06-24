@@ -12,6 +12,11 @@ template(name="header")
 
 template(name="navLinks")
   ul.nav.navbar-nav
+    if isInRole "admin"
+      li(class="{{checkActive 'admins'}}")
+        a(href="{{pathFor 'admins'}}") Admins
+      li(class="{{checkActive 'comments'}}")
+        a(href="{{pathFor 'adminComments'}}") Comments
     li(class="{{checkActive 'about'}}")
       a(href="{{pathFor 'about'}}") About
     li(class="{{checkActive 'events'}}")
@@ -19,10 +24,10 @@ template(name="navLinks")
     if currentUser
       li(class="{{checkActive 'download'}}")
         a(href="{{pathFor 'download'}}") Download
-    li(class="{{checkActive 'eventMap'}}")
-      a(href="{{pathFor 'eventMap'}}") Event Map
-    li
-      a.withIcon(href="{{pathFor 'varDefs'}}" title="Variable Definitions")
+    li(class="{{checkActive 'event-map'}}")
+      a(href="{{pathFor 'event-map'}}") Event Map
+    li(class="{{checkActive 'variable-definitions'}}")
+      a.withIcon(href="{{pathFor 'variable-definitions'}}" title="Variable Definitions")
         span.link-text-nav Variable Definitions
         span.fa.fa-question-circle.show-small
     li

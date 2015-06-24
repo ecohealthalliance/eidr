@@ -1,4 +1,4 @@
-Template.varDefs.helpers
+Template.variableDefinitions.helpers
   getTabs: (fields) ->
     _.chain(fields.fetch())
     .pluck('tab')
