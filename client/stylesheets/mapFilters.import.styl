@@ -60,10 +60,13 @@
     color blue
     margin 0 0 10px 0
     border-bottom 1px solid secondary
-    background lighten(secondary, 90%)
+    background secondary-l-light
     span.check
-      position absolute
-      right 20px
+      margin-left 10px
+      // position absolute
+      // right 20px
+      float right
+      display inline-block
       font-size 12px
       color #999
       font-weight normal
@@ -79,12 +82,12 @@
         &::before
           content '\f096'
         &::after
-          content 'Uncheck All'
+          content 'All'
       &.check-all
         &::before
           content '\f046'
         &::after
-          content 'Check All'
+          content 'All'
   h4
     font-size 13px
     padding 0 20px
@@ -141,7 +144,7 @@
       &:first-child
         margin-top 0
       &:hover
-        background lighten(blue, 90%)
+        background secondary-l-light
         color black
 
 @media (max-width: 768px)

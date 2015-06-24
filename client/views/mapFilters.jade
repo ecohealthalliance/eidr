@@ -7,24 +7,27 @@ template(name="mapFilters")
         .input-group
           span.input-group-addon
             i.fa.fa-filter
-          input.map-search.form-control(type="text" placeholder="Search")
+          input.map-search.form-control(type="text" placeholder="Search by event name")
           span.clear-search
             i.fa.fa-times-circle
       .toggles
         .filter
           h2 Filters
-        .filters-wrap.open
-          .filter-block
+        .filters-wrap.hidden
+          .filter-block.emergence
             h3 Emergence Type
               span.check.uncheck-all
+              span.check.check-all.hidden
             .form-group.checkAll
-              each getFieldValues fields 'eidCategory'
+              each getFieldValues 'eidCategory'
                 .checkbox
                   label
                     input.eidCategory(type="checkbox" value="#{this}" checked)
                     | #{this}
           .filter-block.zoonosis
             h3 Zoonotic
+              span.check.uncheck-all
+              span.check.check-all.hidden
             .form-group
               .checkbox
                 label
