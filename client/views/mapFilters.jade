@@ -14,7 +14,7 @@ template(name="mapFilters")
         .filter
           h2 Filters
         .filters-wrap.hidden
-          .filter-block
+          .filter-block.emergence
             h3 Emergence Type
               span.check.uncheck-all
               span.check.check-all.hidden
@@ -26,6 +26,8 @@ template(name="mapFilters")
                     | #{this}
           .filter-block.zoonosis
             h3 Zoonotic
+              span.check.uncheck-all
+              span.check.check-all.hidden
             .form-group
               .checkbox
                 label

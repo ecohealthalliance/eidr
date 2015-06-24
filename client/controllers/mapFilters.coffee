@@ -48,28 +48,29 @@ getInputValues = (type) ->
 
 
 checkAll = (state, target) ->
-  $('.checkAll input[type=checkbox]').each () -> $(this).prop("checked", state)
+  parent = $(target).closest('.filter-block')[0].classList[1]
+  $('.'+parent+' input[type=checkbox]').each () -> $(this).prop("checked", state)
   filterMap($('.map-search').val() || '')
-  countChecked()
+  countChecked(parent)
 
-changeToggle = (state, hide) ->
+changeToggle = (state, hide, parent) ->
   if hide
-    $('.'+state+'-all').addClass 'hidden'
+    $('.'+parent+' .'+state+'-all').addClass 'hidden'
   else
-    $('.'+state+'-all').removeClass 'hidden'
+    $('.'+parent+' .'+state+'-all').removeClass 'hidden'
 
-countChecked = () ->
-  allCheckBoxes = $('.checkAll input[type=checkbox]').get().length
-  checkedCheckBoxes = $('.checkAll input[type=checkbox]:checked').get().length
+countChecked = (parent) ->
+  allCheckBoxes = $('.'+parent+' input[type=checkbox]').get().length
+  checkedCheckBoxes = $('.'+parent+' input[type=checkbox]:checked').get().length
   if checkedCheckBoxes is 0
-    changeToggle('check')
-    changeToggle('uncheck', true)
+    changeToggle('check', false, parent)
+    changeToggle('uncheck', true, parent)
   else if checkedCheckBoxes == allCheckBoxes
-    changeToggle('check', true)
-    changeToggle('uncheck')
+    changeToggle('check', true, parent)
+    changeToggle('uncheck', false, parent)
   else
-    changeToggle('check')
-    changeToggle('uncheck')
+    changeToggle('check', false, parent)
+    changeToggle('uncheck', false, parent)
 
 Template.mapFilters.helpers
   getFieldValues: (spreadsheetName) ->
