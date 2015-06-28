@@ -1,39 +1,73 @@
 Fields = () ->
   @grid.Fields
 
-filterMap = (userSearchText) ->
-  query = Template.instance().data.query
-  if query.get()
-    inputValues = getInputValues()
-    filters =
-      _.chain(inputValues)
-        .groupBy('variable')
-        .map((inputValues, variable) ->
-          checkedValues = _.filter inputValues, (value) ->
-            value.checked
-          if checkedValues.length
-            _.map checkedValues, (value) ->
-              varQuery = {}
-              if value.dropdownExplanations
-                varQuery[value.variable+'Val'] = new RegExp(value.value, 'i')
-              else
-                varQuery[value.variable+'Val'] = new RegExp('^'+value.value+'$', 'i')
-              varQuery
-          else
-            varQuery = {}
-            varQuery[inputValues[0].variable+'Val'] = ''
-            [varQuery]
-        ).map((variable) ->
-          {$or: variable}
-        )
-        .value()
-    nameQuery = []
-    searchWords = userSearchText.split(' ')
-    _.each searchWords, () -> nameQuery.push {eventNameVal: new RegExp(userSearchText, 'i')}
-    filters.push({$or: nameQuery})
-    query.set({ $and: filters })
-  else
-    query.set(false)
+Template.registerHelper 'log', (l)->
+  console.log l
+
+Template.mapFilters.created = () ->
+  filterVariables = [
+    {
+      name: 'eidCategoryVal'
+      show: true
+    }
+    {
+      name: 'zoonoticVal'
+      show: false
+    }
+    {
+      name: 'eventTransmissionAnimalVal'
+      show: false
+    }
+  ]
+  variables = {}
+  _.each filterVariables, (variable) ->
+    field = Fields().findOne({spreadsheetName: variable.name})
+    variables[variable.name] = {}
+    if _.isEmpty(field.dropdownExplanations)
+      _.each field.values.split(','), (value) ->
+        variables[variable.name][value.trim()] = true
+    else
+      for key of field.dropdownExplanations
+        variables[variable.name][key.trim()] = true
+
+  @variables = new ReactiveVar variables
+
+Template.mapFilters.rendered = () ->
+
+  # @autorun (userSearchText) ->
+  #   query = Template.instance().data.query
+  #   checked = Template.instance().checkBoxes
+  #   console.log "Checked",checked
+  #   if query.get()
+  #     filters =
+  #       _.chain(inputValues)
+  #         .groupBy('variable')
+  #         .map((inputValues, variable) ->
+  #           checkedValues = _.filter inputValues, (value) ->
+  #             value.checked
+  #           if checkedValues.length
+  #             _.map checkedValues, (value) ->
+  #               varQuery = {}
+  #               if value.dropdownExplanations
+  #                 varQuery[value.variable+'Val'] = new RegExp(value.value, 'i')
+  #               else
+  #                 varQuery[value.variable+'Val'] = new RegExp('^'+value.value+'$', 'i')
+  #               varQuery
+  #           else
+  #             varQuery = {}
+  #             varQuery[inputValues[0].variable+'Val'] = ''
+  #             [varQuery]
+  #         ).map((variable) ->
+  #           {$or: variable}
+  #         )
+  #         .value()
+  #     nameQuery = []
+  #     searchWords = userSearchText.split(' ')
+  #     _.each searchWords, () -> nameQuery.push {eventNameVal: new RegExp(userSearchText, 'i')}
+  #     filters.push({$or: nameQuery})
+  #     query.set({ $and: filters })
+  #   else
+  #     query.set(false)
 
 clearSearch = () ->
   filterMap('')
@@ -46,52 +80,50 @@ getInputValues = (type) ->
     'checked': input.checked
     'dropdownExplanations': not _.isEmpty(fields.dropdownExplanations)
 
-
-checkAll = (state, target) ->
-  parent = $(target).closest('.filter-block')[0].classList[1]
-  $('.'+parent+' input[type=checkbox]').each () -> $(this).prop("checked", state)
-  filterMap($('.map-search').val() || '')
-  countChecked(parent)
-
-changeToggle = (state, hide, parent) ->
-  if hide
-    $('.'+parent+' .'+state+'-all').addClass 'hidden'
-  else
-    $('.'+parent+' .'+state+'-all').removeClass 'hidden'
-
-countChecked = (parent) ->
-  allCheckBoxes = $('.'+parent+' input[type=checkbox]').get().length
-  checkedCheckBoxes = $('.'+parent+' input[type=checkbox]:checked').get().length
-  if checkedCheckBoxes is 0
-    changeToggle('check', false, parent)
-    changeToggle('uncheck', true, parent)
-  else if checkedCheckBoxes == allCheckBoxes
-    changeToggle('check', true, parent)
-    changeToggle('uncheck', false, parent)
-  else
-    changeToggle('check', false, parent)
-    changeToggle('uncheck', false, parent)
+getCheckboxStates = () ->
+  _.map @checkBoxes.get()[@variable], (value, key)->
+    value
 
 Template.mapFilters.helpers
-  getFieldValues: (spreadsheetName) ->
-    types = []
-    field = Fields().findOne({spreadsheetName: spreadsheetName+'Val'})
-    for key of field.dropdownExplanations
-      types.push(key)
-    types.push('Not Found')
-    types
-  getEventTransmissionAnimal: () ->
-    ['Yes', 'No', 'Uncertain', 'Not Found']
+  getCheckedValues : () ->
+    variables = Template.instance().variables.get()
+    variablesList = []
+    for key,variable of variables
+      field = Fields().findOne({spreadsheetName: key})
+      values = []
+      for name, value of variable
+        values.push({name: name, state: value})
+      variablesList.push({variable: key, displayName: field.displayName, values: values})
+    variablesList
+  getCheckboxList: () ->
+    Template.instance().variables
 
+Template.checkControl.helpers
+  showUncheckAll: () ->
+    checkboxStates = getCheckboxStates.call(@)
+    if _.some(checkboxStates) or _.every(checkboxStates, _.identity) # and _.filter(checkboxStates, (v) -> return v).length > 0
+      return true
+  showCheckAll : () ->
+    checkboxStates = getCheckboxStates.call(@)
+    unChecked = _.filter(checkboxStates, (v) -> return v)
+    console.log unChecked.length, checkboxStates.length
+    if unChecked.length is 0 or unChecked.length < checkboxStates.length
+      return true
 
 Template.mapFilters.events
   'click .filter' : (e) ->
     $('.filter').toggleClass('open')
     $('.filters-wrap').toggleClass('hidden')
 
-  'change input[type=checkbox]': (e) ->
-    countChecked()
-    filterMap($('.map-search').val() || '', getInputValues())
+  'click input[type=checkbox]': (e) ->
+    variables = Template.instance().variables.get()
+    target = $(e.target)
+    value = target.val()
+    variable = target[0].className
+    state = target[0].checked
+    variables[variable][value] = state
+    Template.instance().variables.set(variables)
+    # filterMap($('.map-search').val() || '', getInputValues())
 
   'keyup .map-search': (e) ->
     e.preventDefault()
@@ -113,4 +145,3 @@ Template.mapFilters.events
 
   'click .mobile-control': (e) ->
     $('.map-search-wrap').toggleClass('open')
-
