@@ -14,43 +14,22 @@ template(name="mapFilters")
         .filter
           h2 Filters
         .filters-wrap.hidden
-          .filter-block.emergence
-            h3 Emergence Type
-              span.check.uncheck-all
-              span.check.check-all.hidden
-            .form-group.checkAll
-              each getFieldValues 'eidCategory'
-                .checkbox
-                  label
-                    input.eidCategory(type="checkbox" value="#{this}" checked)
-                    | #{this}
-          .filter-block.zoonosis
-            h3 Zoonotic
-              span.check.uncheck-all
-              span.check.check-all.hidden
-            .form-group
-              .checkbox
-                label
-                  input.zoonotic(type="checkbox" value="Yes" checked)
-                  | Yes
-              .checkbox
-                label
-                  input.zoonotic(type="checkbox" value="No" checked)
-                  | No
-              h4 Transmission of the microorganism from animals to people (Event Specific)
-              .checkbox
-                label
-                  input.eventTransmissionAnimal(type="checkbox" value="Yes" checked)
-                  | Yes
-              .checkbox
-                label
-                  input.eventTransmissionAnimal(type="checkbox" value="No" checked)
-                  | No
-              .checkbox
-                label
-                  input.eventTransmissionAnimal(type="checkbox" value="Uncertain" checked)
-                  | Uncertain
-              .checkbox
-                label
-                  input.eventTransmissionAnimal(type="checkbox" value="Not Found" checked)
-                  | Not Found
+          each getCheckboxValues
+            .filter-block
+              .filter-header
+                h3 #{displayName}
+                .checkbox-controls
+                  +checkboxControl variable=variable checkBoxes=getCheckboxList
+              .form-group
+                each values
+                  .checkbox
+                    label
+                      input(class="#{../variable}" type="checkbox" value="#{name}" checked="#{state}")
+                      | #{name}
+
+template(name="checkboxControl")
+  if showUncheckAll
+    span.check.uncheck-all
+  if showCheckAll
+    span.check.check-all
+
