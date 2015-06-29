@@ -21,7 +21,7 @@ Template.mapFilters.created = () ->
       values: values
       show: variable.show
       displayName: field.displayName
-      spreadsheetName: field.displayName
+      spreadsheetName: field.spreadsheetName
       strictSearch: _.isEmpty field.dropdownExplanations
     variables[variable.name] = variableInfo
 
@@ -30,7 +30,7 @@ Template.mapFilters.created = () ->
 
 Template.mapFilters.rendered = () ->
   @autorun () ->
-    checkValues = getCheckboxValues()
+    checkValues = Template.instance().variables.get()
     filters =
       _.chain(checkValues)
         .map((variable) ->
@@ -70,21 +70,12 @@ checkAll = (state) ->
     variables[@variable]['values'][value] = state
   Template.instance().variables.set(variables)
 
-getCheckboxValues = () ->
-  variables = Template.instance().variables.get()
-  variablesList = _.map variables, (variable) ->
-    variable
-  variablesList
-
 Template.mapFilters.helpers
-  getCheckboxValues : getCheckboxValues
-
   getCheckboxList: () ->
     Template.instance().variables
 
   getVariables: () ->
     _.map Template.instance().variables.get(), (variable, key)->
-      variable.spreadsheetName = key
       variable
 
   getValues: () ->
@@ -98,7 +89,7 @@ Template.checkboxControl.helpers
     checkboxStates = getCheckboxStates.call(@)
     _.some(checkboxStates) or _.every(checkboxStates)
   showCheckAll : () ->
-    !_.every( getCheckboxStates.call(@))
+    !_.every(getCheckboxStates.call(@))
 
 Template.mapFilters.events
   'click .filter' : (e) ->
