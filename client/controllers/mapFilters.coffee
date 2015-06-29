@@ -35,9 +35,7 @@ Template.mapFilters.rendered = () ->
       _.chain(checkValues)
         .map((variable) ->
           checkedValues = []
-          for key, value of variable.values
-            if value
-              checkedValues.push key
+          checkedValues = (name for name, state of variable.values when state)
           if checkedValues.length
             _.map checkedValues, (value) ->
               varQuery = {}
@@ -61,8 +59,7 @@ Template.mapFilters.rendered = () ->
     Template.instance().data.query.set({ $and: filters })
 
 getCheckboxStates = () ->
-  _.map @checkBoxes.get()[@variable].values, (value, key)->
-    value
+  _.values @checkBoxes.get()[@variable].values
 
 checkAll = (state) ->
   variables = Template.instance().variables.get()
@@ -75,8 +72,7 @@ Template.mapFilters.helpers
     Template.instance().variables
 
   getVariables: () ->
-    _.map Template.instance().variables.get(), (variable, key)->
-      variable
+    _.values Template.instance().variables.get()
 
   getValues: () ->
     values = []
