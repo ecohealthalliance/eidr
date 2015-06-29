@@ -13,11 +13,13 @@ template(name="mapFilters")
       .toggles
         .filter
           h2 Filters
-        .filters-wrap
-          each getCheckedValues
-            .filter-block.emergence
-              h3 #{displayName}
-                +checkControl variable=variable checkBoxes=getCheckboxList
+        .filters-wrap.hidden
+          each getCheckboxValues
+            .filter-block
+              .filter-header
+                h3 #{displayName}
+                .checkbox-controls
+                  +checkboxControl variable=variable checkBoxes=getCheckboxList
               .form-group
                 each values
                   .checkbox
@@ -25,7 +27,7 @@ template(name="mapFilters")
                       input(class="#{../variable}" type="checkbox" value="#{name}" checked="#{state}")
                       | #{name}
 
-template(name="checkControl")
+template(name="checkboxControl")
   if showUncheckAll
     span.check.uncheck-all
   if showCheckAll
