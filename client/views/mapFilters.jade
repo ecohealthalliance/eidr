@@ -28,8 +28,8 @@ template(name="mapFilters")
                       | #{name}
 
 template(name="checkboxControl")
-  if showUncheckAll
-    span.check.uncheck-all
   if showCheckAll
     span.check.check-all
+  else
+    span.check.uncheck-all
 
