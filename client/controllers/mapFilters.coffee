@@ -81,11 +81,8 @@ Template.mapFilters.helpers
     values
 
 Template.checkboxControl.helpers
-  showUncheckAll: () ->
-    checkboxStates = getCheckboxStates.call(@)
-    _.some(checkboxStates) or _.every(checkboxStates)
-  showCheckAll : () ->
-    !_.every(getCheckboxStates.call(@))
+  showCheckAll: () ->
+    _.every(getCheckboxStates.call(@))
 
 Template.mapFilters.events
   'click .filter' : (e) ->
@@ -112,9 +109,9 @@ Template.mapFilters.events
 
   'click .check': (e) ->
     if $(e.target).hasClass('check-all')
-      checkAll.call(this,true)
+      checkAll.call(this,false)
     else
-      checkAll.call(this, false)
+      checkAll.call(this, true)
 
   'click .mobile-control': (e) ->
     $('.map-search-wrap').toggleClass('open')

@@ -151,6 +151,26 @@
       &:hover
         background secondary-l-light
         color black
+.mobile-control
+  position fixed
+  top mobile-header-height + 10
+  right -2px
+  min-height 50px
+  padding 14px 20px 12px 10px
+  cursor pointer
+  background rgba(255,255,255, .8)
+  border-radius 4px 0 0 4px
+  border 1px solid #999x`
+  transition .4s
+  box-shadow 0 2px 5px rgba(0,0,0,0.3)
+  &:hover
+    background secondary
+    color white
+.mobile-control::before
+  @extend .font-awesome
+  display inline-block
+  content '\f137'
+  margin-right 5px
 
 @media (max-width: 768px)
   #event-map
@@ -188,27 +208,6 @@
           font-size 150%
         span
           display none
-
-  .mobile-control
-    position fixed
-    top mobile-header-height + 10
-    right -2px
-    min-height 50px
-    padding 14px 20px 12px 10px
-    cursor pointer
-    background rgba(255,255,255, .8)
-    border-radius 4px 0 0 4px
-    border 1px solid #999
-    transition .4s
-    box-shadow 0 2px 5px rgba(0,0,0,0.3)
-    &:hover
-      background secondary
-      color white
-    &::before
-      @extend .font-awesome
-      display inline-block
-      content '\f137'
-      margin-right 5px
 
 
 
