@@ -17,13 +17,14 @@ template(name="mapFilters")
           each getVariables
             .filter-block
               .filter-header
-                h3 #{displayName}
+                h3(data-toggle="popover" data-content="#{description}") #{displayName}
+                  i.fa.fa-info-circle
                 .checkbox-controls
                   +checkboxControl variable=spreadsheetName checkBoxes=getCheckboxList
               .form-group
                 each getValues
                   .checkbox
-                    label
+                    label(data-toggle="popover" data-content="#{description}")
                       input(class="#{../spreadsheetName}" type="checkbox" value="#{name}" checked="#{state}")
                       | #{name}
 
