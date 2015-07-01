@@ -13,18 +13,21 @@ Template.mapFilters.created = () ->
     values = {}
     if _.isEmpty(field.dropdownExplanations)
       _.each field.values.split(','), (value) ->
-        values[value.trim()] = true
+        values[value.trim()] =
+          state: true
     else
-      for key of field.dropdownExplanations
-        values[key.trim()] = true
+      for key, value of field.dropdownExplanations
+        values[key.trim()] =
+          state: true
+          description: value.trim()
     variableInfo =
       values: values
       show: variable.show
       displayName: field.displayName
       spreadsheetName: field.spreadsheetName
       strictSearch: _.isEmpty field.dropdownExplanations
+      description: field.description
     variables[variable.name] = variableInfo
-
   @variables = new ReactiveVar variables
   @userSearchText = new ReactiveVar ''
 
@@ -35,7 +38,7 @@ Template.mapFilters.rendered = () ->
       _.chain(checkValues)
         .map((variable) ->
           checkedValues = []
-          checkedValues = (name for name, state of variable.values when state)
+          checkedValues = (name for name, valueInfo of variable.values when valueInfo.state)
           if checkedValues.length
             _.map checkedValues, (value) ->
               varQuery = {}
@@ -58,13 +61,24 @@ Template.mapFilters.rendered = () ->
 
     Template.instance().data.query.set({ $and: filters })
 
+  popoverOptions =
+    trigger: 'hover'
+    placement: 'left'
+    animation: false
+    container: 'body'
+    delay:
+      show: 500
+      hide: 100
+    template: """<div class="popover map-filter-popover" role="tooltip"><div class="arrow"></div><div class="popover-content"></div></div>"""
+  $("[data-toggle='popover']").popover(popoverOptions)
+
 getCheckboxStates = () ->
-  _.values @checkBoxes.get()[@variable].values
+  (valueInfo.state for name, valueInfo of @checkBoxes.get()[@variable].values)
 
 checkAll = (state) ->
   variables = Template.instance().variables.get()
   for value of variables[@variable].values
-    variables[@variable]['values'][value] = state
+    variables[@variable]['values'][value].state = state
   Template.instance().variables.set(variables)
 
 Template.mapFilters.helpers
@@ -76,8 +90,11 @@ Template.mapFilters.helpers
 
   getValues: () ->
     values = []
-    for name, state of @values
-      values.push({'name': name, 'state': state})
+    for name, valueInfo of @values
+      values.push
+        name: name
+        state: valueInfo.state
+        description: valueInfo.description
     values
 
 Template.checkboxControl.helpers
@@ -95,7 +112,7 @@ Template.mapFilters.events
     value = target.val()
     variable = target[0].className
     state = target[0].checked
-    variables[variable]['values'][value] = state
+    variables[variable]['values'][value].state = state
     Template.instance().variables.set(variables)
 
   'keyup .map-search': _.debounce (e, templateInstance) ->
