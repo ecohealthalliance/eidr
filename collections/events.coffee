@@ -24,7 +24,7 @@ if Meteor.isClient
     new Spacebars.SafeString "<i>#{speciesWithGenus}</i>#{remainingWords}"
 
   @grid.Events.formatVal = (key, val, object) ->
-    if key is 'pathogenGenusVal'
+    if key in ['pathogenGenusVal', 'pathogenFamilyVal', 'pathogenOrderVal', 'pathogenClassVal']
       return italicize val
     else if key is 'pathogenSpeciesVal'
       pathogenType = object['pathogenTypeVal'].trim()
