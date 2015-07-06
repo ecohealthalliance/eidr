@@ -122,7 +122,7 @@ Template.mapFilters.events
 
   'click .clear-search': (e) ->
     $('.map-search').val('')
-    setUserSearchText('')
+    Template.instance().userSearchText.set('')
 
   'click .check': (e) ->
     if $(e.target).hasClass('check-all')
