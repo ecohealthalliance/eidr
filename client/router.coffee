@@ -6,7 +6,7 @@ Fields = () ->
 
 Comments = () ->
   @grid.Comments
-  
+
 Comments = () ->
   @grid.Comments
 
@@ -52,8 +52,10 @@ Router.route "/event-map",
   name: 'event-map'
   waitOn: () ->
     Meteor.subscribe "locations"
+    Meteor.subscribe "fields"
   data: () ->
-    events: Events().find({'eidVal': "1"})
+    events: Events()
+    fields: Fields()
 
 Router.route "/admins",
   name: 'admins'
@@ -91,7 +93,7 @@ Router.route "/download",
       unless err
         csvData = "data:text/csv;charset=utf-8," + result.csv
         jsonData = "data:application/json;charset=utf-8," + result.json
-        controller.render('download', 
+        controller.render('download',
           data:
             jsonData: encodeURI(jsonData)
             csvData: encodeURI(csvData)
