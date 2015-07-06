@@ -11,12 +11,12 @@ Template.events.onCreated () ->
     oldVisibility = Session.get('events-field-visible-' + field.spreadsheetName)
     visibility = if _.isUndefined(oldVisibility) then defaultVisibility else oldVisibility
     @fieldVisibility[field.spreadsheetName] = new ReactiveVar(visibility)
-    
+
     defaultSortOrder = Infinity
     oldSortOrder = Session.get('events-field-sort-order-' + field.spreadsheetName)
     sortOrder = if _.isUndefined(oldSortOrder) then defaultSortOrder else oldSortOrder
     @sortOrder[field.spreadsheetName] = new ReactiveVar(sortOrder)
-    
+
     defaultSortDirection = 1
     oldSortDirection = Session.get('events-field-sort-direction-' + field.spreadsheetName)
     sortDirection = if _.isUndefined(oldSortDirection) then defaultSortDirection else oldSortDirection
@@ -70,7 +70,7 @@ Template.events.helpers
             if output is '' then sort = 2 else sort = 1
 
             new Spacebars.SafeString("<span sort=#{sort}>#{output}</span>")
-  
+
     {
       id: 'events-table'
       showColumnToggles: true
@@ -78,6 +78,7 @@ Template.events.helpers
       currentPage: Template.instance().currentPage
       rowsPerPage: Template.instance().rowsPerPage
       rowsPerPage: 20
+      showRowCount: true
     }
 
 Template.events.events

@@ -1,5 +1,5 @@
- 
-.reactive-table 
+
+.reactive-table
   padding-left 0
   padding-right 0
   border-radius 5px
@@ -23,7 +23,7 @@
     margin 0
     input
       position absolute
-      left 15px  
+      left 15px
 
 .dropdown-toggle
   font-size 0
@@ -37,13 +37,13 @@
     font-size 16px
   &::after
     content 'Variables'
-    font-size 14px  
+    font-size 14px
 
 .reactive-table-options
   float none
   width 100%
   padding 0
-  .dropdown-menu > li > a 
+  .dropdown-menu > li > a
     padding 4px 10px
 
 .dropdown-menu
@@ -51,14 +51,30 @@
 .dropdown-menu-right
   left 0 !important
   right 0
-     
+
+.rows-per-page,
+.page-number
+  span
+    font-weight normal
+    padding 0 1px
+  .page-number-count,
+  .rows-per-page-count
+    font-weight bold
+  input
+    text-align center
+
+.reactive-table-navigation .previous-page,
+.reactive-table-navigation .next-page
+  font-size 150%
+  line-height 0
+
 @media (min-width: 768px)
   .reactive-table-filter
     width 40%
     padding 0
-    
+
 @media (max-width: 768px)
-  .reactive-table 
+  .reactive-table
     td
       display none
       border-top 0 !important
@@ -84,7 +100,8 @@
   .page-number
     width 100%
     float none
-    label 
+    font-size 24px
+    label
       display none
     .previous-page,
     .next-page
@@ -102,9 +119,9 @@
         background darken(secondary, 15%)
         border primary
         color white
-      
+
     .next-page
       float right
-      
+
   .rows-per-page
     display none
