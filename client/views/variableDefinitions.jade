@@ -11,15 +11,19 @@ template(name="variableDefinitions")
                 h2 #{this} Variables
                 each getTabVariables ../fields this
                   dt #{displayName}
-                  dd 
+                  dd
                     p.varDescription #{webVariableDescription}
-                    if getDropdownValues dropdownExplanations
+                    if webDropdownExplanations
                       .explanations-wrap
-                        ul.explanations
-                          each getDropdownValues dropdownExplanations
-                            li 
-                              span.type #{type}: 
-                              span.explanation #{explanation}
+                          ul.explanations
+                            if checkExtendedExplanations
+                              each getDropdownExplanations
+                                li
+                                  span.type #{type}:
+                                  span.explanation #{explanation}
+                            else
+                              each getDropdownValues
+                                li #{this}
     .content-block
       .container.reference-list
         ul.list-unstyled
