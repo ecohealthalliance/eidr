@@ -6,7 +6,7 @@ Template.event.rendered = () ->
       'top'
   makeTemplate = (className) ->
     template: 
-      """<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content #{className}"></div><a href="#" class="close-popover"><span class="glyphicon glyphicon-remove-sign"></span></a></div>"""
+      """<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content #{className}"></div><a href="#" class="close-popover"></a></div>"""
   baseOpts = 
     viewport:
       selector: 'body'
@@ -50,6 +50,12 @@ Template.event.helpers
     else
       "Date not found"
 
+  pluralizeLocation: (locations) ->
+    if locations.length > 1
+      "Locations"
+    else
+      "Location"
+
   locationList : (locations) ->
     locations?.map (location) ->
       if location.fieldUsed is 'emergenceHospitalVal'
@@ -88,3 +94,7 @@ Template.registerHelper 'getDescription', (event, field) ->
     "#{info.description} (#{explanations})"
   else
     info.description
+
+Template.event.events
+  'mouseleave [data-toggle]': (e) ->
+    $(e.target).popover('hide')

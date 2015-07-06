@@ -1,13 +1,16 @@
 L.Icon.Default.imagePath = "/packages/fuatsengul_leaflet/images"
 
+Template.eventMap.created = () ->
+  @query = new ReactiveVar({})
+
 Template.eventMap.rendered = () ->
 
   bounds = L.latLngBounds(L.latLng(-85, -180), L.latLng(85, 180))
-  
-  map = L.map('event-map', 
+
+  map = L.map('event-map',
     maxBounds: bounds
     ).setView([10, -0], 3)
-  L.tileLayer('//{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+  L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
     attribution: """Map tiles by <a href="http://cartodb.com/attributions#basemaps">CartoDB</a>, under <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>. Data by <a href="http://www.openstreetmap.org/">OpenStreetMap</a>, under ODbL.
     <br>
     CRS:
@@ -22,26 +25,43 @@ Template.eventMap.rendered = () ->
     maxZoom: 18
   }).addTo(map)
 
-  events = @data.events
-  for event in events.fetch()
-    if event.locations
-      name = event.eventNameVal
-      eidID = event.eidID
+  instance = @
+  markers = new L.FeatureGroup()
 
-      for location in event.locations
-        latLng = [location.locationLatitude, location.locationLongitude]
+  @autorun () ->
+    map.removeLayer(markers)
+    markers = new L.FeatureGroup()
+    query = instance.query.get()
+    if _.isObject query
+      filteredEvents = instance.data.events.find(query).fetch()
+    else
+      map.removeLayer(markers)
+      return
+    for event in filteredEvents
+      if event.locations
+        name = event.eventNameVal
+        eidID = event.eidID
 
-        if latLng[0] isnt 'Not Found' and latLng[1] isnt 'Not Found'
+        for location in event.locations
+          latLng = [location.locationLatitude, location.locationLongitude]
 
-          L.marker(latLng, {
-            icon: L.divIcon({
-              className: 'map-marker-container'
-              iconSize:null
-              html:"""
-              <div class="map-marker"></div>
-              """
-            })
-          }).bindPopup("""
-            <a href="/event/#{eidID}">#{name}</a>
-          """).addTo(map)
+          if latLng[0] isnt 'Not Found' and latLng[1] isnt 'Not Found'
+            marker = L.marker(latLng, {
+              icon: L.divIcon({
+                className: 'map-marker-container'
+                iconSize:null
+                html:"""
+                <div class="map-marker"></div>
+                """
+              })
+            }).bindPopup("""
+              <a href="/event/#{eidID}">#{name}
+              </a>
+            """)
+            markers.addLayer(marker)
 
+    map.addLayer(markers)
+
+Template.eventMap.helpers
+  getQuery: () ->
+    Template.instance().query
