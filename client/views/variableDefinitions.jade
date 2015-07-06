@@ -15,14 +15,15 @@ template(name="variableDefinitions")
                     p.varDescription #{webVariableDescription}
                     if webDropdownExplanations
                       .explanations-wrap
-                        if checkExtendedExplanation
                           ul.explanations
-                            each getDropdownExplanations
-                              li
-                                span.type #{type}:
-                                span.explanation #{explanation}
-                        else
-                          p #{webDropdownExplanations}
+                            if checkExtendedExplanations
+                              each getDropdownExplanations
+                                li
+                                  span.type #{type}:
+                                  span.explanation #{explanation}
+                            else
+                              each getDropdownValues
+                                li #{this}
     .content-block
       .container.reference-list
         ul.list-unstyled
