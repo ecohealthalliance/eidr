@@ -40,11 +40,11 @@ if Meteor.isClient
       else
         # Enterovirus D, Parvovirus B19
         # but not GB virus C
-        oneWordPlusLetterNumber = new RegExp "^[A-Z][a-z]+\\s[A-Z][0-9]{0,2}$"
+        oneWordPlusLetterNumber = new RegExp "^[^,-\s]+\\s[A-Z][0-9]{0,2}$"
         
         # Sudan ebolavirus, Marburg marburgvirus
         # but not Tick-borne flavivirus or Australian bat lyssavirus
-        oneWordPlusGenus = new RegExp "^[A-Z][a-z]+\\s#{genus.toLowerCase()}$"
+        oneWordPlusGenus = new RegExp "^[^,-\s]+\\s#{genus.toLowerCase()}$"
 
         if oneWordPlusLetterNumber.test(val.trim()) or oneWordPlusGenus.test(val.trim())
           return italicize val
