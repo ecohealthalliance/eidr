@@ -4,7 +4,7 @@ getEvents = () =>
 Router.route "/sitemap.xml", 
   where: 'server'
 .get () ->
-  ROOT_URL = process.env.ROOT_URL or "https://localhost/"
+  ROOT_URL = process.env.ROOT_URL or "//localhost/"
   if ROOT_URL.slice(-1) isnt "/"
     ROOT_URL += "/"
   @response.end """
