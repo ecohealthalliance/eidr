@@ -14,9 +14,12 @@ http
 fortawesome:fontawesome
 aslagle:reactive-table
 fuatsengul:leaflet
-useraccounts:bootstrap
-service-configuration
+accounts-base
+accounts-ui
 accounts-google
+useraccounts:bootstrap
+useraccounts:iron-routing
+service-configuration
 reactive-var
 alanning:roles
 meteor-base
