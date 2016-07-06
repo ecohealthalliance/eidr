@@ -108,3 +108,14 @@ Router.route "/variable-definitions",
     ]
   data: () ->
     fields: Fields().find({'tab': {'$ne': ''}, 'webVariable': {'$ne': '0'}})
+
+Router.route "/create-event",
+	name: 'create-event',
+	waitOn: () ->
+		[
+			Meteor.subscribe "userEvents"
+		]
+	onBeforeAction: () ->
+		unless Meteor.userId()
+			@redirect '/sign-in'
+		@next()

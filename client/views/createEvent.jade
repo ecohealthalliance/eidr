@@ -1,0 +1,21 @@
+template(name="createEvent")
+	.container
+		.row
+			.col-md-12
+				h1 Create Emergence Event
+
+		form#add-event.form-horizontal
+			.form-group
+				label.control-label.col-sm-2 Event Name
+				.col-sm-6
+					input.form-control(type='text', name='eventName')
+			
+			.form-group
+				.col-sm-8.text-right
+					button#add-event.btn.btn-default(type='submit')
+						i.fa.fa-floppy-o
+						| Save
+		
+		.row
+			.col-md-12
+				| Current user defined event count: {{currentCount}}
