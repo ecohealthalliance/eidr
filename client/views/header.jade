@@ -20,10 +20,10 @@ template(name="navLinks")
     li(class="{{checkActive 'about'}}")
       a(href="{{pathFor 'about'}}") About
     li(class="{{checkActive 'events'}}")
-      a(href="{{pathFor 'events'}}") Emergence Events
+      a(href="{{pathFor 'events'}}") Historical Events
+    li(class="{{checkActive 'user-events'}}")
+      a(href="{{pathFor 'user-events'}}") Emergence Events
     if currentUser
-      li(class="{{checkActive 'create-event'}}")
-        a(href="{{pathFor 'create-event'}}") Create Events
       li(class="{{checkActive 'download'}}")
         a(href="{{pathFor 'download'}}") Download
     li(class="{{checkActive 'event-map'}}")

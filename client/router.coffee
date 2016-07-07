@@ -9,6 +9,9 @@ Comments = () ->
 
 Comments = () ->
   @grid.Comments
+ 
+UserEvents = () ->
+	@grid.UserEvents
 
 Router.configure
   layoutTemplate: "layout"
@@ -111,11 +114,19 @@ Router.route "/variable-definitions",
 
 Router.route "/create-event",
   name: 'create-event',
-  waitOn: () ->
-    [
-      Meteor.subscribe "userEvents"
-    ]
   onBeforeAction: () ->
     unless Meteor.userId()
       @redirect '/sign-in'
     @next()
+
+Router.route "/user-events",
+	name: 'user-events'
+
+Router.route "/user-event/:eidID",
+  name: 'user-event'
+  waitOn: () ->
+    [
+      Meteor.subscribe "userEvent", @params.eidID
+    ]
+  data: () ->
+    userEvent: UserEvents().findOne({'_id': @params.eidID})

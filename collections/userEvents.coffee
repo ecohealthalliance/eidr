@@ -4,9 +4,13 @@ UserEvents = new Mongo.Collection "userEvents"
 @grid.UserEvents = UserEvents
 
 if Meteor.isServer
-  Meteor.publish "userEvents", () ->
-    UserEvents.find()
+  ReactiveTable.publish "userEvents", UserEvents, {}
+  
+  Meteor.publish "userEvent", (eidID) ->
+    UserEvents.find({'_id': eidID})
   
   UserEvents.allow
     insert: (userID, doc) ->
+      return Meteor.user()
+    update: (userId, doc, fieldNames, modifier) ->
       return Meteor.user()
