@@ -1,6 +1,8 @@
 template(name="userEvents")
-	section.container.events
-		if currentUser
-			a.btn.btn-link(href="{{pathFor 'create-event'}}") Create New Event
-		
-		+reactiveTable collection="userEvents" settings=settings
+  section.container.events
+    if currentUser
+      .row
+        .col-md-2.col-md-offset-10
+          a.btn.btn-link.btn-lg(href="{{pathFor 'create-event'}}") Create New Event
+
+    +reactiveTable collection="userEvents" settings=settings

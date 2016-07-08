@@ -11,7 +11,7 @@ Comments = () ->
   @grid.Comments
  
 UserEvents = () ->
-	@grid.UserEvents
+  @grid.UserEvents
 
 Router.configure
   layoutTemplate: "layout"
