@@ -120,7 +120,7 @@ Router.route "/create-event",
     @next()
 
 Router.route "/user-events",
-	name: 'user-events'
+  name: 'user-events'
 
 Router.route "/user-event/:eidID",
   name: 'user-event'

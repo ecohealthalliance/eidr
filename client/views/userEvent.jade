@@ -8,15 +8,15 @@ template(name="userEvent")
               .row
                 if isEditing
                   form#editEvent
-                    .col-md-8
+                    .col-sm-8.space-btm-2
                       input.form-control.input-lg(type='text', name='eventName', value='{{eventName}}')
-                    .col-md-2
+                    .col-sm-2.space-btm-2
                       button#save-edit.btn.btn-primary.btn-lg.btn-block(type='submit') Save
-                    .col-md-2
-                      button#cancel-edit.btn.btn-default.btn-lg.btn-block Cancel
+                    .col-sm-2.space-btm-2
+                      button#cancel-edit.btn.btn-default.btn-lg.btn-block(type='button') Cancel
                 else
-                  .col-md-10
+                  .col-sm-10
                     h1 {{eventName}}
-                  .col-md-2
+                  .col-sm-2
                     if currentUser
                       button#edit.btn.btn-default.btn-lg.btn-block Edit
