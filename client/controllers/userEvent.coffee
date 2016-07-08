@@ -15,3 +15,13 @@ Template.userEvent.events
     if updatedName.length isnt 0
       grid.UserEvents.update(@_id, {$set: {eventName: updatedName}})
       template.editState.set(false)
+
+Template.createEvent.events
+  "submit #add-event": (e) ->
+    e.preventDefault()
+    newEvent = e.target.eventName.value
+    if newEvent.trim().length isnt 0
+      grid.UserEvents.insert({eventName: newEvent}, (error, result) ->
+        Router.go('user-event', {_id: result})
+      )
+      e.target.eventName.value = ''

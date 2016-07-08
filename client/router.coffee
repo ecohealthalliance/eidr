@@ -122,11 +122,11 @@ Router.route "/create-event",
 Router.route "/user-events",
   name: 'user-events'
 
-Router.route "/user-event/:eidID",
+Router.route "/user-event/:_id",
   name: 'user-event'
   waitOn: () ->
     [
-      Meteor.subscribe "userEvent", @params.eidID
+      Meteor.subscribe "userEvent", @params._id
     ]
   data: () ->
-    userEvent: UserEvents().findOne({'_id': @params.eidID})
+    userEvent: UserEvents().findOne({'_id': @params._id})

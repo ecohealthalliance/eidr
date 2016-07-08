@@ -1,8 +1,6 @@
 Template.userEvents.onCreated () ->
   @userEventFields = [
     {
-      'Event table': '2',
-      Quotations: '0',
       arrayName: '',
       description: 'The name of the EID.',
       displayName: 'Event Name',
@@ -17,9 +15,8 @@ Template.userEvents.onCreated () ->
   @sortDirection = {}
   
   for field in @userEventFields
-    defaultVisibility = field['Event table'] is '2'
     oldVisibility = Session.get('events-field-visible-' + field.spreadsheetName)
-    visibility = if _.isUndefined(oldVisibility) then defaultVisibility else oldVisibility
+    visibility = if _.isUndefined(oldVisibility) then true else oldVisibility
     @fieldVisibility[field.spreadsheetName] = new ReactiveVar(visibility)
     
     defaultSortOrder = Infinity
@@ -68,20 +65,10 @@ Template.userEvents.helpers
 Template.userEvents.events
   "click .reactive-table tbody tr": (event) ->
     if event.metaKey
-      url = Router.url "user-event", { eidID: @_id }
+      url = Router.url "user-event", {_id: @_id}
       window.open(url, "_blank")
     else
-      Router.go "user-event", { eidID: @_id }
+      Router.go "user-event", {_id: @_id}
   "click .next-page, click .previous-page" : () ->
     if (window.scrollY > 0 and window.innerHeight < 700)
       $('body').animate({scrollTop:0,400})
-
-Template.createEvent.events
-  "submit #add-event": (e) ->
-    e.preventDefault()
-    newEvent = e.target.eventName.value
-    if newEvent.trim().length isnt 0
-      grid.UserEvents.insert({eventName: newEvent}, (error, result) ->
-        Router.go('user-event', {eidID: result})
-      )
-      e.target.eventName.value = ''
