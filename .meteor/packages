@@ -17,6 +17,7 @@ fuatsengul:leaflet
 accounts-base
 accounts-ui
 accounts-google
+accounts-password
 useraccounts:bootstrap
 useraccounts:iron-routing
 service-configuration
