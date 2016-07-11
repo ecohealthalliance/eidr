@@ -20,3 +20,18 @@ template(name="userEvent")
                   .col-sm-2
                     if currentUser
                       button#edit.btn.btn-default.btn-lg.btn-block Edit
+  .container.tables
+    .row
+      .col-lg-7
+        +articles
+
+template(name="articles")
+  .panel.panel-default.references
+    .panel-heading
+      h3 Articles
+    ul.list-group
+      each getArticles
+        +article
+
+template(name="article")
+  a.ref-link(href="{{articleUrl}}" target="_blank") {{articleUrl}}

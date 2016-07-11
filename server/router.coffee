@@ -1,6 +1,41 @@
 getEvents = () =>
   @grid.Events
 
+getUserEvents = () =>
+  @grid.UserEvents
+
+Router.route("/event-search/:name", {where: "server"})
+.get () ->
+  pattern = '.*' + @params.name + '.*'
+  regex = new RegExp(pattern, 'g')
+  mongoProjection = {
+    eventName: {
+      $regex: regex,
+      $options: 'i'
+    }
+  }
+  matchingEvents = getUserEvents().find(mongoProjection, {sort: {eventName: 1}}).fetch()
+ 
+  @response.setHeader('Access-Control-Allow-Origin', '*')
+  @response.statusCode = 200
+  @response.end(JSON.stringify(matchingEvents))
+
+Router.route("/event-article/:name", {where: "server"})
+.post () ->
+  pattern = '.*' + @params.name + '.*'
+  regex = new RegExp(pattern, 'g')
+  mongoProjection = {
+    eventName: {
+      $regex: regex,
+      $options: 'i'
+    }
+  }
+  matchingEvents = getUserEvents().find(mongoProjection, {sort: {eventName: 1}}).fetch()
+ 
+  @response.setHeader('Access-Control-Allow-Origin', '*')
+  @response.statusCode = 200
+  @response.end(JSON.stringify(matchingEvents))
+
 Router.route "/sitemap.xml", 
   where: 'server'
 .get () ->

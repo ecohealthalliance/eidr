@@ -7,11 +7,11 @@ Fields = () ->
 Comments = () ->
   @grid.Comments
 
-Comments = () ->
-  @grid.Comments
- 
 UserEvents = () ->
   @grid.UserEvents
+
+Articles = () ->
+  @grid.Articles
 
 Router.configure
   layoutTemplate: "layout"
@@ -127,6 +127,8 @@ Router.route "/user-event/:_id",
   waitOn: () ->
     [
       Meteor.subscribe "userEvent", @params._id
+      Meteor.subscribe "articles", @params._id
     ]
   data: () ->
     userEvent: UserEvents().findOne({'_id': @params._id})
+    articles: Articles().find({'userEventId': @params._id})
