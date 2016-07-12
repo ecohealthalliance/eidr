@@ -26,12 +26,30 @@ template(name="userEvent")
         +articles
 
 template(name="articles")
-  .panel.panel-default.references
+  .panel.panel-default
     .panel-heading
       h3 Articles
+    .panel-body.comments-container
+      .comment-form
+        if currentUser
+          form#add-article.form-horizontal
+            .form-group
+              .col-lg-12
+                input.form-control.new-article(name="article" placeholder="Article URL associated with this event.")
+            .form-group
+              .col-lg-4.col-lg-offset-8.col-sm-12
+                button.btn.btn-primary.btn-lg.btn-block(type="submit") Add article
+        else
+          +atForm
     ul.list-group
-      each getArticles
+      each articles
         +article
 
 template(name="article")
-  a.ref-link(href="{{articleUrl}}" target="_blank") {{articleUrl}}
+  li.list-group-item
+    .row
+      .col-md-10
+        a.ref-link(href="{{url}}" target="_blank") {{url}}
+      .col-md-2
+        if currentUser
+          button.btn.btn-default.btn-sm.delete-article("article-id" = _id) Delete

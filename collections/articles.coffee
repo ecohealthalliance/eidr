@@ -2,15 +2,18 @@ Articles = new Meteor.Collection "articles"
 
 @grid ?= {}
 @grid.Articles = Articles
-
-UserEvents = () ->
-  @grid.UserEvents
   
-getArticles = (userEventId) ->
+getEventArticles = (userEventId) ->
   Articles.find({userEventId: userEventId})
   
-Articles.getArticles = getArticles
+Articles.getEventArticles = getEventArticles
 
 if Meteor.isServer
-  Meteor.publish "articles", (ueId) ->
-    getArticles(ueId)
+  Meteor.publish "eventArticles", (ueId) ->
+    getEventArticles(ueId)
+  
+  Articles.allow
+    insert: (userID, doc) ->
+      return true
+    remove: (userID, doc) ->
+      return Meteor.user()
