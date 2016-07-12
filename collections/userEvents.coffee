@@ -8,13 +8,6 @@ if Meteor.isServer
   
   Meteor.publish "userEvent", (eidID) ->
     UserEvents.find({'_id': eidID})
-    
-  Meteor.publish "eventCount", () ->
-    UserEvents.find({'_id': "YTHJwWrjcCzPmjuDz"})
-  , {
-    url: 'event-count',
-    httpMethod: 'get'
-  }
   
   UserEvents.allow
     insert: (userID, doc) ->
