@@ -2,9 +2,17 @@ Template.userEvents.onCreated () ->
   @userEventFields = [
     {
       arrayName: '',
+      description: 'Date the event was created.',
+      displayName: 'Creation Date',
+      fieldName: 'creationDate',
+      defaultSortDirection: -1
+    },
+    {
+      arrayName: '',
       description: 'The name of the EID.',
       displayName: 'Event Name',
-      spreadsheetName: 'eventName'
+      fieldName: 'eventName',
+      defaultSortDirection: 1
     }
   ]
   
@@ -15,27 +23,27 @@ Template.userEvents.onCreated () ->
   @sortDirection = {}
   
   for field in @userEventFields
-    oldVisibility = Session.get('events-field-visible-' + field.spreadsheetName)
+    oldVisibility = Session.get('events-field-visible-' + field.fieldName)
     visibility = if _.isUndefined(oldVisibility) then true else oldVisibility
-    @fieldVisibility[field.spreadsheetName] = new ReactiveVar(visibility)
+    @fieldVisibility[field.fieldName] = new ReactiveVar(visibility)
     
     defaultSortOrder = Infinity
-    oldSortOrder = Session.get('events-field-sort-order-' + field.spreadsheetName)
+    oldSortOrder = Session.get('events-field-sort-order-' + field.fieldName)
     sortOrder = if _.isUndefined(oldSortOrder) then defaultSortOrder else oldSortOrder
-    @sortOrder[field.spreadsheetName] = new ReactiveVar(sortOrder)
+    @sortOrder[field.fieldName] = new ReactiveVar(sortOrder)
     
-    defaultSortDirection = 1
-    oldSortDirection = Session.get('events-field-sort-direction-' + field.spreadsheetName)
+    defaultSortDirection = field.defaultSortDirection
+    oldSortDirection = Session.get('events-field-sort-direction-' + field.fieldName)
     sortDirection = if _.isUndefined(oldSortDirection) then defaultSortDirection else oldSortDirection
-    @sortDirection[field.spreadsheetName] = new ReactiveVar(sortDirection)
+    @sortDirection[field.fieldName] = new ReactiveVar(sortDirection)
   
   @autorun () =>
     Session.set 'events-current-page', @currentPage.get()
     Session.set 'events-rows-per-page', @rowsPerPage.get()
     for field in @userEventFields
-      Session.set 'events-field-visible-' + field.spreadsheetName, @fieldVisibility[field.spreadsheetName].get()
-      Session.set 'events-field-sort-order-' + field.spreadsheetName, @sortOrder[field.spreadsheetName].get()
-      Session.set 'events-field-sort-direction-' + field.spreadsheetName, @sortDirection[field.spreadsheetName].get()
+      Session.set 'events-field-visible-' + field.fieldName, @fieldVisibility[field.fieldName].get()
+      Session.set 'events-field-sort-order-' + field.fieldName, @sortOrder[field.fieldName].get()
+      Session.set 'events-field-sort-direction-' + field.fieldName, @sortDirection[field.fieldName].get()
 
 Template.userEvents.helpers
   userEvents: () ->
@@ -45,11 +53,11 @@ Template.userEvents.helpers
     fields = []
     for field in Template.instance().userEventFields
       fields.push {
-        key: field.spreadsheetName
+        key: field.fieldName
         label: field.displayName
-        isVisible: Template.instance().fieldVisibility[field.spreadsheetName]
-        sortOrder: Template.instance().sortOrder[field.spreadsheetName]
-        sortDirection: Template.instance().sortDirection[field.spreadsheetName]
+        isVisible: Template.instance().fieldVisibility[field.fieldName]
+        sortOrder: Template.instance().sortOrder[field.fieldName]
+        sortDirection: Template.instance().sortDirection[field.fieldName]
         sortable: not field.arrayName
       }
     
