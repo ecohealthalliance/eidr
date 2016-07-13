@@ -11,6 +11,7 @@ if Meteor.isServer
   
   UserEvents.allow
     insert: (userID, doc) ->
+      doc.creationDate = new Date()
       return Meteor.user()
     update: (userId, doc, fieldNames, modifier) ->
       return Meteor.user()
