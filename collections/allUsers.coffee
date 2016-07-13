@@ -1,9 +1,12 @@
 if Meteor.isServer
   Meteor.publish "allUsers", () ->
     if Roles.userIsInRole(this.userId, ['admin'])
-      Meteor.users.find({}, {fields: {'_id': 1, 'services.google.email': 1, 'roles': 1, 'profile.name': 1}})
+      Meteor.users.find({}, {fields: {'_id': 1, 'services.google.email': 1, 'roles': 1, 'profile.name': 1, 'emails': 1}})
     else
       this.ready()
+  
+  Meteor.publish "roles", () ->
+    Meteor.roles.find({})
 
   Meteor.methods
     makeAdmin : (userId) ->
@@ -17,5 +20,24 @@ if Meteor.isServer
       currentUserId = Meteor.userId()
       if Roles.userIsInRole(currentUserId, ['admin'])
         Roles.removeUsersFromRoles(userId, 'admin')
+      else
+        throw new Meteor.Error(403, "Not authorized")
+    
+    createAccount: (email, profileName, giveAdminRole) ->
+      if Roles.userIsInRole(Meteor.userId(), ['admin'])
+        existingUser = Accounts.findUserByEmail(email)
+        if not existingUser
+          if Meteor.isServer
+            newUserId = Accounts.createUser({
+              email: email,
+              profile: {
+                name: profileName
+              }
+            })
+            
+            if giveAdminRole
+              Roles.addUsersToRoles(newUserId, ['admin'])
+            Accounts.sendEnrollmentEmail(newUserId)
+            Router.go('admins')
       else
         throw new Meteor.Error(403, "Not authorized")
