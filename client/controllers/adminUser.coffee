@@ -30,4 +30,9 @@ Template.createAccount.events
     email = event.target.email.value.trim()
     makeAdmin = event.target.admin.checked
     
-    Meteor.call('createAccount', email, name, makeAdmin)
+    if name.length and email.length
+      Meteor.call('createAccount', email, name, makeAdmin, (error, result) ->
+        if error
+          if error.error is 'allUsers.createAccount.exists'
+            alert("The specified email address is already being used.")
+      )

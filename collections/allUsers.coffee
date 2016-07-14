@@ -26,18 +26,19 @@ if Meteor.isServer
     createAccount: (email, profileName, giveAdminRole) ->
       if Roles.userIsInRole(Meteor.userId(), ['admin'])
         existingUser = Accounts.findUserByEmail(email)
-        if not existingUser
-          if Meteor.isServer
-            newUserId = Accounts.createUser({
-              email: email,
-              profile: {
-                name: profileName
-              }
-            })
-            
-            if giveAdminRole
-              Roles.addUsersToRoles(newUserId, ['admin'])
-            Accounts.sendEnrollmentEmail(newUserId)
-            Router.go('admins')
+        if existingUser
+          throw new Meteor.Error('allUsers.createAccount.exists')
+        else
+          newUserId = Accounts.createUser({
+            email: email,
+            profile: {
+              name: profileName
+            }
+          })
+          
+          if giveAdminRole
+            Roles.addUsersToRoles(newUserId, ['admin'])
+          Accounts.sendEnrollmentEmail(newUserId)
+          Router.go('admins')
       else
         throw new Meteor.Error(403, "Not authorized")
