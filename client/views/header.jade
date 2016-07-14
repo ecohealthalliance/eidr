@@ -18,9 +18,9 @@ template(name="navLinks")
           span.caret
         ul.dropdown-menu
           li(class="{{checkActive 'create-account'}}")
-            a(href="{{pathFor 'create-account'}}") Create New Account
+            a(href="{{pathFor 'create-account'}}") Create User Account
           li(class="{{checkActive 'admins'}}")
-            a(href="{{pathFor 'admins'}}") Current Accounts
+            a(href="{{pathFor 'admins'}}") Current User Accounts
       li(class="{{checkActive 'comments'}}")
         a(href="{{pathFor 'adminComments'}}") Comments
     li(class="{{checkActive 'about'}}")
