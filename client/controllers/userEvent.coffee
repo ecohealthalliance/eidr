@@ -15,13 +15,56 @@ Template.userEvent.events
     if updatedName.length isnt 0
       grid.UserEvents.update(@_id, {$set: {eventName: updatedName}})
       template.editState.set(false)
+  
+  "click #add-location": (event, template) ->
+    $input = $("#new-location")
+    Meteor.call("addEventLocations", template.data.userEvent._id, [{url: $input.val()}], (error, result) ->
+      if not error
+        $input.val("")
+    )
+  
+  "click .remove-location": (event, template) ->
+    if confirm("Do you want to delete the selected location?")
+      Meteor.call("removeUserEventLocation", @_id)
+
+Template.createEvent.onCreated ->
+  @locationSequence = 0
+  @tempLocations = new ReactiveVar([])
+
+Template.createEvent.helpers
+  tempLocations: () ->
+    return Template.instance().tempLocations.get()
 
 Template.createEvent.events
+  "click #add-location": (e, template) ->
+    template.locationSequence++
+    locations = template.tempLocations.get()
+    locations.push(template.locationSequence)
+    template.tempLocations.set(locations)
+    
+  "click .remove-location": (e, template) ->
+    $target = $(e.target)
+    if $target.hasClass("fa")
+      $target = $target.parent()
+    
+    locationId = $target.data("location-id")
+    locations = template.tempLocations.get()
+    counter = locations.length - 1
+    
+    for i in [counter..0]
+      if locations[i] is locationId
+        locations.splice(i, 1)
+    
+    template.tempLocations.set(locations)
+    
   "submit #add-event": (e) ->
     e.preventDefault()
     newEvent = e.target.eventName.value
-    if newEvent.trim().length isnt 0
-      grid.UserEvents.insert({eventName: newEvent}, (error, result) ->
+    locationFields = $(e.target).find("input.location-input")
+    locations = []
+    locations.push({url: $(input).val()}) for input in locationFields
+    
+    Meteor.call("addUserEvent", newEvent, locations, (error, result) ->
+      if result
         Router.go('user-event', {_id: result})
-      )
-      e.target.eventName.value = ''
+    )
