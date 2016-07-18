@@ -15,7 +15,7 @@ Meteor.methods
           Geolocations.insert({userEventId: eventId, url: l.url})
     else
         throw new Meteor.Error(403, "Not authorized")
-  removeUserEventLocation: (id) ->
+  removeEventLocation: (id) ->
     if Meteor.user()
       Geolocations.remove(id)
     else

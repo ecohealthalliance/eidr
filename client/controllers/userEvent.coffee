@@ -25,7 +25,7 @@ Template.userEvent.events
   
   "click .remove-location": (event, template) ->
     if confirm("Do you want to delete the selected location?")
-      Meteor.call("removeUserEventLocation", @_id)
+      Meteor.call("removeEventLocation", @_id)
 
 Template.createEvent.onCreated ->
   @locationSequence = 0
