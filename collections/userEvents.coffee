@@ -21,8 +21,3 @@ Meteor.methods
         if result
           Meteor.call("addEventLocations", result, locations)
       )
-  
-  addUserEventLocation: (eventId, locationUrl) ->
-    trimmedUrl = locationUrl.trim()
-    if trimmedUrl.length
-      UserEvents.update(eventId, {$addToSet: locations: {url: trimmedUrl}})
