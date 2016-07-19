@@ -53,7 +53,9 @@ template(name="locationList")
         .form-horizontal
           .form-group
             .col-md-12
-              input#new-location.form-control(type='text', name='location', placeholder="Geonames.org link")
+              select#new-location.form-control.select2(name='location', placeholder="Geonames.org link")
+                each suggestLocations
+                  option(value="{{url}}") {{url}}
            .form-group
             .col-lg-4.col-lg-offset-8.col-md-12
               button#add-location.btn.btn-primary.btn-block(type="button") Add Location
@@ -69,6 +71,9 @@ template(name="articles")
             .form-group
               .col-lg-12
                 input.form-control.new-article(name="article" placeholder="Article URL associated with this event.")
+            .form-group
+              .col-lg-12
+                textarea.form-control(name="scraperResponse" placeholder="Result of posting article body to grits")
             .form-group
               .col-lg-4.col-lg-offset-8.col-sm-12
                 button.btn.btn-primary.btn-lg.btn-block(type="submit") Add article
