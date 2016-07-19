@@ -12,7 +12,11 @@ Meteor.methods
     if Meteor.user()
       for l in locations
         if l.url and l.url.trim().length
-          Geolocations.insert({userEventId: eventId, url: l.url})
+          geolocation = {userEventId: eventId, url: l.url}
+          urlSplit = l.url.split("/")
+          if urlSplit.length >= 4 and urlSplit[2] is "www.geonames.org"
+            geolocation.geonameId = urlSplit[3]
+          Geolocations.insert(geolocation)
     else
         throw new Meteor.Error(403, "Not authorized")
   removeEventLocation: (id) ->

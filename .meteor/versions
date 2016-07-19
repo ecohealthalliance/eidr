@@ -73,6 +73,7 @@ mongo-id@1.0.5
 mquandalle:jade@0.4.9
 mquandalle:jade-compiler@0.4.5
 natestrauser:analyticsjs@0.1.9
+natestrauser:select2@4.0.2
 npm-bcrypt@0.8.7
 npm-mongo@1.4.44
 oauth@1.1.11
