@@ -1,28 +1,9 @@
 Template.userEvent.onCreated ->
   @editState = new ReactiveVar(false)
-  @currentLocations = []
-  for location in @data.locations
-    @currentLocations.push(location.geonameId)
-
-Template.userEvent.onRendered ->
-  $(document).ready(() ->
-    $("#new-location").select2({
-      createSearchChoice: (term, data) ->
-        return {url: term}
-      multiple: false
-    })
-  )
 
 Template.userEvent.helpers
   isEditing: () ->
     return Template.instance().editState.get()
-  suggestLocations: () ->
-    for article in @articles
-      for location in article.locations
-        if Template.instance().currentLocations.indexOf(location.geonameId) is -1 and location.name.match(regex) and uniqueIds.indexOf(location.geonameId) is -1
-          uniqueIds.push(location.geonameId)
-          suggested.push(location)
-    return suggested
 
 Template.userEvent.events
   "click #edit, click #cancel-edit": (event, template) ->
@@ -34,18 +15,6 @@ Template.userEvent.events
     if updatedName.length isnt 0
       grid.UserEvents.update(@_id, {$set: {eventName: updatedName}})
       template.editState.set(false)
-  
-  "click #add-location": (event, template) ->
-    $input = $("#new-location")
-    Meteor.call("addEventLocations", template.data.userEvent._id, [{url: $input.val()}], (error, result) ->
-      if not error
-        console.log(grid.Geolocations.find({_id: result}).fetch())
-        $input.val("")
-    )
-  
-  "click .remove-location": (event, template) ->
-    if confirm("Do you want to delete the selected location?")
-      Meteor.call("removeEventLocation", @_id)
 
 Template.createEvent.onCreated ->
   @locationSequence = 0
