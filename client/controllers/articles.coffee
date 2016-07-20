@@ -23,4 +23,5 @@ Template.articles.events
           userEventId: @userEvent._id,
           locations: articleLocations
         })
+      #need to add article locations to the suggested locations collection, but how?
       e.target.article.value = ''

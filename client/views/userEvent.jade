@@ -53,10 +53,11 @@ template(name="locationList")
         .form-horizontal
           .form-group
             .col-md-12
-              select#new-location.form-control.select2(name='location', placeholder="Geonames.org link")
+              select#new-location.form-control.select2(name='location')
+                option(value="")
                 each suggestLocations
                   option(value="{{url}}") {{url}}
-           .form-group
+          .form-group
             .col-lg-4.col-lg-offset-8.col-md-12
               button#add-location.btn.btn-primary.btn-block(type="button") Add Location
 
