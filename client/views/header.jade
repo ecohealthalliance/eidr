@@ -6,7 +6,7 @@ template(name="header")
           .navbar-header
             button.navbar-toggle.collapsed(type='button', data-toggle='collapse' data-target=".navbar-collapse") Menu
             a.navbar-brand(href="{{pathFor 'splash'}}")
-          
+
           .collapse.navbar-collapse
             +navLinks
 
@@ -19,10 +19,15 @@ template(name="navLinks")
         a(href="{{pathFor 'adminComments'}}") Comments
     li(class="{{checkActive 'about'}}")
       a(href="{{pathFor 'about'}}") About
-    li(class="{{checkActive 'events'}}")
-      a(href="{{pathFor 'events'}}") Historical Events
-    li(class="{{checkActive 'user-events'}}")
-      a(href="{{pathFor 'user-events'}}") Emergence Events
+    li(class="{{checkActive 'events'}} {{checkActive 'user-events'}}").dropdown
+      a.dropdown-toggle-nav(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
+        | Emergence Events
+        span.caret
+      ul.dropdown-menu.nav-dd
+        li(class="{{checkActive 'events'}}")
+          a(href="{{pathFor 'events'}}") Historical Events
+        li(class="{{checkActive 'user-events'}}")
+          a(href="{{pathFor 'user-events'}}") Tracked Events
     if currentUser
       li(class="{{checkActive 'download'}}")
         a(href="{{pathFor 'download'}}") Download
@@ -33,7 +38,7 @@ template(name="navLinks")
         span.link-text-nav Variable Definitions
         span.fa.fa-question-circle.show-small
     li
-      a.withIcon(href="mailto:eidr@ecohealthalliance.org" title="Contact Us") 
+      a.withIcon(href="mailto:eidr@ecohealthalliance.org" title="Contact Us")
         span.link-text-nav Contact Us
         span.fa.fa-envelope.show-small
     li(class="{{checkActive 'sign-in'}}")

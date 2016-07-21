@@ -39,6 +39,15 @@
     content 'Variables'
     font-size 14px
 
+.dropdown-toggle-nav
+  font-size 0
+  &::before,
+  &::after
+    vAlign()
+
+.dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active
+  background-color #2ea852
+
 .reactive-table-options
   float none
   width 100%
@@ -51,6 +60,8 @@
 .dropdown-menu-right
   left 0 !important
   right 0
+.dropdown-menu.nav-dd
+  padding 0
 
 .rows-per-page,
 .page-number
