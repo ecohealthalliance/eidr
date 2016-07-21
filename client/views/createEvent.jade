@@ -14,9 +14,6 @@ template(name="createEvent")
               label.control-label.col-sm-2 Locations
               .col-sm-8
                 .form-group
-                  .col-sm-5
-                    button#add-location.btn.btn-primary.btn-block(type="button") Add Another Location Field
-                .form-group
                   .col-sm-12
                     input.form-control.location-input(type='text', name='l0', placeholder="Geonames.org link")
                 each id in tempLocations
@@ -27,6 +24,9 @@ template(name="createEvent")
                         span.input-group-btn
                           button.btn.btn-danger.remove-location(type="button", data-location-id='{{id}}')
                             i.fa.fa-times
+                .form-group
+                  .col-sm-5
+                    button#add-location.btn.btn-primary.btn-block(type="button") Add Another Location Field
             .row
               .col-sm-3.col-sm-offset-7
                 button#add-event.btn.btn-primary.btn-lg.btn-block(type='submit') Add Event

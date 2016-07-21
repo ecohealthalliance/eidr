@@ -20,43 +20,43 @@ template(name="userEvent")
                   .col-sm-2
                     if currentUser
                       button#edit.btn.btn-default.btn-lg.btn-block Edit
-          .row.fact-sheet
-            .col-lg-7.col-md-12
-            .col-lg-5.col-md-12
-              .location-list-wrap
-                +locationList
   
   .container.tables
     .row
-      .col-lg-7
+      .col-lg-6
+        +locationList
+      .col-lg-6
         +articles
 
 template(name="locationList")
-  h2 Locations
-  if locations.length
-    if currentUser
-      .form-horizontal
-        each locations
+  .panel.panel-default
+    .panel-heading
+      h3 Locations
+    .panel-body
+      if locations.length
+        if currentUser
+          .form-horizontal
+            each locations
+              .form-group
+                .col-sm-12
+                  button.btn.btn-danger.btn-sm.remove-location(type="button")
+                    i.fa.fa-times
+                  a(href="{{url}}") {{url}}
+        else
+          ul
+            each locations
+              li.location-list
+                a(href="{{url}}") {{url}}
+      else
+        p No locations are associated with this event.
+      if currentUser
+        .form-horizontal
           .form-group
-            .col-sm-12
-              button.btn.btn-danger.btn-sm.remove-location(type="button")
-                i.fa.fa-times
-              a(href="{{url}}") {{url}}
-    else
-      ul
-        each locations
-          li.location-list
-            a(href="{{url}}") {{url}}
-  else
-    p No locations are associated with this event.
-  if currentUser
-    .form-horizontal
-      .form-group
-        .col-md-12
-          input#new-location.form-control(type='text', name='location', placeholder="Geonames.org link")
-       .form-group
-        .col-lg-4.col-lg-offset-8.col-md-12
-          button#add-location.btn.btn-primary.btn-block(type="button") Add Location
+            .col-md-12
+              input#new-location.form-control(type='text', name='location', placeholder="Geonames.org link")
+           .form-group
+            .col-lg-4.col-lg-offset-8.col-md-12
+              button#add-location.btn.btn-primary.btn-block(type="button") Add Location
 
 template(name="articles")
   .panel.panel-default
