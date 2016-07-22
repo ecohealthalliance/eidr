@@ -55,9 +55,7 @@ template(name="locationList")
         .col-md-12
           select#new-location.form-control.select2(name='location')
             option(value="")
-            each suggestLocations
-              option(value="{{url}}") {{url}}
-       .form-group
+      .form-group
         .col-lg-4.col-lg-offset-8.col-md-12
           button#add-location.btn.btn-primary.btn-block(type="button") Add Location
 
@@ -71,10 +69,10 @@ template(name="articles")
           form#add-article.form-horizontal
             .form-group
               .col-lg-12
-                input.form-control.new-article(name="article" placeholder="Article URL associated with this event.")
+                input.form-control.new-article(name="article" placeholder="Article URL associated with this event")
             .form-group
               .col-lg-12
-                textarea.form-control(name="scraperResponse" placeholder="Result of posting article body to grits")
+                textarea.form-control(name="articleBody" placeholder="Article body")
             .form-group
               .col-lg-4.col-lg-offset-8.col-sm-12
                 button.btn.btn-primary.btn-lg.btn-block(type="submit") Add article
@@ -92,3 +90,22 @@ template(name="article")
       .col-md-2
         if currentUser
           button.btn.btn-default.btn-sm.delete-article("article-id" = _id) Delete
+
+template(name="locationModal")
+  .modal.fade(role="dialog")
+    .modal-dialog
+      .modal-content
+        .modal-header
+          h4.modal-title Locations mentioned in the article
+        .modal-body
+          .form-horizontal
+            each suggestedLocations
+              .form-group
+                .col-md-12
+                  .checkbox
+                    label
+                      input(type="checkbox")
+                      a(href="{{url}}") {{name}}
+        .modal-footer
+          button.btn.btn-default(type="button" data-dismiss="modal") Close
+          button.btn.btn-primary(type="button") Add Locations
