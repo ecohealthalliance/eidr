@@ -8,16 +8,26 @@ if Meteor.isServer
     Geolocations.find({userEventId: userEventId})
 
 Meteor.methods
-  addEventLocation: (eventId, location) ->
+  generateGeonamesUrl: (geonameId) ->
+    return "http://www.geonames.org/" + geonameId
+  addEventLocations: (eventId, locations) ->
     if Meteor.user()
-      if location.url and location.url.trim().length
-        geolocation = {userEventId: eventId, url: location.url}
-        urlSplit = location.url.split("/")
-        if urlSplit.length >= 4 and urlSplit[2] is "www.geonames.org"
-          geolocation.geonameId = urlSplit[3]
-        else
-          throw new Meteor.Error("geolocations.addEventLocation.invalid")
-        Geolocations.insert(geolocation)
+      existingLocations = []
+      for loc in Geolocations.find({userEventId: eventId}).fetch()
+        existingLocations.push(Number(loc.geonameId))
+      
+      for location in locations
+        if existingLocations.indexOf(location.geonameId) is -1
+          geolocation = {
+            userEventId: eventId,
+            geonameId: location.geonameId,
+            name: location.name,
+            countryCode: location.countryCode,
+            latitude: location.latitude,
+            longitude: location.longitude,
+            url: Meteor.call("generateGeonamesUrl", location.geonameId)
+          }
+          Geolocations.insert(geolocation)
     else
         throw new Meteor.Error(403, "Not authorized")
   removeEventLocation: (id) ->

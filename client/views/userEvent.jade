@@ -41,23 +41,22 @@ template(name="locationList")
                 .col-sm-12
                   button.btn.btn-danger.btn-sm.remove-location(type="button")
                     i.fa.fa-times
-                  a(href="{{url}}") {{url}}
+                  a(href="{{url}}") {{formatLocation(this)}}
         else
           ul
             each locations
               li.location-list
-                a(href="{{url}}") {{url}}
+                a(href="{{url}}") {{formatLocation(this)}}
       else
         p No locations are associated with this event.
       if currentUser
         .form-horizontal
           .form-group
             .col-md-12
-              select#new-location.form-control.select2(name='location')
-                option(value="")
+              +locationSelect2
           .form-group
             .col-lg-4.col-lg-offset-8.col-md-12
-              button#add-location.btn.btn-primary.btn-block(type="button") Add Location
+              button#add-locations.btn.btn-primary.btn-block(type="button") Add Locations
 
 template(name="articles")
   .panel.panel-default
@@ -75,7 +74,7 @@ template(name="articles")
                 textarea.form-control(name="articleBody" placeholder="Article body")
             .form-group
               .col-lg-4.col-lg-offset-8.col-sm-12
-                button.btn.btn-primary.btn-lg.btn-block(type="submit") Add article
+                button.btn.btn-primary.btn-block(type="submit") Add article
         else
           +atForm
     ul.list-group
@@ -98,14 +97,24 @@ template(name="locationModal")
         .modal-header
           h4.modal-title Locations mentioned in the article
         .modal-body
-          .form-horizontal
+          #suggested-locations-form.form-horizontal
             each suggestedLocations
               .form-group
                 .col-md-12
                   .checkbox
                     label
-                      input(type="checkbox")
-                      a(href="{{url}}") {{name}}
+                      input(type="checkbox" value="{{geonameId}}")
+                      {{locationOptionText(this)}}
+                    a(href="{{url}}" target="_blank") (Geonames link)
         .modal-footer
           button.btn.btn-default(type="button" data-dismiss="modal") Close
-          button.btn.btn-primary(type="button") Add Locations
+          button#add-suggestions.btn.btn-primary(type="button") Add Locations
+
+template(name="loadingModal")
+  .modal.fade(role="dialog")
+    .modal-dialog
+      .modal-content
+        .modal-body
+          p
+            i.fa.fa-circle-o-notch.fa-spin
+            | Processing article

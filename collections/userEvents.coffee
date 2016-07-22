@@ -19,6 +19,5 @@ Meteor.methods
     if trimmedName.length isnt 0
       UserEvents.insert({eventName: trimmedName, creationDate: new Date()}, (error, result) ->
         if result
-          for location in locations
-            Meteor.call("addEventLocation", result, location)
+          Meteor.call("addEventLocations", result, locations)
       )

@@ -1,8 +1,14 @@
-Template.locationList.onRendered ->
+formatLocation = (name, country) ->
+  text = name
+  if country
+    text += ", " + country
+  return text
+
+Template.locationSelect2.onRendered ->
   $(document).ready(() ->
-    $("#new-location").select2({
+    $("#location-select2").select2({
       multiple: true
-      placeholder: "Search for a location..."
+      placeholder: "Search for locations..."
       minimumInputLength: 1
       ajax: {
         url: "http://api.geonames.org/searchJSON"
@@ -16,41 +22,55 @@ Template.locationList.onRendered ->
         processResults: (data, params) ->
           results = []
           for loc in data.geonames
-            optionText = loc.name
-            if loc.countryCode
-              optionText += ", " + loc.countryCode
-              #construct 'item' so that it only has the necessary attributes
-            results.push({id: loc.geonameId, text: optionText, item: loc})
+            results.push({id: loc.geonameId, text: formatLocation(loc.name, loc.countryCode), item: loc})
           return {results: results}
       }
     })
+    $(".select2-container").css("width", "100%")
   )
 
 Template.locationList.helpers
-  locationOptionText: (location) ->
-    text = location.name
-    if location.countryCode
-      text += ", " + location.countryCode
-    return text
+  formatLocation: (location) ->
+    return formatLocation(location.name, location.countryCode)
 
 Template.locationList.events
-  "click #add-location": (event, template) ->
-    $new = $("#new-location")
+  "click #add-locations": (event, template) ->
+    $new = $("#location-select2")
+    allLocations = []
     
     for option in $new.select2("data")
-      allLocations.push(option.item)
+      allLocations.push({
+        geonameId: option.item.geonameId,
+        name: option.item.name,
+        countryCode: option.item.countryCode,
+        latitude: option.item.latitude,
+        longitude: option.item.longitude
+      })
     
-    console.log(allLocations)
-    
-    #Meteor.call("addEventLocation", template.data.userEvent._id, {url: locationUrl}, (error, result) ->
-      #if error
-        #if error.error is "geolocations.addEventLocation.invalid"
-          #alert("Invalid geonames.org url.")
-     # else
-        #template.suggestLocations.remove({url: locationUrl})
-        #$input.select2("val", "")
-    #)
+    Meteor.call("addEventLocations", template.data.userEvent._id, allLocations, (error, result) ->
+      if not error
+        $new.select2("val", "")
+    )
   
   "click .remove-location": (event, template) ->
     if confirm("Do you want to delete the selected location?")
       Meteor.call("removeEventLocation", @_id)
+
+Template.locationModal.helpers
+  locationOptionText: (location) ->
+    return formatLocation(location.name, location.countryCode)
+
+Template.locationModal.events
+  "click #add-suggestions": (event, template) ->
+    geonameIds = []
+    allLocations = []
+    $("#suggested-locations-form").find("input:checked").each(() ->
+      geonameIds.push($(this).val())
+    )
+    
+    for loc in @suggestedLocations
+      if geonameIds.indexOf(loc.geonameId) isnt -1
+        allLocations.push(loc)
+    Meteor.call("addEventLocations", @userEventId, allLocations, (error, result) ->
+      Modal.hide(template)
+    )
