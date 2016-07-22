@@ -1,28 +1,34 @@
 Template.articles.events
-  "submit #add-article": (e) ->
+  "submit #add-article": (e, template) ->
     event.preventDefault()
     article = e.target.article.value.trim()
-    response = e.target.scraperResponse.value.trim()
+    body = e.target.articleBody.value.trim()
     articleLocations = []
     
     if article.length isnt 0
       existingArticle = grid.Articles.find({url: article, userEventId: @userEvent._id}).fetch()
       
       if existingArticle.length is 0
-        Meteor.call("getArticleLocations", response)
-        #if response.features
-          #for object in response.features
-            #if object.geoname
-              #articleLocations.push({
-                #geonameId: object.geoname.geonameid,
-                #name: object.geoname.name,
-                #url: "http://www.geonames.org/" + object.geoname.geonameid + "/" + object.geoname.name.toLowerCase().replace(/\s/g, "-") + ".html"
-              #})
-        
         #grid.Articles.insert({
           #url: article,
-          #userEventId: @userEvent._id,
-          #locations: articleLocations
+          #userEventId: template.data.userEvent._id
         #})
-      #need to add article locations to the suggested locations collection, but how?
-      #e.target.article.value = ''
+        
+        Meteor.call("getArticleLocations", body, (error, result) ->
+          if result and result.data.features
+            for object in result.data.features
+              if object.geoname
+                articleLocations.push({
+                  geonameId: object.geoname.geonameid,
+                  name: object.geoname.name,
+                  latitude: object.geoname.latitude,
+                  longitude: object.geoname.longitude,
+                  countryCode: object.geoname["country code"],
+                  url: "http://www.geonames.org/" + object.geoname.geonameid + "/" + object.geoname.name.toLowerCase().replace(/\s/g, "-") + ".html"
+                })
+          
+          if articleLocations.length
+            Modal.show("locationModal", {suggestedLocations: articleLocations})
+        )
+      #e.target.article.value = ""
+      #e.target.articleBody.value = ""
