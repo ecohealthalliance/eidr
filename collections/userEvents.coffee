@@ -10,8 +10,14 @@ if Meteor.isServer
     UserEvents.find({'_id': eidID})
   
   UserEvents.allow
-    insert: (userID, doc) ->
-      doc.creationDate = new Date()
-      return Meteor.user()
     update: (userId, doc, fieldNames, modifier) ->
       return Meteor.user()
+
+Meteor.methods
+  addUserEvent: (name, locations) ->
+    trimmedName = name.trim()
+    if trimmedName.length isnt 0
+      UserEvents.insert({eventName: trimmedName, creationDate: new Date()}, (error, result) ->
+        if result
+          Meteor.call("addEventLocations", result, locations)
+      )

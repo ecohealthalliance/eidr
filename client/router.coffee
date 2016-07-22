@@ -13,6 +13,9 @@ UserEvents = () ->
 Articles = () ->
   @grid.Articles
 
+Geolocations = () ->
+  @grid.Geolocations
+
 Router.configure
   layoutTemplate: "layout"
   loadingTemplate: "loading"
@@ -128,7 +131,9 @@ Router.route "/user-event/:_id",
     [
       Meteor.subscribe "userEvent", @params._id
       Meteor.subscribe "eventArticles", @params._id
+      Meteor.subscribe "eventLocations", @params._id
     ]
   data: () ->
     userEvent: UserEvents().findOne({'_id': @params._id})
     articles: Articles().find({'userEventId': @params._id}).fetch()
+    locations: Geolocations().find({'userEventId': @params._id}).fetch()
