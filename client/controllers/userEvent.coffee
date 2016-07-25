@@ -15,8 +15,9 @@ Template.userEvent.events
   "submit #editEvent": (event, template) ->
     event.preventDefault()
     updatedName = event.target.eventName.value.trim()
+    updatedSummary = event.target.eventSummary.value.trim()
     if updatedName.length isnt 0
-      grid.UserEvents.update(@_id, {$set: {eventName: updatedName}})
+      grid.UserEvents.update(@_id, {$set: {eventName: updatedName, summary: updatedSummary}})
       template.editState.set(false)
 
 Template.createEvent.events
