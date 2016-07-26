@@ -7,9 +7,9 @@ template(name="userEvent")
             .basic-info
               .row
                 if isEditing
-                  form#editEvent
+                  form#editEvent(novalidate)
                     .col-sm-8.space-btm-2
-                      input.form-control.input-lg(type='text', name='eventName', value='{{eventName}}')
+                      input.form-control.input-lg(type='text' name='eventName' required value='{{eventName}}')
                     .col-sm-2.space-btm-2
                       button#save-edit.btn.btn-primary.btn-lg.btn-block(type='submit') Save
                     .col-sm-2.space-btm-2
@@ -32,10 +32,10 @@ template(name="articles")
     .panel-body.comments-container
       .comment-form
         if currentUser
-          form#add-article.form-horizontal
+          form#add-article.form-horizontal(novalidate)
             .form-group
               .col-lg-12
-                input.form-control.new-article(name="article" placeholder="Article URL associated with this event.")
+                input.form-control.new-article(name="article" type="url" required placeholder="Article URL associated with this event.")
             .form-group
               .col-lg-4.col-lg-offset-8.col-sm-12
                 button.btn.btn-primary.btn-lg.btn-block(type="submit") Add article
