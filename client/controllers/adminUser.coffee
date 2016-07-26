@@ -9,7 +9,9 @@ Template.adminUser.helpers
     this.profile.name
 
   email : () ->
-    this.services.google.email
+    if this.services.google
+      return this.services.google.email
+    return this.emails[0].address
 
 Template.adminUser.events
   'click .make-admin' : (event) ->
@@ -19,3 +21,18 @@ Template.adminUser.events
   'click .remove-admin' : (event) ->
     userId = event.target.getAttribute('user-id')
     Meteor.call('removeAdmin', userId)
+
+Template.createAccount.events
+  'submit #add-account': (event) ->
+    event.preventDefault()
+    
+    name = event.target.name.value.trim()
+    email = event.target.email.value.trim()
+    makeAdmin = event.target.admin.checked
+    
+    if name.length and email.length
+      Meteor.call('createAccount', email, name, makeAdmin, (error, result) ->
+        if error
+          if error.error is 'allUsers.createAccount.exists'
+            alert("The specified email address is already being used.")
+      )

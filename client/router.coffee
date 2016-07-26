@@ -72,6 +72,16 @@ Router.route "/admins",
     adminUsers: Meteor.users.find({roles: {$in: ["admin"]}})
     nonAdminUsers: Meteor.users.find({roles: {$not: {$in: ["admin"]}}})
 
+Router.route "/create-account",
+  name: 'create-account'
+  onBeforeAction: () ->
+    unless Roles.userIsInRole(Meteor.userId(), ['admin'])
+      @redirect '/'
+    @next()
+  waitOn: ()->
+    #Wait on roles subscription so onBeforeAction() doesn't run twice
+    Meteor.subscribe "roles"
+
 Router.route "/comments",
   name: 'adminComments'
   onBeforeAction: () ->
