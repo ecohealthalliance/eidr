@@ -71,7 +71,11 @@ template(name="articles")
                 input.form-control.new-article(name="article" placeholder="Article URL associated with this event")
             .form-group
               .col-lg-12
-                textarea.form-control(name="articleBody" placeholder="Article body")
+                .checkbox
+                  .checkbox
+                    label
+                      input(type="checkbox" value="1" name="scrapeLocations")
+                      | Find locations in the article to add to the event
             .form-group
               .col-lg-4.col-lg-offset-8.col-sm-12
                 button.btn.btn-primary.btn-block(type="submit") Add article
@@ -97,18 +101,23 @@ template(name="locationModal")
         .modal-header
           h4.modal-title Locations mentioned in the article
         .modal-body
-          #suggested-locations-form.form-horizontal
-            each suggestedLocations
-              .form-group
-                .col-md-12
-                  .checkbox
-                    label
-                      input(type="checkbox" value="{{geonameId}}")
-                      {{locationOptionText(this)}}
-                    a(href="{{url}}" target="_blank") (Geonames link)
+          if suggestedLocations.length
+            p The linked article contains references to the following locations. Please select which locations you would like to add to the event.
+            #suggested-locations-form.form-horizontal
+              each suggestedLocations
+                .form-group
+                  .col-md-12
+                    .checkbox
+                      label
+                        input(type="checkbox" value="{{geonameId}}")
+                        {{locationOptionText(this)}}
+                      a(href="{{url}}" target="_blank") (Geonames link)
+          else
+            p No new locations could be found in the linked article.
         .modal-footer
           button.btn.btn-default(type="button" data-dismiss="modal") Close
-          button#add-suggestions.btn.btn-primary(type="button") Add Locations
+          if suggestedLocations.length
+            button#add-suggestions.btn.btn-primary(type="button") Add Locations
 
 template(name="loadingModal")
   .modal.fade(role="dialog")

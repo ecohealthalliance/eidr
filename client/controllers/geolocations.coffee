@@ -1,5 +1,7 @@
-formatLocation = (name, country) ->
+formatLocation = (name, sub, country) ->
   text = name
+  if sub
+    text += ", " + sub
   if country
     text += ", " + country
   return text
@@ -16,13 +18,14 @@ Template.locationSelect2.onRendered ->
           return {
             username: "eha_eidr"
             name: params.term
+            style: "full"
             maxRows: 10
           }
         delay: 600
         processResults: (data, params) ->
           results = []
           for loc in data.geonames
-            results.push({id: loc.geonameId, text: formatLocation(loc.name, loc.countryCode), item: loc})
+            results.push({id: loc.geonameId, text: formatLocation(loc.toponymName, loc.adminName1, loc.countryName), item: loc})
           return {results: results}
       }
     })
@@ -31,7 +34,7 @@ Template.locationSelect2.onRendered ->
 
 Template.locationList.helpers
   formatLocation: (location) ->
-    return formatLocation(location.name, location.countryCode)
+    return formatLocation(location.displayName, location.subdivision, location.countryName)
 
 Template.locationList.events
   "click #add-locations": (event, template) ->
@@ -42,9 +45,11 @@ Template.locationList.events
       allLocations.push({
         geonameId: option.item.geonameId,
         name: option.item.name,
-        countryCode: option.item.countryCode,
-        latitude: option.item.latitude,
-        longitude: option.item.longitude
+        displayName: option.item.toponymName,
+        countryName: option.item.countryName,
+        subdivision: option.item.adminName1,
+        latitude: option.item.lat,
+        longitude: option.item.lng
       })
     
     Meteor.call("addEventLocations", template.data.userEvent._id, allLocations, (error, result) ->
@@ -58,7 +63,7 @@ Template.locationList.events
 
 Template.locationModal.helpers
   locationOptionText: (location) ->
-    return formatLocation(location.name, location.countryCode)
+    return formatLocation(location.displayName, location.subdivision, location.countryCode)
 
 Template.locationModal.events
   "click #add-suggestions": (event, template) ->
@@ -71,6 +76,10 @@ Template.locationModal.events
     for loc in @suggestedLocations
       if geonameIds.indexOf(loc.geonameId) isnt -1
         allLocations.push(loc)
-    Meteor.call("addEventLocations", @userEventId, allLocations, (error, result) ->
+    
+    if allLocations.length
+      Meteor.call("addEventLocations", @userEventId, allLocations, (error, result) ->
+        Modal.hide(template)
+      )
+    else
       Modal.hide(template)
-    )

@@ -31,9 +31,11 @@ Template.createEvent.events
       locations.push({
         geonameId: option.item.geonameId,
         name: option.item.name,
-        countryCode: option.item.countryCode,
-        latitude: option.item.latitude,
-        longitude: option.item.longitude
+        displayName: option.item.toponymName,
+        countryName: option.item.countryName,
+        latitude: option.item.lat,
+        longitude: option.item.lng,
+        subdivision: option.item.adminName1
       })
     
     Meteor.call("addUserEvent", newEvent, locations, (error, result) ->

@@ -14,15 +14,17 @@ Meteor.methods
     if Meteor.user()
       existingLocations = []
       for loc in Geolocations.find({userEventId: eventId}).fetch()
-        existingLocations.push(Number(loc.geonameId))
+        existingLocations.push(loc.geonameId)
       
       for location in locations
-        if existingLocations.indexOf(location.geonameId) is -1
+        if existingLocations.indexOf(location.geonameId.toString()) is -1
           geolocation = {
             userEventId: eventId,
             geonameId: location.geonameId,
             name: location.name,
-            countryCode: location.countryCode,
+            displayName: location.displayName,
+            subdivision: location.subdivision,
+            countryName: location.countryName,
             latitude: location.latitude,
             longitude: location.longitude,
             url: Meteor.call("generateGeonamesUrl", location.geonameId)
