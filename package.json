@@ -1,0 +1,7 @@
+{
+  "name": "EIDR",
+  "private": true,
+  "scripts": {
+    "start": "meteor -p 7000 --settings settings-dev.json"
+  }
+}
