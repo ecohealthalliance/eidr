@@ -1,11 +1,10 @@
-Template.map.rendered = () ->
-
-  eventMap = L.map 'map', 
-    scrollWheelZoom: false, 
+Template.map.rendered = ->
+  eventMap = L.map 'map',
+    scrollWheelZoom: false,
     maxBounds: L.latLngBounds(L.latLng(-85, -180), L.latLng(85, 180))
-  eventMap.on 'click', () ->
+  eventMap.on 'click', ->
     eventMap.scrollWheelZoom.enable()
-  eventMap.on 'mouseout', () ->
+  eventMap.on 'mouseout', ->
     eventMap.scrollWheelZoom.disable()
 
   L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
@@ -24,13 +23,13 @@ Template.map.rendered = () ->
   }).addTo eventMap
   markers = []
 
-  @autorun () ->
+  @autorun ->
     data = Template.currentData()
-    
+
     for marker in markers
       eventMap.removeLayer marker
     markers = []
-    
+
     if data.locations
       latLngs = ([location.locationLatitude, location.locationLongitude] for location in data.locations)
       latLngs = _.filter(latLngs, (latLng) ->

@@ -1,10 +1,10 @@
-Events = () ->
+Events = ->
   @grid.Events
 
-Fields = () ->
+Fields = ->
   @grid.Fields
 
-download = () ->
+download = ->
   
   unless @userId
     throw new Meteor.Error(403, "Must be signed in to download data")

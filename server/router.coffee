@@ -1,11 +1,11 @@
-getEvents = () =>
+getEvents = =>
   @grid.Events
 
-getUserEvents = () =>
+getUserEvents = =>
   @grid.UserEvents
 
 Router.route("/event-search/:name", {where: "server"})
-.get () ->
+.get ->
   pattern = '.*' + @params.name + '.*'
   regex = new RegExp(pattern, 'g')
   mongoProjection = {
@@ -21,7 +21,7 @@ Router.route("/event-search/:name", {where: "server"})
   @response.end(JSON.stringify(matchingEvents))
 
 Router.route("/event-article", {where: "server"})
-.post () ->
+.post ->
   userEventId = @request.body.eventId ? ""
   article = @request.body.articleUrl ? ""
   
@@ -39,7 +39,7 @@ Router.route("/event-article", {where: "server"})
 
 Router.route "/sitemap.xml", 
   where: 'server'
-.get () ->
+.get ->
   ROOT_URL = process.env.ROOT_URL or "//localhost/"
   if ROOT_URL.slice(-1) isnt "/"
     ROOT_URL += "/"

@@ -1,4 +1,4 @@
-Template.userEvents.onCreated () ->
+Template.userEvents.onCreated ->
   @userEventFields = [
     {
       arrayName: '',
@@ -15,29 +15,29 @@ Template.userEvents.onCreated () ->
       defaultSortDirection: 1
     }
   ]
-  
+
   @currentPage = new ReactiveVar(Session.get('events-current-page') or 0)
   @rowsPerPage = new ReactiveVar(Session.get('events-rows-per-page') or 10)
   @fieldVisibility = {}
   @sortOrder = {}
   @sortDirection = {}
-  
+
   for field in @userEventFields
     oldVisibility = Session.get('events-field-visible-' + field.fieldName)
     visibility = if _.isUndefined(oldVisibility) then true else oldVisibility
     @fieldVisibility[field.fieldName] = new ReactiveVar(visibility)
-    
+
     defaultSortOrder = Infinity
     oldSortOrder = Session.get('events-field-sort-order-' + field.fieldName)
     sortOrder = if _.isUndefined(oldSortOrder) then defaultSortOrder else oldSortOrder
     @sortOrder[field.fieldName] = new ReactiveVar(sortOrder)
-    
+
     defaultSortDirection = field.defaultSortDirection
     oldSortDirection = Session.get('events-field-sort-direction-' + field.fieldName)
     sortDirection = if _.isUndefined(oldSortDirection) then defaultSortDirection else oldSortDirection
     @sortDirection[field.fieldName] = new ReactiveVar(sortDirection)
-  
-  @autorun () =>
+
+  @autorun =>
     Session.set 'events-current-page', @currentPage.get()
     Session.set 'events-rows-per-page', @rowsPerPage.get()
     for field in @userEventFields
@@ -46,10 +46,10 @@ Template.userEvents.onCreated () ->
       Session.set 'events-field-sort-direction-' + field.fieldName, @sortDirection[field.fieldName].get()
 
 Template.userEvents.helpers
-  userEvents: () ->
+  userEvents: ->
     return grid.UserEvents.find()
-  
-  settings : () ->
+
+  settings: ->
     fields = []
     for field in Template.instance().userEventFields
       fields.push {
@@ -60,7 +60,7 @@ Template.userEvents.helpers
         sortDirection: Template.instance().sortDirection[field.fieldName]
         sortable: not field.arrayName
       }
-    
+
     return {
       id: 'user-events-table'
       showColumnToggles: true
@@ -77,6 +77,6 @@ Template.userEvents.events
       window.open(url, "_blank")
     else
       Router.go "user-event", {_id: @_id}
-  "click .next-page, click .previous-page" : () ->
+  "click .next-page, click .previous-page": ->
     if (window.scrollY > 0 and window.innerHeight < 700)
-      $('body').animate({scrollTop:0,400})
+      $(document.body).animate({scrollTop: 0}, 400)

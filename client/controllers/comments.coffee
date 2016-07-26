@@ -1,9 +1,9 @@
-Template.comments.helpers 
-  checkComments : () ->
+Template.comments.helpers
+  checkComments: ->
     @comments.count() > 0
 
 Template.comments.events
-  "submit #add-comment" : (e) ->
+  "submit #add-comment": (e) ->
     e.preventDefault()
     comment = e.target.comment.value
     if comment

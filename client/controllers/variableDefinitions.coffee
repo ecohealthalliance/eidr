@@ -8,15 +8,15 @@ Template.variableDefinitions.helpers
   getTabVariables: (fields, tab) ->
     _.filter fields.fetch(), (value) -> value.tab is tab
 
-  getDropdownExplanations: () ->
+  getDropdownExplanations: ->
     _.map @webDropdownExplanations.split('; '), (value) ->
       value = value.split(': ')
       type: value[0]
       explanation: value[1]
 
-  checkExtendedExplanations: () ->
+  checkExtendedExplanations: ->
     @webDropdownExplanations.indexOf(':') >= 0
 
-  getDropdownValues: () ->
+  getDropdownValues: ->
     @webDropdownExplanations.split(', ')
 

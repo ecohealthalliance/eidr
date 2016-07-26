@@ -4,5 +4,5 @@ Fields = new Meteor.Collection "fields"
 @grid.Fields = Fields
 
 if Meteor.isServer
-  Meteor.publish "fields", () ->
+  Meteor.publish "fields", ->
     Fields.find()

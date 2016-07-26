@@ -2,7 +2,7 @@ Template.userEvent.onCreated ->
   @editState = new ReactiveVar(false)
 
 Template.userEvent.helpers
-  isEditing: () ->
+  isEditing: ->
     return Template.instance().editState.get()
 
 Template.userEvent.events

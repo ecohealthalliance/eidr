@@ -3,7 +3,7 @@ References = new Meteor.Collection "references"
 @grid ?= {}
 @grid.References = References
 
-Events = () ->
+Events = ->
   @grid.Events
   
 getReferences = (eidID) ->

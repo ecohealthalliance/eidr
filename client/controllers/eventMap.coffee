@@ -1,9 +1,9 @@
 L.Icon.Default.imagePath = "/packages/fuatsengul_leaflet/images"
 
-Template.eventMap.created = () ->
+Template.eventMap.created = ->
   @query = new ReactiveVar({})
 
-Template.eventMap.rendered = () ->
+Template.eventMap.rendered = ->
 
   bounds = L.latLngBounds(L.latLng(-85, -180), L.latLng(85, 180))
 
@@ -28,7 +28,7 @@ Template.eventMap.rendered = () ->
   instance = @
   markers = new L.FeatureGroup()
 
-  @autorun () ->
+  @autorun ->
     map.removeLayer(markers)
     markers = new L.FeatureGroup()
     query = instance.query.get()
@@ -50,18 +50,13 @@ Template.eventMap.rendered = () ->
               icon: L.divIcon({
                 className: 'map-marker-container'
                 iconSize:null
-                html:"""
-                <div class="map-marker"></div>
-                """
+                html: '<div class="map-marker"></div>'
               })
-            }).bindPopup("""
-              <a href="/event/#{eidID}">#{name}
-              </a>
-            """)
+            }).bindPopup("""<a href="/event/#{eidID}">#{name}</a>""")
             markers.addLayer(marker)
 
     map.addLayer(markers)
 
 Template.eventMap.helpers
-  getQuery: () ->
+  getQuery: ->
     Template.instance().query
