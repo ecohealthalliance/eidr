@@ -9,4 +9,4 @@ AccountsTemplates.configureRoute 'signIn',
       Router.go '/'
 
 AccountsTemplates.configure
-  hideSignUpLink: true
+  hideSignUpLink: false
