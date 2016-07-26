@@ -126,7 +126,7 @@ Router.route "/create-event",
   name: 'create-event',
   onBeforeAction: () ->
     unless Roles.userIsInRole(Meteor.userId(), ['admin'])
-      @redirect '/sign-in'
+      @redirect '/'
     @next()
 
 Router.route "/user-events",
