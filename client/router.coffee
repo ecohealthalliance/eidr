@@ -132,6 +132,9 @@ Router.route "/create-event",
       @redirect '/'
     @next()
 
+Router.route "/contact-us",
+  name: 'contact-us'
+  
 Router.route "/user-events",
   name: 'user-events'
 
