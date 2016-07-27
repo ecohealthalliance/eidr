@@ -13,8 +13,14 @@ template(name="header")
 template(name="navLinks")
   ul.nav.navbar-nav
     if isInRole "admin"
-      li(class="{{checkActive 'admins'}}")
-        a(href="{{pathFor 'admins'}}") Admins
+      li(class="dropdown {{checkActive 'create-account'}} {{checkActive 'admins'}}")
+        a.dropdown-toggle-nav(href="#" role="button" data-toggle="dropdown") Admins
+          span.caret
+        ul.dropdown-menu.nav-dd
+          li(class="{{checkActive 'create-account'}}")
+            a(href="{{pathFor 'create-account'}}") Create User Account
+          li(class="{{checkActive 'admins'}}")
+            a(href="{{pathFor 'admins'}}") Current User Accounts
       li(class="{{checkActive 'comments'}}")
         a(href="{{pathFor 'adminComments'}}") Comments
     li(class="{{checkActive 'about'}}")
