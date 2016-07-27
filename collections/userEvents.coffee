@@ -12,6 +12,6 @@ if Meteor.isServer
   UserEvents.allow
     insert: (userID, doc) ->
       doc.creationDate = new Date()
-      return Meteor.user()
+      return Roles.userIsInRole(Meteor.userId(), ['admin'])
     update: (userId, doc, fieldNames, modifier) ->
-      return Meteor.user()
+      return Roles.userIsInRole(Meteor.userId(), ['admin'])

@@ -125,8 +125,8 @@ Router.route "/variable-definitions",
 Router.route "/create-event",
   name: 'create-event',
   onBeforeAction: () ->
-    unless Meteor.userId()
-      @redirect '/sign-in'
+    unless Roles.userIsInRole(Meteor.userId(), ['admin'])
+      @redirect '/'
     @next()
 
 Router.route "/user-events",
