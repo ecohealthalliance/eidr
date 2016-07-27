@@ -17,7 +17,7 @@ Template.locationSelect2.onRendered ->
         data: (params) ->
           return {
             username: "eha_eidr"
-            name: params.term
+            q: params.term
             style: "full"
             maxRows: 10
           }
