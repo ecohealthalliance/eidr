@@ -27,13 +27,9 @@ template(name="userEvent")
                 .row
                   .col-md-12
                     if summary
-                      each summarySections
-                        if this.length
-                          p {{this}}
-                        else
-                          br
+                      p.abstract {{summary}}
                     else
-                      p No summary available.
+                      p.abstract No summary available.
   
   .container.tables
     .row

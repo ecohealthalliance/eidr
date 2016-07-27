@@ -7,8 +7,6 @@ Template.userEvent.onCreated ->
 Template.userEvent.helpers
   isEditing: () ->
     return Template.instance().editState.get()
-  summarySections: () ->
-    return @summary.split("\n")
 
 Template.userEvent.events
   "click #edit, click #cancel-edit": (event, template) ->
