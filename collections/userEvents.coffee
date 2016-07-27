@@ -12,6 +12,15 @@ if Meteor.isServer
   UserEvents.allow
     insert: (userID, doc) ->
       doc.creationDate = new Date()
-      Meteor.user()
+      return Roles.userIsInRole(Meteor.userId(), ['admin'])
     update: (userId, doc, fieldNames, modifier) ->
-      Meteor.user()
+      return Roles.userIsInRole(Meteor.userId(), ['admin'])
+
+Meteor.methods
+  addUserEvent: (name, locations) ->
+    trimmedName = name.trim()
+    if trimmedName.length isnt 0
+      UserEvents.insert({eventName: trimmedName, creationDate: new Date()}, (error, result) ->
+        if result
+          Meteor.call("addEventLocations", result, locations)
+      )

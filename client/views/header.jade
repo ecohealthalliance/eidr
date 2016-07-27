@@ -14,9 +14,9 @@ template(name="navLinks")
   ul.nav.navbar-nav
     if isInRole "admin"
       li(class="dropdown {{checkActive 'create-account'}} {{checkActive 'admins'}}")
-        a.dropdown-toggle(href="#" role="button" data-toggle="dropdown") Admins
+        a.dropdown-toggle-nav(href="#" role="button" data-toggle="dropdown") Admins
           span.caret
-        ul.dropdown-menu
+        ul.dropdown-menu.nav-dd
           li(class="{{checkActive 'create-account'}}")
             a(href="{{pathFor 'create-account'}}") Create User Account
           li(class="{{checkActive 'admins'}}")
@@ -43,10 +43,8 @@ template(name="navLinks")
       a.withIcon(href="{{pathFor 'variable-definitions'}}" title="Variable Definitions")
         span.link-text-nav Variable Definitions
         span.fa.fa-question-circle.show-small
-    li
-      a.withIcon(href="mailto:eidr@ecohealthalliance.org" title="Contact Us")
-        span.link-text-nav Contact Us
-        span.fa.fa-envelope.show-small
+    li(class="{{checkActive 'contact-us'}}")
+      a(href="{{pathFor 'contact-us'}}") Contact Us
     li(class="{{checkActive 'sign-in'}}")
       +account
 

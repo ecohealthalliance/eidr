@@ -1,3 +1,6 @@
+#Allow multiple modals or the suggested locations list won't show after the loading modal is hidden
+Modal.allowMultiple = true
+
 Template.userEvent.onCreated ->
   @editState = new ReactiveVar(false)
 
@@ -16,8 +19,9 @@ Template.userEvent.events
       event.target.eventName.focus()
       return
     updatedName = event.target.eventName.value.trim()
+    updatedSummary = event.target.eventSummary.value.trim()
     if updatedName.length isnt 0
-      grid.UserEvents.update(@_id, {$set: {eventName: updatedName}})
+      grid.UserEvents.update(@_id, {$set: {eventName: updatedName, summary: updatedSummary}})
       template.editState.set(false)
 
 Template.createEvent.events
@@ -29,8 +33,23 @@ Template.createEvent.events
       e.target.eventName.focus()
       return
     newEvent = e.target.eventName.value
-    if newEvent.trim().length isnt 0
-      grid.UserEvents.insert({eventName: newEvent}, (error, result) ->
+    
+    $new = $("#location-select2")
+    locations = []
+    
+    for option in $new.select2("data")
+      locations.push({
+        geonameId: option.item.geonameId,
+        name: option.item.name,
+        displayName: option.item.toponymName,
+        countryName: option.item.countryName,
+        latitude: option.item.lat,
+        longitude: option.item.lng,
+        subdivision: option.item.adminName1
+      })
+    
+    Meteor.call("addUserEvent", newEvent, locations, (error, result) ->
+      if result
         Router.go('user-event', {_id: result})
-      )
-      e.target.eventName.value = ''
+    )
+    e.target.eventName.value = ''

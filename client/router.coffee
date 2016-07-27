@@ -13,6 +13,9 @@ UserEvents = ->
 Articles = ->
   @grid.Articles
 
+Geolocations = () ->
+  @grid.Geolocations
+
 Router.configure
   layoutTemplate: "layout"
   loadingTemplate: "loading"
@@ -124,11 +127,14 @@ Router.route "/variable-definitions",
 
 Router.route "/create-event",
   name: 'create-event',
-  onBeforeAction: ->
-    unless Meteor.userId()
+  onBeforeAction: () ->
+    unless Roles.userIsInRole(Meteor.userId(), ['admin'])
       @redirect '/sign-in'
     @next()
 
+Router.route "/contact-us",
+  name: 'contact-us'
+  
 Router.route "/user-events",
   name: 'user-events'
 
@@ -138,7 +144,9 @@ Router.route "/user-event/:_id",
     [
       Meteor.subscribe "userEvent", @params._id
       Meteor.subscribe "eventArticles", @params._id
+      Meteor.subscribe "eventLocations", @params._id
     ]
   data: ->
     userEvent: UserEvents().findOne({'_id': @params._id})
     articles: Articles().find({'userEventId': @params._id}).fetch()
+    locations: Geolocations().find({'userEventId': @params._id}).fetch()
