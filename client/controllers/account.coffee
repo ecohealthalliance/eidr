@@ -10,3 +10,4 @@ AccountsTemplates.configureRoute 'signIn',
 
 AccountsTemplates.configure
   hideSignUpLink: true
+  showForgotPasswordLink: true

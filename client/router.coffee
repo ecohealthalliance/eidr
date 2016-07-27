@@ -13,6 +13,9 @@ UserEvents = () ->
 Articles = () ->
   @grid.Articles
 
+Geolocations = () ->
+  @grid.Geolocations
+
 Router.configure
   layoutTemplate: "layout"
   loadingTemplate: "loading"
@@ -72,6 +75,16 @@ Router.route "/admins",
     adminUsers: Meteor.users.find({roles: {$in: ["admin"]}})
     nonAdminUsers: Meteor.users.find({roles: {$not: {$in: ["admin"]}}})
 
+Router.route "/create-account",
+  name: 'create-account'
+  onBeforeAction: () ->
+    unless Roles.userIsInRole(Meteor.userId(), ['admin'])
+      @redirect '/'
+    @next()
+  waitOn: ()->
+    #Wait on roles subscription so onBeforeAction() doesn't run twice
+    Meteor.subscribe "roles"
+
 Router.route "/comments",
   name: 'adminComments'
   onBeforeAction: () ->
@@ -115,8 +128,8 @@ Router.route "/variable-definitions",
 Router.route "/create-event",
   name: 'create-event',
   onBeforeAction: () ->
-    unless Meteor.userId()
-      @redirect '/sign-in'
+    unless Roles.userIsInRole(Meteor.userId(), ['admin'])
+      @redirect '/'
     @next()
 
 Router.route "/contact-us",
@@ -131,7 +144,9 @@ Router.route "/user-event/:_id",
     [
       Meteor.subscribe "userEvent", @params._id
       Meteor.subscribe "eventArticles", @params._id
+      Meteor.subscribe "eventLocations", @params._id
     ]
   data: () ->
     userEvent: UserEvents().findOne({'_id': @params._id})
     articles: Articles().find({'userEventId': @params._id}).fetch()
+    locations: Geolocations().find({'userEventId': @params._id}).fetch()
