@@ -1,4 +1,4 @@
-search = () ->
+search = ->
   queryString = @request.body.query || ""
   options = @request.body.options || {size: 10}
   result = HTTP.post(

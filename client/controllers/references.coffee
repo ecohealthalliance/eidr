@@ -1,6 +1,6 @@
-references = () =>
+references = =>
   @grid.References
 
 Template.references.helpers
-  getReferences : () ->
+  getReferences: ->
     references().getReferences(@event.eidID)

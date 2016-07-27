@@ -1,16 +1,16 @@
-Events = () ->
+Events = ->
   @grid.Events
 
-Fields = () ->
+Fields = ->
   @grid.Fields
 
-Comments = () ->
+Comments = ->
   @grid.Comments
 
-UserEvents = () ->
+UserEvents = ->
   @grid.UserEvents
 
-Articles = () ->
+Articles = ->
   @grid.Articles
 
 Geolocations = () ->
@@ -20,12 +20,12 @@ Router.configure
   layoutTemplate: "layout"
   loadingTemplate: "loading"
 
-Router.onRun () ->
+Router.onRun ->
   if Session.equals('AnalyticsJS_loaded', true)
     analytics.page @path
   @next()
 
-Router.onAfterAction () ->
+Router.onAfterAction ->
   window.scroll 0, 0
 
 Router.route "/",
@@ -34,44 +34,44 @@ Router.route "/",
 Router.route "/about"
 
 Router.route "/events",
-  waitOn: () ->
+  waitOn: ->
     [
       Meteor.subscribe "fields"
     ]
-  data: () ->
+  data: ->
     fields: Fields().find({'Event table': {'$ne': '0'}})
 
 Router.route "/event/:eidID",
   name: 'event'
-  waitOn: () ->
+  waitOn: ->
     [
       Meteor.subscribe "event", @params.eidID
       Meteor.subscribe "fields"
       Meteor.subscribe "comments", @params.eidID
       Meteor.subscribe "references", @params.eidID
     ]
-  data: () ->
+  data: ->
     event: Events().findOne({'eidID': @params.eidID})
     comments: Comments().find({'event': @params.eidID}, {sort: {timeStamp: -1}})
 
 Router.route "/event-map",
   name: 'event-map'
-  waitOn: () ->
+  waitOn: ->
     Meteor.subscribe "locations"
     Meteor.subscribe "fields"
-  data: () ->
+  data: ->
     events: Events()
     fields: Fields()
 
 Router.route "/admins",
   name: 'admins'
-  onBeforeAction: () ->
+  onBeforeAction: ->
     unless Roles.userIsInRole(Meteor.userId(), ['admin'])
       @redirect '/'
     @next()
-  waitOn: () ->
+  waitOn: ->
     Meteor.subscribe "allUsers"
-  data: () ->
+  data: ->
     adminUsers: Meteor.users.find({roles: {$in: ["admin"]}})
     nonAdminUsers: Meteor.users.find({roles: {$not: {$in: ["admin"]}}})
 
@@ -87,22 +87,22 @@ Router.route "/create-account",
 
 Router.route "/comments",
   name: 'adminComments'
-  onBeforeAction: () ->
+  onBeforeAction: ->
     unless Roles.userIsInRole(Meteor.userId(), ['admin'])
       @redirect '/'
     @next()
-  waitOn: () ->
+  waitOn: ->
     Meteor.subscribe "adminComments"
-  data: () ->
+  data: ->
     comments: Comments().find({}, {sort: {timeStamp: -1}})
 
 Router.route "/download",
   name: 'download',
-  onBeforeAction: () ->
+  onBeforeAction: ->
     unless Meteor.userId()
       @redirect '/sign-in'
     @next()
-  action: () ->
+  action: ->
     @render('preparingDownload')
     controller = @
     Meteor.call('download', (err, result) ->
@@ -118,18 +118,18 @@ Router.route "/download",
 
 Router.route "/variable-definitions",
   name: 'variable-definitions',
-  waitOn: () ->
+  waitOn: ->
     [
       Meteor.subscribe "fields"
     ]
-  data: () ->
+  data: ->
     fields: Fields().find({'tab': {'$ne': ''}, 'webVariable': {'$ne': '0'}})
 
 Router.route "/create-event",
   name: 'create-event',
   onBeforeAction: () ->
     unless Roles.userIsInRole(Meteor.userId(), ['admin'])
-      @redirect '/'
+      @redirect '/sign-in'
     @next()
 
 Router.route "/contact-us",
@@ -140,13 +140,13 @@ Router.route "/user-events",
 
 Router.route "/user-event/:_id",
   name: 'user-event'
-  waitOn: () ->
+  waitOn: ->
     [
       Meteor.subscribe "userEvent", @params._id
       Meteor.subscribe "eventArticles", @params._id
       Meteor.subscribe "eventLocations", @params._id
     ]
-  data: () ->
+  data: ->
     userEvent: UserEvents().findOne({'_id': @params._id})
     articles: Articles().find({'userEventId': @params._id}).fetch()
     locations: Geolocations().find({'userEventId': @params._id}).fetch()

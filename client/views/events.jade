@@ -2,4 +2,7 @@ template(name="events")
   .container
     h1 Historical Events
   section.container.events
-    +reactiveTable collection="events" settings=settings
+    if settings.fields
+      +reactiveTable collection="events" settings=settings
+    else
+      p No fields to display

@@ -1,7 +1,7 @@
-Fields = () ->
+Fields = ->
   @grid.Fields
 
-Template.mapFilters.created = () ->
+Template.mapFilters.created = ->
   filterVariables = [
     {name: 'eidCategoryVal', show: true}
     {name: 'zoonoticVal',show: false}
@@ -10,6 +10,7 @@ Template.mapFilters.created = () ->
   variables = {}
   _.each filterVariables, (variable) ->
     field = Fields().findOne({spreadsheetName: variable.name})
+    return unless field
     values = {}
     if _.isEmpty(field.dropdownExplanations)
       _.each field.values.split(','), (value) ->
@@ -31,8 +32,8 @@ Template.mapFilters.created = () ->
   @variables = new ReactiveVar variables
   @userSearchText = new ReactiveVar ''
 
-Template.mapFilters.rendered = () ->
-  @autorun () ->
+Template.mapFilters.rendered = ->
+  @autorun ->
     checkValues = Template.instance().variables.get()
     filters =
       _.chain(checkValues)
@@ -56,7 +57,7 @@ Template.mapFilters.rendered = () ->
     userSearchText = Template.instance().userSearchText.get()
     nameQuery = []
     searchWords = userSearchText.split(' ')
-    _.each searchWords, () -> nameQuery.push {eventNameVal: new RegExp(userSearchText, 'i')}
+    _.each searchWords, -> nameQuery.push {eventNameVal: new RegExp(userSearchText, 'i')}
     filters.push({$or: nameQuery})
 
     Template.instance().data.query.set({ $and: filters })
@@ -72,7 +73,7 @@ Template.mapFilters.rendered = () ->
     template: """<div class="popover map-filter-popover" role="tooltip"><div class="arrow"></div><div class="popover-content"></div></div>"""
   $("[data-toggle='popover']").popover(popoverOptions)
 
-getCheckboxStates = () ->
+getCheckboxStates = ->
   (valueInfo.state for name, valueInfo of @checkBoxes.get()[@variable].values)
 
 checkAll = (state) ->
@@ -82,13 +83,13 @@ checkAll = (state) ->
   Template.instance().variables.set(variables)
 
 Template.mapFilters.helpers
-  getCheckboxList: () ->
+  getCheckboxList: ->
     Template.instance().variables
 
-  getVariables: () ->
+  getVariables: ->
     _.values Template.instance().variables.get()
 
-  getValues: () ->
+  getValues: ->
     values = []
     for name, valueInfo of @values
       values.push
@@ -97,14 +98,17 @@ Template.mapFilters.helpers
         description: valueInfo.description
     values
 
+  getSearchText: ->
+    Template.instance().userSearchText.get()
+
 Template.checkboxControl.helpers
-  showCheckAll: () ->
+  showCheckAll: ->
     _.every(getCheckboxStates.call(@))
 
 Template.mapFilters.events
-  'click .filter' : (e) ->
-    $('.filter').toggleClass('open')
-    $('.filters-wrap').toggleClass('hidden')
+  'click .filter': (e, instance) ->
+    instance.$('.filter').toggleClass('open')
+    instance.$('.filters-wrap').toggleClass('hidden')
 
   'click input[type=checkbox]': (e) ->
     variables = Template.instance().variables.get()
@@ -115,13 +119,13 @@ Template.mapFilters.events
     variables[variable]['values'][value].state = state
     Template.instance().variables.set(variables)
 
-  'keyup .map-search': _.debounce (e, templateInstance) ->
+  'input .map-search': _.debounce (e, templateInstance) ->
     e.preventDefault()
     text = $(e.target).val()
     templateInstance.userSearchText.set(text)
 
-  'click .clear-search': (e) ->
-    $('.map-search').val('')
+  'click .clear-search': (e, instance) ->
+    instance.$('.map-search').val('')
     Template.instance().userSearchText.set('')
 
   'click .check': (e) ->
@@ -130,5 +134,5 @@ Template.mapFilters.events
     else
       checkAll.call(this, true)
 
-  'click .mobile-control': (e) ->
-    $('.map-search-wrap').toggleClass('open')
+  'click .mobile-control': (e, instance) ->
+    instance.$('.map-search-wrap').toggleClass('open')

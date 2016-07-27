@@ -5,11 +5,11 @@ template(name="createEvent")
         .col-md-12
           h1 Create Emergence Event
  
-          form#add-event.form-horizontal
+          form#add-event.form-horizontal(novalidate)
             .form-group
               label.control-label.col-sm-2 Event Name
               .col-sm-8
-                input.form-control(type='text', name='eventName')
+                input.form-control(type='text', name='eventName' required)
             .form-group
               label.control-label.col-sm-2 Event Summary
               .col-sm-8

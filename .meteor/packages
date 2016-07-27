@@ -14,6 +14,7 @@ http
 fortawesome:fontawesome
 aslagle:reactive-table
 fuatsengul:leaflet
+chrismbeckett:toastr
 accounts-base
 accounts-ui
 accounts-google

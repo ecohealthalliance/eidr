@@ -1,7 +1,7 @@
 formatVal = =>
   @grid.Events.formatVal.apply(@, arguments)
 
-Template.events.onCreated () ->
+Template.events.onCreated ->
   @currentPage = new ReactiveVar(Session.get('events-current-page') or 0)
   @rowsPerPage = new ReactiveVar(Session.get('events-rows-per-page') or 10)
 
@@ -25,7 +25,7 @@ Template.events.onCreated () ->
     sortDirection = if _.isUndefined(oldSortDirection) then defaultSortDirection else oldSortDirection
     @sortDirection[field.spreadsheetName] = new ReactiveVar(sortDirection)
 
-  @autorun () =>
+  @autorun =>
     Session.set 'events-current-page', @currentPage.get()
     Session.set 'events-rows-per-page', @rowsPerPage.get()
     for field in @data.fields.fetch()
@@ -35,7 +35,7 @@ Template.events.onCreated () ->
 
 
 Template.events.helpers
-  settings : () ->
+  settings: ->
     fields = []
     for field in @fields.fetch()
       do (field) ->
@@ -81,7 +81,6 @@ Template.events.helpers
       fields: fields
       currentPage: Template.instance().currentPage
       rowsPerPage: Template.instance().rowsPerPage
-      rowsPerPage: 20
       showRowCount: true
     }
 
@@ -92,6 +91,6 @@ Template.events.events
       window.open(url, "_blank")
     else
       Router.go "event", { eidID: @eidID }
-  "click .next-page, click .previous-page" : () ->
+  "click .next-page, click .previous-page": ->
     if (window.scrollY > 0 and window.innerHeight < 700)
-      $('body').animate({scrollTop:0,400})
+      $(document.body).animate({scrollTop: 0}, 400)

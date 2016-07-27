@@ -1,4 +1,4 @@
-Meteor.startup () ->
+Meteor.startup ->
   if Meteor.settings.google_oauth_client_id
     ServiceConfiguration.configurations.update(
       { service: 'google' }

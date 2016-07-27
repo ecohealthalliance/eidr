@@ -1,20 +1,20 @@
-Template.event.rendered = () ->
-  checkPosition = () -> 
+Template.event.rendered = ->
+  checkPosition = ->
     if($(this.$element).offset().top - $(window).scrollTop() < 150)
       'bottom'
-    else 
+    else
       'top'
   makeTemplate = (className) ->
-    template: 
+    template:
       """<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content #{className}"></div><a href="#" class="close-popover"></a></div>"""
-  baseOpts = 
+  baseOpts =
     viewport:
       selector: 'body'
       padding: 10
     trigger: 'hover'
     placement: checkPosition
     animation: true
-    delay: 
+    delay:
       show: 250
       hide: 400
   $('[data-toggle="popover"]').popover(_.extend(baseOpts, makeTemplate('')))
@@ -31,13 +31,13 @@ formatDate = (dateString) ->
       months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
       "#{months[month]} #{year}"
 
-Template.event.helpers 
-  isEID : () ->
+Template.event.helpers
+  isEID: ->
     @event?.eidVal is "1"
 
-  simpleTitle : ->
+  simpleTitle: ->
     @eventNameVal.replace(/\(([^)]+)\)/, '')
-  displayDates : ->
+  displayDates: ->
     if @startDateISOVal isnt "Not Found"
       startDate = @startDateISOVal
     if @endDateISOVal isnt "Not Found"
@@ -56,7 +56,7 @@ Template.event.helpers
     else
       "Location"
 
-  locationList : (locations) ->
+  locationList: (locations) ->
     locations?.map (location) ->
       if location.fieldUsed is 'emergenceHospitalVal'
         "#{location.emergenceHospitalVal}, #{location.locationCityVal}, #{location.locationNationVal}"
@@ -70,7 +70,7 @@ Template.event.helpers
         "Location Not Found"
 
 Template.facts.helpers
-  icons : ->
+  icons: ->
     @eventTransmissionVal.split(',').map (icon) ->
       icon = icon.trim()
       if icon is 'Not Found' or icon is ''
@@ -78,7 +78,7 @@ Template.facts.helpers
         fullName = 'Not Found: ' + description
         icon = 'unknown'
       else
-        description = @grid.Fields.findOne({"displayName" : "Event Transmission"})['dropdownExplanations'][icon]
+        description = @grid.Fields.findOne({"displayName": "Event Transmission"})['dropdownExplanations'][icon]
         fullName = icon.charAt(0).toUpperCase()+icon.substr(1)+': ' + description
       className: "type-"+icon.split(" ")[0].toLowerCase()
       fullName: fullName
@@ -87,7 +87,7 @@ getVal = (key, object) ->
   object[key]
 
 Template.registerHelper 'getDescription', (event, field) ->
-  info = grid.Fields.findOne({"spreadsheetName" : field})
+  info = grid.Fields.findOne({"spreadsheetName": field})
   vals = getVal(info.spreadsheetName, event).trim().split(", ")
   explanations = ("#{val}: #{info.dropdownExplanations[val]}" for val in vals when info.dropdownExplanations[val]).join("; ")
   if explanations
