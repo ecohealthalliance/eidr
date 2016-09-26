@@ -32,6 +32,7 @@ deps@1.0.12
 diff-sequence@1.0.6
 ecmascript@0.4.4
 ecmascript-runtime@0.2.11
+ecosturmer:nojs-banner@1.0.5
 ejson@1.0.12
 email@1.0.13
 fastclick@1.0.12
