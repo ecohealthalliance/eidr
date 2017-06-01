@@ -52,16 +52,19 @@ template(name="about")
 
     .container-fluid.funding
       .container.content-block
-        p.centered EIDR was made possible by the generous support of the American people through the United States Agency for International Development (USAID) Emerging Pandemic Threats PREDICT, and through the support of the Defense Threat Reduction Agency (DTRA) through a contract (Contract No. HDTRA1-13-C-0029) awarded to EcoHealth Alliance. The contents are the responsibility of the authors and do not necessarily reflect the views of USAID, DTRA or the United States Government.
-        .row
-          .col-sm-6.col-sm-offset-3.col-xs-10.col-xs-offset-1.col-md-4.col-md-offset-4
-            .row
-              .col-xs-6
-                a(href="//www.dtra.mil/")
-                  img.img-responsive(src="/images/dtra_logo.png")
-              .col-xs-6
-                a(href="//www.usaid.gov/")
-                  img.img-responsive(src="/images/usaid_logo.png")
+        article
+          p.centered EIDR was made possible with the support of the Defense Threat Reduction Agency (DTRA) through a contract (Contract No. HDTRA1-13-C-0029) awarded to EcoHealth Alliance.
+          .centered
+            a(href="//www.dtra.mil/")
+              img.img-responsive(src="/images/dtra_logo.png")
+
+        article
+          p.centered EIDR also benefitted from intellectual developments (or contributions) from the PREDICT project of the United States Agency for International Development (USAID) Emerging Pandemic Threats Program
+          .centered
+            a(href="//www.usaid.gov/")
+              img.img-responsive(src="/images/predict-logo-2x.png")
+
+        p.centered.disclaimer The contents are the responsibility of the authors and do not necessarily reflect the views of USAID, DTRA or the United States Government.
 
     .container-fluid.references.gray
       .container.content-block.reference-list
