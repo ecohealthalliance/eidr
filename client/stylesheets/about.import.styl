@@ -44,9 +44,26 @@
     text-indent 20px
 
 .funding
+  .content-block
+    display flex
+    flex-direction column
   p
     width 75%
     margin 0 auto 20px auto
+  img
+    margin 1.5em auto 3em auto
+    max-width 50%
+    max-height 200px
+
+  article
+    &:not(:last-of-type)
+      margin-bottom 1em
+
+  .disclaimer
+    margin-bottom -15px
+    background none
+    font-size 90%
+    font-style italic
 
 @media (max-width: 992px)
   .about-intro
@@ -67,6 +84,7 @@
         clear both
         margin 0 auto
         float none
+
 @media (max-width: 768px)
   .about-intro
     h1
@@ -76,13 +94,15 @@
       width 100%
       text-align center
       padding-top 15px
+  .funding
+    p
+      width 95%
+    img
+      max-width 90%
   .exploring
     li
       padding-left 0
       padding-right 0
-  .funding
-    p
-      width 100%
   .method
     padding-left 15px
     padding-right 15px
