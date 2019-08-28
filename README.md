@@ -1,5 +1,5 @@
-# grid
-Global Repository of Infectious Disease Data
+# EIDR
+Emerging Infectious Disease Repository
 
 ## License
 Copyright 2016 EcoHealth Alliance
